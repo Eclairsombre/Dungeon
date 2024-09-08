@@ -21,6 +21,8 @@ namespace Dungeon
 
         private float scale;
 
+        Rectangle hitbox;
+
         private Texture2D hitboxTexture;
 
         public SpriteEffects spriteEffect = SpriteEffects.None;
@@ -50,9 +52,53 @@ namespace Dungeon
             }
         }
 
+        public Rectangle GetHitbox()
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, (int)(spriteWidth * scale), (int)(spriteHeight * scale));
+        }
+
+        public bool CheckCollision(Rectangle other)
+        {
+            Rectangle playerHitbox = GetHitbox();
+
+            // Vérifier la collision avec le bord gauche
+            if (playerHitbox.Right > other.Left && playerHitbox.Left < other.Left)
+            {
+                return true;
+            }
+
+            // Vérifier la collision avec le bord droit
+            if (playerHitbox.Left < other.Right && playerHitbox.Right > other.Right)
+            {
+                return true;
+            }
+
+            // Vérifier la collision avec le bord supérieur
+            if (playerHitbox.Bottom > other.Top && playerHitbox.Top < other.Top)
+            {
+                return true;
+            }
+
+            // Vérifier la collision avec le bord inférieur
+            if (playerHitbox.Top < other.Bottom && playerHitbox.Bottom > other.Bottom)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void Update(GameTime gameTime)
         {
             var keyboardState = Keyboard.GetState();
+
+            // Définir la hitbox de la salle
+            Rectangle roomHitbox = new Rectangle(40, 40, 52 * 35, 30 * 32);
+
+            // Sauvegarder la position actuelle
+            Vector2 previousPosition = Position;
+
+            // Mettre à jour la position en fonction des entrées clavier
             if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
             {
                 Position.Y -= Speed;
@@ -99,6 +145,11 @@ namespace Dungeon
             {
                 Position.X += updatedPlayerSpeed;
             }
+
+            if (CheckCollision(roomHitbox))
+            {
+                Position = previousPosition;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -106,7 +157,7 @@ namespace Dungeon
             Rectangle sourceRectangle = new Rectangle(0, 0, spriteWidth, spriteHeight);
             spriteBatch.Draw(spriteSheetNoMove[currentSpriteSheet], Position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, spriteEffect, 0f);
 
-            Rectangle hitbox = new Rectangle((int)Position.X + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 10, (int)(spriteHeight * scale) - 10);
+            hitbox = new Rectangle((int)Position.X + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 10, (int)(spriteHeight * scale) - 10);
             DrawRectangle(spriteBatch, hitbox, Color.Red);
         }
 
