@@ -32,7 +32,7 @@ public class Map
         rooms = new Room[roomCount];
         for (int i = 0; i < roomCount; i++)
         {
-            rooms[i] = new Room(0, 0, 30, 30);
+            rooms[i] = new Room(0, 0, 52, 30);
         }
 
     }

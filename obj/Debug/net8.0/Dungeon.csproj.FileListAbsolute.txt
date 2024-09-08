@@ -23,5 +23,8 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\obj\Debug\net8.0\refint\Dungeon.dll
 C:\Users\alext\OneDrive\Bureau\Dungeon\obj\Debug\net8.0\Dungeon.pdb
 C:\Users\alext\OneDrive\Bureau\Dungeon\obj\Debug\net8.0\Dungeon.genruntimeconfig.cache
 C:\Users\alext\OneDrive\Bureau\Dungeon\obj\Debug\net8.0\ref\Dungeon.dll
-C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Player.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\MonoGame.Extended.dll
+C:\Users\alext\OneDrive\Bureau\Dungeon\obj\Debug\net8.0\Dungeon.sourcelink.json
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\PlayerNoMoveBack.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\PlayerNoMoveFront.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\PlayerNoMoveLeft.xnb

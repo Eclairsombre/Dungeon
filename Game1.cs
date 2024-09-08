@@ -25,7 +25,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        player = new Player(Content.Load<Texture2D>("player"), 22, 28, _graphics.GraphicsDevice);
+        player = new Player(_graphics.GraphicsDevice);
         map = new Map();
         base.Initialize();
     }
@@ -33,6 +33,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        player.LoadContent(Content);
         map.GenerateDungeon();
         map.DisplayMapInConsole();
 
