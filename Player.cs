@@ -128,22 +128,25 @@ namespace Dungeon
             JoystickState jstate = Joystick.GetState((int)PlayerIndex.One);
             float updatedPlayerSpeed = Speed;
 
-            if (jstate.Axes[1] < -Deadzone)
+            if (jstate.IsConnected)
             {
-                Position.Y -= updatedPlayerSpeed;
-            }
-            else if (jstate.Axes[1] > Deadzone)
-            {
-                Position.Y += updatedPlayerSpeed;
-            }
+                if (jstate.Axes[1] < -Deadzone)
+                {
+                    Position.Y -= updatedPlayerSpeed;
+                }
+                else if (jstate.Axes[1] > Deadzone)
+                {
+                    Position.Y += updatedPlayerSpeed;
+                }
 
-            if (jstate.Axes[0] < -Deadzone)
-            {
-                Position.X -= updatedPlayerSpeed;
-            }
-            else if (jstate.Axes[0] > Deadzone)
-            {
-                Position.X += updatedPlayerSpeed;
+                if (jstate.Axes[0] < -Deadzone)
+                {
+                    Position.X -= updatedPlayerSpeed;
+                }
+                else if (jstate.Axes[0] > Deadzone)
+                {
+                    Position.X += updatedPlayerSpeed;
+                }
             }
 
             if (CheckCollision(roomHitbox))
