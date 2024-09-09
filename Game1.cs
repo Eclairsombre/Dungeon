@@ -9,6 +9,9 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    private int screenWidth;
+    private int screenHeight;
+
     Player player;
     Map map;
     public Game1()
@@ -16,6 +19,9 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+
+        screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -35,7 +41,6 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         player.LoadContent(Content);
         map.GenerateDungeon();
-        map.DisplayMapInConsole();
 
         // TODO: use this.Content to load your game content here
     }
@@ -46,7 +51,7 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
-        player.Update(gameTime);
+        player.Update(gameTime, map, screenWidth, screenHeight);
         base.Update(gameTime);
     }
 

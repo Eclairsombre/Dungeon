@@ -88,7 +88,7 @@ namespace Dungeon
             return false;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight)
         {
             var keyboardState = Keyboard.GetState();
 
@@ -153,6 +153,34 @@ namespace Dungeon
             {
                 Position = previousPosition;
             }
+
+            if (map.rooms != null && map.currentRoom >= 0 && map.currentRoom < map.rooms.Length)
+            {
+                Door[] doors = map.rooms[map.currentRoom].doors;
+                for (int i = 0; i < doors.Length; i++)
+                {
+                    if (CheckCollision(doors[i].hitbox))
+                    {
+                        map.currentRoom = doors[i].idRoomToGo;
+                        switch (doors[i].direction)
+                        {
+                            case "up":
+                                Position = new Vector2(screenWidth / 2, 45);
+                                break;
+                            case "down":
+                                Position = new Vector2(screenWidth / 2, screenHeight / 2 - 40);
+                                break;
+                            case "left":
+                                Position = new Vector2(screenWidth + 30, screenHeight / 2);
+                                break;
+                            case "right":
+                                Position = new Vector2(screenWidth - 40, screenHeight / 2);
+                                break;
+                        }
+                    }
+                }
+            }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

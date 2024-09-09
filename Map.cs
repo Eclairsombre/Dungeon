@@ -10,20 +10,21 @@ namespace Dungeon;
 public class Map
 {
 
-    public int[,] map = new int[100, 100];
+
     private Random random = new Random();
 
     public Room[] rooms;
 
+    public int currentRoom = 0;
+
+    public int screenWidth;
+    public int screenHeight;
+
     public Map()
     {
-        for (int i = 0; i < 100; i++)
-        {
-            for (int j = 0; j < 100; j++)
-            {
-                map[i, j] = 0;
-            }
-        }
+        screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
     }
 
     public void GenerateDungeon()
@@ -32,7 +33,7 @@ public class Map
         rooms = new Room[roomCount];
         for (int i = 0; i < roomCount; i++)
         {
-            rooms[i] = new Room(0, 0, 52, 30);
+            rooms[i] = new Room(0, 0, 52, 30, i);
         }
 
     }
@@ -43,32 +44,12 @@ public class Map
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        for (int i = 0; i < rooms.Length; i++)
-        {
-            rooms[i].Draw(spriteBatch);
-        }
+
+        Console.WriteLine("Drawing room " + currentRoom);
+
+        rooms[currentRoom].Draw(spriteBatch);
+
     }
 
-    public void DisplayMapInConsole()
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            for (int j = 0; j < 100; j++)
-            {
-                if (map[i, j] == 1)
-                {
-                    Console.Write("R"); // R pour Room (pièce)
-                }
-                else if (map[i, j] == 2)
-                {
-                    Console.Write("D"); // D pour Door (porte)
-                }
-                else
-                {
-                    Console.Write("."); // . pour un espace vide
-                }
-            }
-            Console.WriteLine();
-        }
-    }
+
 }
