@@ -29,7 +29,9 @@ namespace Dungeon
 
         public Player(GraphicsDevice graphicsDevice)
         {
-            Position = new Vector2(100, 100);
+            int screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 40;
+            int screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 40;
+            Position = new Vector2(screenWidth / 2 - 65, screenHeight / 2 - 70);
             Speed = DefaultSpeed;
             scale = DefaultScale;
 
@@ -88,7 +90,8 @@ namespace Dungeon
             return false;
         }
 
-        public bool CheckCollisionWithEnemy(Rectangle rect){
+        public bool CheckCollisionWithEnemy(Rectangle rect)
+        {
             Rectangle playerHitbox = GetHitbox();
 
             if (playerHitbox.Intersects(rect))
@@ -101,6 +104,7 @@ namespace Dungeon
 
         public bool CheckCollisionWithDoor(Door door, int screenWidth, int screenHeight)
         {
+
             Rectangle playerHitbox = GetHitbox();
 
             if (playerHitbox.Intersects(door.hitbox))
@@ -123,15 +127,15 @@ namespace Dungeon
                 return true;
             }
             return false;
-}
-        
+        }
+
 
         public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight)
         {
             var keyboardState = Keyboard.GetState();
 
             // Définir la hitbox de la salle
-            Rectangle roomHitbox = new Rectangle(40, 40, 52 * 35, 30 * 32);
+            Rectangle roomHitbox = new Rectangle(40, 40, 52 * 35, 30 * 32 + 20);
 
             // Sauvegarder la position actuelle
             Vector2 previousPosition = Position;
@@ -187,10 +191,7 @@ namespace Dungeon
                 }
             }
 
-            if (CheckCollisionWithRoom(roomHitbox))
-            {
-                Position = previousPosition;
-            }
+
 
             if (map.rooms != null && map.currentRoom >= 0 && map.currentRoom < map.rooms.Length)
             {
@@ -200,10 +201,15 @@ namespace Dungeon
                     if (CheckCollisionWithDoor(doors[i], screenWidth, screenHeight))
                     {
                         map.currentRoom = doors[i].idRoomToGo;
-                        
-                        
+
+
                     }
                 }
+            }
+
+            if (CheckCollisionWithRoom(roomHitbox))
+            {
+                Position = previousPosition;
             }
 
         }

@@ -23,20 +23,20 @@ public class Door
                 hitbox = new Rectangle(screenWidth * 35 / 2, 40, 10, 10);
                 break;
             case "down":
-                hitbox = new Rectangle(screenWidth * 35 / 2, screenHeight * 32 + 30, 10, 10);
+                hitbox = new Rectangle(screenWidth * 35 / 2, screenHeight * 32 + 50, 10, 10);
                 break;
             case "left":
-                hitbox = new Rectangle(40, screenHeight * 32 / 2, 10, 10);
+                hitbox = new Rectangle(40, screenHeight * 32 / 2 + 10, 10, 10);
                 break;
             case "right":
-                hitbox = new Rectangle(screenWidth * 35 + 30, screenHeight * 32 / 2, 10, 10);
+                hitbox = new Rectangle(screenWidth * 35 + 30, screenHeight * 32 / 2 + 10, 10, 10);
                 break;
         }
 
     }
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawRectangle(hitbox, Color.White);
+        spriteBatch.DrawRectangle(hitbox, Color.Red);
     }
 
     public void printHitbox()

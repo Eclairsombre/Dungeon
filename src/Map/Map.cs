@@ -29,14 +29,16 @@ public class Map
 
     public void GenerateDungeon()
     {
-        int roomCount = 1;
+        int roomCount = 2;
         rooms = new Room[roomCount];
         for (int i = 0; i < roomCount; i++)
         {
-            rooms[i] = new Room(0, 0, 52, 30, i);
+            rooms[i] = new Room(i, 4);
         }
 
+
     }
+
 
 
 
