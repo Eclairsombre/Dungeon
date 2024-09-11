@@ -57,7 +57,7 @@ namespace Dungeon
             return new Rectangle((int)Position.X, (int)Position.Y, (int)(spriteWidth * scale), (int)(spriteHeight * scale));
         }
 
-        public bool CheckCollision(Rectangle other)
+        public bool CheckCollisionWithRoom(Rectangle other)
         {
             Rectangle playerHitbox = GetHitbox();
 
@@ -87,6 +87,44 @@ namespace Dungeon
 
             return false;
         }
+
+        public bool CheckCollisionWithEnemy(Rectangle rect){
+            Rectangle playerHitbox = GetHitbox();
+
+            if (playerHitbox.Intersects(rect))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool CheckCollisionWithDoor(Door door, int screenWidth, int screenHeight)
+        {
+            Rectangle playerHitbox = GetHitbox();
+
+            if (playerHitbox.Intersects(door.hitbox))
+            {
+                switch (door.direction)
+                {
+                    case "up":
+                        this.Position = new Vector2(Position.X, screenHeight - 175);
+                        break;
+                    case "down":
+                        this.Position = new Vector2(Position.X, 45);
+                        break;
+                    case "left":
+                        this.Position = new Vector2(screenWidth - 150, Position.Y);
+                        break;
+                    case "right":
+                        this.Position = new Vector2(50, Position.Y);
+                        break;
+                }
+                return true;
+            }
+            return false;
+}
+        
 
         public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight)
         {
@@ -149,7 +187,7 @@ namespace Dungeon
                 }
             }
 
-            if (CheckCollision(roomHitbox))
+            if (CheckCollisionWithRoom(roomHitbox))
             {
                 Position = previousPosition;
             }
@@ -159,24 +197,11 @@ namespace Dungeon
                 Door[] doors = map.rooms[map.currentRoom].doors;
                 for (int i = 0; i < doors.Length; i++)
                 {
-                    if (CheckCollision(doors[i].hitbox))
+                    if (CheckCollisionWithDoor(doors[i], screenWidth, screenHeight))
                     {
                         map.currentRoom = doors[i].idRoomToGo;
-                        switch (doors[i].direction)
-                        {
-                            case "up":
-                                Position = new Vector2(screenWidth / 2, 45);
-                                break;
-                            case "down":
-                                Position = new Vector2(screenWidth / 2, screenHeight / 2 - 40);
-                                break;
-                            case "left":
-                                Position = new Vector2(screenWidth + 30, screenHeight / 2);
-                                break;
-                            case "right":
-                                Position = new Vector2(screenWidth - 40, screenHeight / 2);
-                                break;
-                        }
+                        
+                        
                     }
                 }
             }

@@ -31,6 +31,8 @@ public class Room
         doors[2] = new Door(0, "left", width, height);
         doors[3] = new Door(0, "right", width, height);
 
+        
+
 
     }
     public void Draw(SpriteBatch spriteBatch)

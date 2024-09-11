@@ -38,4 +38,9 @@ public class Door
     {
         spriteBatch.DrawRectangle(hitbox, Color.White);
     }
+
+    public void printHitbox()
+    {
+        Console.WriteLine(hitbox);
+    }
 }
