@@ -12,10 +12,11 @@ public class Room
 {
     public int x, y, width, height;
 
+    Color color;
     public int id;
 
     public Door[] doors = new Door[4];
-    public Room(int x, int y, int width, int height, int id)
+    public Room(int x, int y, int width, int height, int id, Color color)
     {
         this.x = x;
         this.y = y;
@@ -24,11 +25,13 @@ public class Room
 
         this.id = id;
 
+        this.color = color;
+
 
 
         doors[0] = new Door(0, "up", width, height);
-        doors[1] = new Door(0, "down", width, height);
-        doors[2] = new Door(0, "left", width, height);
+        doors[1] = new Door(1, "down", width, height);
+        doors[2] = new Door(1, "left", width, height);
         doors[3] = new Door(0, "right", width, height);
 
         
@@ -37,7 +40,7 @@ public class Room
     }
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawRectangle(new Rectangle(x * 32 + 40, y * 32 + 40, width * 35, height * 32), Color.Black);
+        spriteBatch.FillRectangle(new Rectangle(x * 32 + 40, y * 32 + 40, width * 35, height * 32), this.color);
 
         if (doors != null)
         {
