@@ -55,7 +55,7 @@ public class Room
         {
             for (int j = 0; j < 14; j++)
             {
-                tiles[i, j].Draw(spriteBatch);
+                tiles[i, j].Draw(spriteBatch, finished);
             }
         }
     }

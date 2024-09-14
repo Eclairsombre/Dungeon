@@ -13,6 +13,8 @@ namespace Dungeon.src.PlayerClass
         private const int Deadzone = 4096; // Zone morte pour les contrôles de joystick
 
         public Vector2 Position;
+
+        public Vector2 StartPosition;
         public float Speed;
 
         private Texture2D[] spriteSheetNoMove = new Texture2D[3];
@@ -32,7 +34,8 @@ namespace Dungeon.src.PlayerClass
         {
             int screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 40;
             int screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 40;
-            Position = new Vector2(screenWidth / 2 - 65, screenHeight / 2 - 70);
+            Position = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
+            StartPosition = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
             Speed = DefaultSpeed;
             scale = DefaultScale;
 
@@ -91,15 +94,31 @@ namespace Dungeon.src.PlayerClass
             return false;
         }
 
-        public bool CheckCollisionWithDoor(Door door, int screenWidth, int screenHeight)
+        public bool CheckCollisionWithDoor(Room room)
         {
-
-            Rectangle playerHitbox = GetHitbox();
-
-            if (playerHitbox.Intersects(door.hitbox))
+            if (room.finished)
             {
-                return true;
+                Rectangle playerHitbox = GetHitbox();
+                Door door1 = room.tiles[11, 0].door;
+                Door door2 = room.tiles[13, 0].door;
+                if (door1 != null)
+                {
+                    if (playerHitbox.Intersects(door1.hitbox))
+                    {
+                        return true;
+                    }
+                }
+                if (door2 != null)
+                {
+                    if (playerHitbox.Intersects(door2.hitbox))
+                    {
+                        return true;
+                    }
+                }
+
             }
+
+
             return false;
         }
 
@@ -139,6 +158,10 @@ namespace Dungeon.src.PlayerClass
                 currentSpriteSheet = 1;
                 spriteEffect = SpriteEffects.FlipHorizontally;
             }
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                map.room.finished = true;
+            }
 
             // Gestion du joystick
             JoystickState jstate = Joystick.GetState((int)PlayerIndex.One);
@@ -163,6 +186,12 @@ namespace Dungeon.src.PlayerClass
                 {
                     Position.X += updatedPlayerSpeed;
                 }
+            }
+
+            if (CheckCollisionWithDoor(map.room))
+            {
+                map.room = new Room();
+                Position = StartPosition;
             }
 
             if (CheckCollisionWithRoom(map.room))

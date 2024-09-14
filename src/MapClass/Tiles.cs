@@ -16,7 +16,7 @@ namespace Dungeon.src.MapClass
 
         public Rectangle hitbox;
 
-        Door door = null;
+        public Door door = null;
 
         public Tiles(int id, int x, int y, int width, int height)
         {
@@ -30,7 +30,7 @@ namespace Dungeon.src.MapClass
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, bool finished)
         {
             if (id == 0)
             {
@@ -42,7 +42,14 @@ namespace Dungeon.src.MapClass
             }
             else if (id == 2)
             {
-                door.Draw(spriteBatch);
+                if (!finished)
+                {
+                    spriteBatch.FillRectangle(this.hitbox, Color.White);
+                }
+                else
+                {
+                    door.Draw(spriteBatch);
+                }
             }
         }
     }
