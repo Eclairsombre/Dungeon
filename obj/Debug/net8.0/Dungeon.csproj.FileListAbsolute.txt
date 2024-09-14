@@ -28,3 +28,4 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\obj\Debug\net8.0\Dungeon.sourcelink.json
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\PlayerNoMoveBack.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\PlayerNoMoveFront.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\PlayerNoMoveLeft.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\RoomPatern\Room1.txt

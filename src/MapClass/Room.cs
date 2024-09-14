@@ -34,37 +34,31 @@ public class Room
 
 
 
-        string[] lines = System.IO.File.ReadAllLines("Room1.txt");
 
-        for (int i = 0; i < 26; i++)
-        {
-            string[] tileValues = lines[i].Split(' ');
-            for (int j = 0; j < 14; j++)
-            {
-                int tileType = int.Parse(tileValues[j]);
-                tiles[i, j] = new Tiles(tileType, i * 70 + 40, j * 70 + 40, 70, 70);
-            }
-        }
     }
 
     public void LoadContent(ContentManager content)
     {
-        this.fileContent = content.Load<string>("Room1");
-
-        //TODO Fix load error
+        // Load the file content using the ContentManager
+        using (var stream = TitleContainer.OpenStream("Content/RoomPatern/Room1.txt"))
+        using (var reader = new StreamReader(stream))
+        {
+            fileContent = reader.ReadToEnd();
+        }
     }
 
     public void Generate()
     {
+        // Lire les données des tiles à partir du fichier texte
         string[] lines = fileContent.Split('\n');
 
-        for (int i = 0; i < 26; i++)
+        for (int i = 0; i < 14; i++)
         {
-            string[] tileValues = lines[i].Split('\t');
-            for (int j = 0; j < 14; j++)
+            string[] tileValues = lines[i].Split(',');
+            for (int j = 0; j < 26; j++)
             {
                 int tileType = int.Parse(tileValues[j]);
-                tiles[i, j] = new Tiles(tileType, i * 70 + 40, j * 70 + 40, 70, 70);
+                tiles[j, i] = new Tiles(tileType, j * 70 + 40, i * 70 + 40, 70, 70);
             }
         }
     }

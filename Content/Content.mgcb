@@ -49,8 +49,5 @@
 /processorParam:TextureFormat=Color
 /build:PlayerNoMoveLeft.png
 
-#begin Room1.txt
-/importer:
-/processor:
-/build:Room1.txt
+
 

@@ -99,8 +99,8 @@ namespace Dungeon.src.PlayerClass
             if (room.finished)
             {
                 Rectangle playerHitbox = GetHitbox();
-                Door door1 = room.tiles[11, 0].door;
-                Door door2 = room.tiles[13, 0].door;
+                Door door1 = room.tiles[10, 0].door;
+                Door door2 = room.tiles[14, 0].door;
                 if (door1 != null)
                 {
                     if (playerHitbox.Intersects(door1.hitbox))
