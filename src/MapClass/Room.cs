@@ -6,6 +6,9 @@ using MonoGame.Extended;
 using MonoGame.Extended.Shapes;
 using System.Linq;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using System.IO;
+using Microsoft.Xna.Framework.Content;
 
 
 namespace Dungeon.src.MapClass;
@@ -17,6 +20,11 @@ public class Room
     public Tiles[,] tiles = new Tiles[26, 14];
 
     public bool finished = false;
+
+    Random random = new Random();
+
+    string fileContent;
+
     public Room()
     {
         this.x = 0;
@@ -25,25 +33,40 @@ public class Room
         this.height = 30;
 
 
+
+        string[] lines = System.IO.File.ReadAllLines("Room1.txt");
+
         for (int i = 0; i < 26; i++)
         {
+            string[] tileValues = lines[i].Split(' ');
             for (int j = 0; j < 14; j++)
             {
-                if (j == 0 && (i == 11 || i == 13))
-                {
-                    tiles[i, j] = new Tiles(2, i * 70 + 40, j * 70 + 40, 70, 70);
-                }
-                else if ((j == 0 || j == 13) || (i == 0 || i == 25))
-                {
-                    tiles[i, j] = new Tiles(1, i * 70 + 40, j * 70 + 40, 70, 70);
-                }
-                else
-                {
-                    tiles[i, j] = new Tiles(0, i * 70 + 40, j * 70 + 40, 70, 70);
-                }
+                int tileType = int.Parse(tileValues[j]);
+                tiles[i, j] = new Tiles(tileType, i * 70 + 40, j * 70 + 40, 70, 70);
             }
         }
+    }
 
+    public void LoadContent(ContentManager content)
+    {
+        this.fileContent = content.Load<string>("Room1");
+
+        //TODO Fix load error
+    }
+
+    public void Generate()
+    {
+        string[] lines = fileContent.Split('\n');
+
+        for (int i = 0; i < 26; i++)
+        {
+            string[] tileValues = lines[i].Split('\t');
+            for (int j = 0; j < 14; j++)
+            {
+                int tileType = int.Parse(tileValues[j]);
+                tiles[i, j] = new Tiles(tileType, i * 70 + 40, j * 70 + 40, 70, 70);
+            }
+        }
     }
 
 

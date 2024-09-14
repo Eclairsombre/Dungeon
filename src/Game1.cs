@@ -41,7 +41,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         player.LoadContent(Content);
-        map.GenerateDungeon();
+        map.GenerateDungeon(Content);
 
         // TODO: use this.Content to load your game content here
     }
@@ -52,7 +52,7 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
-        player.Update(gameTime, map, screenWidth, screenHeight);
+        player.Update(gameTime, map, screenWidth, screenHeight, Content);
         base.Update(gameTime);
     }
 

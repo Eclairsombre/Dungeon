@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using MonoGame.Extended;
 using MonoGame.Extended.Shapes;
+using Microsoft.Xna.Framework.Content;
 
 namespace Dungeon.src.MapClass;
 
@@ -27,16 +28,13 @@ public class Map
 
     }
 
-    public void GenerateDungeon()
+    public void GenerateDungeon(ContentManager content)
     {
         room = new Room();
+        room.LoadContent(content);
+        room.Generate();
 
     }
-
-
-
-
-
 
     public void Draw(SpriteBatch spriteBatch)
     {

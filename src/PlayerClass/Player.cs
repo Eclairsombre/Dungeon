@@ -9,7 +9,7 @@ namespace Dungeon.src.PlayerClass
     public class Player
     {
         private const float DefaultScale = 3.0f; // Facteur d'échelle par défaut
-        private const float DefaultSpeed = 5.0f; // Vitesse par défaut
+        private const float DefaultSpeed = 10.0f; // Vitesse par défaut
         private const int Deadzone = 4096; // Zone morte pour les contrôles de joystick
 
         public Vector2 Position;
@@ -123,7 +123,7 @@ namespace Dungeon.src.PlayerClass
         }
 
 
-        public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight)
+        public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight, ContentManager content)
         {
             var keyboardState = Keyboard.GetState();
 
@@ -191,6 +191,8 @@ namespace Dungeon.src.PlayerClass
             if (CheckCollisionWithDoor(map.room))
             {
                 map.room = new Room();
+                map.room.LoadContent(content);
+                map.room.Generate();
                 Position = StartPosition;
             }
 
