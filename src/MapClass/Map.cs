@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using MonoGame.Extended;
 using MonoGame.Extended.Shapes;
-namespace Dungeon;
+
+namespace Dungeon.src.MapClass;
 
 
 public class Map
@@ -13,9 +14,8 @@ public class Map
 
     private Random random = new Random();
 
-    public Room[] rooms;
+    public Room room;
 
-    public int currentRoom = 0;
 
     public int screenWidth;
     public int screenHeight;
@@ -29,13 +29,7 @@ public class Map
 
     public void GenerateDungeon()
     {
-        int roomCount = 2;
-        rooms = new Room[roomCount];
-        for (int i = 0; i < roomCount; i++)
-        {
-            rooms[i] = new Room(i, 4);
-        }
-
+        room = new Room();
 
     }
 
@@ -46,11 +40,7 @@ public class Map
 
     public void Draw(SpriteBatch spriteBatch)
     {
-
-        Console.WriteLine("Drawing room " + currentRoom);
-
-        rooms[currentRoom].Draw(spriteBatch);
-
+        room.Draw(spriteBatch);
     }
 
 

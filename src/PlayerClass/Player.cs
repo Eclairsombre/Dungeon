@@ -1,9 +1,10 @@
+using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Dungeon
+namespace Dungeon.src.PlayerClass
 {
     public class Player
     {
@@ -59,38 +60,26 @@ namespace Dungeon
             return new Rectangle((int)Position.X, (int)Position.Y, (int)(spriteWidth * scale), (int)(spriteHeight * scale));
         }
 
-        public bool CheckCollisionWithRoom(Rectangle other)
+        public bool CheckCollisionWithRoom(Room room)
         {
-            Rectangle playerHitbox = GetHitbox();
-
-            // Vérifier la collision avec le bord gauche
-            if (playerHitbox.Right > other.Left && playerHitbox.Left < other.Left)
+            for (int i = 0; i < room.tiles.GetLength(0); i++)
             {
-                return true;
-            }
+                for (int y = 0; y < room.tiles.GetLength(1); y++)
+                {
+                    if (room.tiles[i, y].id == 1)
+                    {
 
-            // Vérifier la collision avec le bord droit
-            if (playerHitbox.Left < other.Right && playerHitbox.Right > other.Right)
-            {
-                return true;
+                        if (CheckCollision(room.tiles[i, y].hitbox))
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
-
-            // Vérifier la collision avec le bord supérieur
-            if (playerHitbox.Bottom > other.Top && playerHitbox.Top < other.Top)
-            {
-                return true;
-            }
-
-            // Vérifier la collision avec le bord inférieur
-            if (playerHitbox.Top < other.Bottom && playerHitbox.Bottom > other.Bottom)
-            {
-                return true;
-            }
-
             return false;
         }
 
-        public bool CheckCollisionWithEnemy(Rectangle rect)
+        public bool CheckCollision(Rectangle rect)
         {
             Rectangle playerHitbox = GetHitbox();
 
@@ -109,21 +98,6 @@ namespace Dungeon
 
             if (playerHitbox.Intersects(door.hitbox))
             {
-                switch (door.direction)
-                {
-                    case "up":
-                        this.Position = new Vector2(Position.X, screenHeight - 175);
-                        break;
-                    case "down":
-                        this.Position = new Vector2(Position.X, 45);
-                        break;
-                    case "left":
-                        this.Position = new Vector2(screenWidth - 150, Position.Y);
-                        break;
-                    case "right":
-                        this.Position = new Vector2(50, Position.Y);
-                        break;
-                }
                 return true;
             }
             return false;
@@ -191,23 +165,7 @@ namespace Dungeon
                 }
             }
 
-
-
-            if (map.rooms != null && map.currentRoom >= 0 && map.currentRoom < map.rooms.Length)
-            {
-                Door[] doors = map.rooms[map.currentRoom].doors;
-                for (int i = 0; i < doors.Length; i++)
-                {
-                    if (CheckCollisionWithDoor(doors[i], screenWidth, screenHeight))
-                    {
-                        map.currentRoom = doors[i].idRoomToGo;
-
-
-                    }
-                }
-            }
-
-            if (CheckCollisionWithRoom(roomHitbox))
+            if (CheckCollisionWithRoom(map.room))
             {
                 Position = previousPosition;
             }
