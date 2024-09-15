@@ -36,6 +36,11 @@ public class Map
 
     }
 
+    public void Update(Vector2 playerPosition)
+    {
+        room.Update(playerPosition);
+    }
+
     public void Draw(SpriteBatch spriteBatch)
     {
         room.Draw(spriteBatch);

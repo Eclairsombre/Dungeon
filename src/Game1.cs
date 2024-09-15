@@ -53,6 +53,7 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
         player.Update(gameTime, map, screenWidth, screenHeight, Content);
+        map.Update(player.Position);
         base.Update(gameTime);
     }
 

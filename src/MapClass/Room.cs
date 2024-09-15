@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
+using Dungeon.src.EnemyClass;
+
 
 
 namespace Dungeon.src.MapClass;
@@ -25,6 +27,8 @@ public class Room
 
     string fileContent;
 
+    Enemy enemy;
+
     public Room()
     {
         this.x = 0;
@@ -32,8 +36,7 @@ public class Room
         this.width = 52;
         this.height = 30;
 
-
-
+        enemy = new Enemy();
     }
 
     public void LoadContent(ContentManager content, int room)
@@ -44,6 +47,13 @@ public class Room
         {
             fileContent = reader.ReadToEnd();
         }
+    }
+
+    public void Update(Vector2 playerPosition)
+    {
+
+        enemy.Update(playerPosition, this);
+
     }
 
     public void Generate()
@@ -74,5 +84,7 @@ public class Room
                 tiles[i, j].Draw(spriteBatch, finished);
             }
         }
+
+        enemy.Draw(spriteBatch);
     }
 }
