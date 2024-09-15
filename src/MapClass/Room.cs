@@ -85,6 +85,6 @@ public class Room
             }
         }
 
-        enemy.Draw(spriteBatch);
+        enemy.Draw(spriteBatch, this);
     }
 }
