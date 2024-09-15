@@ -33,7 +33,15 @@ namespace Dungeon.src.EnemyClass
 
         public void Update(Vector2 playerPosition, Room room)
         {
+            Tiles[,] tiles = room.tiles;
+
+            if (CheckCollisionWithRoom(tiles))
+            {
+                this.speed = -this.speed;
+
+            }
             this.Position.X += speed;
+
         }
 
         public void FollowPlayer(Point playerTileIndex, Room room)
@@ -121,6 +129,7 @@ namespace Dungeon.src.EnemyClass
 
             spriteBatch.DrawLine(visionVertices[0], visionVertices[1], Color.Yellow);
             spriteBatch.DrawLine(visionVertices[0], visionVertices[2], Color.Yellow);
+
             spriteBatch.DrawLine(visionVertices[1], visionVertices[2], Color.Yellow * 0.5f);
         }
     }
