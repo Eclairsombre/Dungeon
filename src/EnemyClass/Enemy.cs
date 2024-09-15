@@ -19,16 +19,16 @@ namespace Dungeon.src.EnemyClass
 
         public int width, height;
 
-        public float VisionRadius { get; set; } = 150f; // Rayon du champ de vision
-        public float VisionAngle { get; set; } = MathHelper.ToRadians(90f); // Angle du champ de vision en radians
-        public float VisionRange { get; set; } = 1000f; // Portée du champ de vision
+        public float VisionRadius { get; set; } = 150f;
+        public float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
+        public float VisionRange { get; set; } = 1000f;
 
         public Enemy()
         {
             this.width = 50;
             this.height = 50;
             this.Position = new Vector2(300, 200);
-            this.Direction = new Vector2(0, 1); // Direction initiale (vers le bas)
+            this.Direction = new Vector2(0, 1);
         }
 
         public void Update(Vector2 playerPosition, Room room)
@@ -47,7 +47,6 @@ namespace Dungeon.src.EnemyClass
         public void FollowPlayer(Point playerTileIndex, Room room)
         {
             Tiles[,] tiles = room.tiles;
-            // Logique pour suivre le joueur
         }
 
         public bool CheckCollisionWithRoom(Tiles[,] tiles)
