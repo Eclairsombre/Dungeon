@@ -31,7 +31,7 @@ public class Map
     public void GenerateDungeon(ContentManager content)
     {
         room = new Room();
-        room.LoadContent(content);
+        room.LoadContent(content, 1);
         room.Generate();
 
     }

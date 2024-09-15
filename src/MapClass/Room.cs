@@ -34,13 +34,12 @@ public class Room
 
 
 
-
     }
 
-    public void LoadContent(ContentManager content)
+    public void LoadContent(ContentManager content, int room)
     {
         // Load the file content using the ContentManager
-        using (var stream = TitleContainer.OpenStream("Content/RoomPatern/Room1.txt"))
+        using (var stream = TitleContainer.OpenStream("Content/RoomPatern/Room" + room + ".txt"))
         using (var reader = new StreamReader(stream))
         {
             fileContent = reader.ReadToEnd();
