@@ -28,7 +28,7 @@ namespace Dungeon.src.EnemyClass
             this.width = 50;
             this.height = 50;
             this.Position = new Vector2(300, 200);
-            this.Direction = new Vector2(0, 1);
+            this.Direction = new Vector2(1, 0);
         }
 
         public void Update(Vector2 playerPosition, Room room)
@@ -38,6 +38,7 @@ namespace Dungeon.src.EnemyClass
             if (CheckCollisionWithRoom(tiles))
             {
                 this.speed = -this.speed;
+                this.Direction = -this.Direction;
 
             }
             this.Position.X += speed;
@@ -100,33 +101,49 @@ namespace Dungeon.src.EnemyClass
 
         public void UpdateVision(Room room, Vector2 playerPosition)
         {
-
             Vector2 centerPosition = new Vector2(Position.X + width / 2, Position.Y + height / 2);
-            line = playerPosition - centerPosition;
-            line.Normalize();
-            line *= VisionRange;
+            Vector2 toPlayer = playerPosition - centerPosition;
+            float distanceToPlayer = toPlayer.Length();
 
-            List<Vector2> visionVertices = new List<Vector2> { centerPosition, centerPosition + line };
-            for (int i = 1; i < visionVertices.Count; i++)
+            if (distanceToPlayer <= VisionRange)
             {
-                Vector2 start = visionVertices[0];
-                Vector2 end = visionVertices[i];
-                Vector2 direction = end - start;
-                direction.Normalize();
+                toPlayer.Normalize();
+                float angleToPlayer = (float)Math.Acos(Vector2.Dot(Direction, toPlayer));
 
-                for (float j = 0; j < VisionRange; j += 1f)
+                if (angleToPlayer <= VisionAngle / 2)
                 {
-                    Vector2 checkPosition = start + direction * j;
-                    if (CheckCollisionVision(room.tiles, checkPosition) || j == (VisionRange - 1f))
+                    line = toPlayer * VisionRange;
+
+                    List<Vector2> visionVertices = new List<Vector2> { centerPosition, centerPosition + line };
+                    for (int i = 1; i < visionVertices.Count; i++)
                     {
-                        visionVertices[i] = checkPosition;
-                        break;
+                        Vector2 start = visionVertices[0];
+                        Vector2 end = visionVertices[i];
+                        Vector2 direction = end - start;
+                        direction.Normalize();
+
+                        for (float j = 0; j < VisionRange; j += 1f)
+                        {
+                            Vector2 checkPosition = start + direction * j;
+                            if (CheckCollisionVision(room.tiles, checkPosition) || j == (VisionRange - 1f))
+                            {
+                                visionVertices[i] = checkPosition;
+                                break;
+                            }
+                        }
                     }
+
+                    line = visionVertices[1];
+                }
+                else
+                {
+                    line = centerPosition;
                 }
             }
-
-            line = visionVertices[1];
-
+            else
+            {
+                line = centerPosition;
+            }
         }
 
         public void DrawVision(SpriteBatch spriteBatch)
