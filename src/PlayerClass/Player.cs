@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 
 namespace Dungeon.src.PlayerClass
 {
@@ -13,6 +14,7 @@ namespace Dungeon.src.PlayerClass
         private const int Deadzone = 4096; // Zone morte pour les contrôles de joystick
 
         public Vector2 Position;
+        public Vector2 centerPosition;
 
         public Vector2 StartPosition;
         public float Speed;
@@ -38,6 +40,9 @@ namespace Dungeon.src.PlayerClass
             StartPosition = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
             Speed = DefaultSpeed;
             scale = DefaultScale;
+
+            centerPosition = new Vector2((Position.X + spriteWidth) * scale / 2, (Position.Y + spriteHeight) * scale / 2);
+
 
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
@@ -201,6 +206,8 @@ namespace Dungeon.src.PlayerClass
                 Position = previousPosition;
             }
 
+            this.centerPosition = new Vector2(Position.X + spriteWidth * scale / 2, Position.Y + spriteHeight * scale / 2);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -210,6 +217,7 @@ namespace Dungeon.src.PlayerClass
 
             hitbox = new Rectangle((int)Position.X + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 10, (int)(spriteHeight * scale) - 10);
             DrawRectangle(spriteBatch, hitbox, Color.Red);
+
         }
 
         private void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color)

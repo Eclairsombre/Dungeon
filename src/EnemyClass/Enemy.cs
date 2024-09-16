@@ -16,12 +16,12 @@ namespace Dungeon.src.EnemyClass
         public int hp = 1, damage = 0, speed = 3;
         public Vector2 Position;
         public Vector2 Direction;
-
+        public Vector2 line;
         public int width, height;
 
         public float VisionRadius { get; set; } = 150f;
         public float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
-        public float VisionRange { get; set; } = 1000f;
+        public float VisionRange { get; set; } = 250f;
 
         public Enemy()
         {
@@ -41,6 +41,8 @@ namespace Dungeon.src.EnemyClass
 
             }
             this.Position.X += speed;
+
+            UpdateVision(room, playerPosition);
 
         }
 
@@ -88,26 +90,23 @@ namespace Dungeon.src.EnemyClass
             }
             return false;
         }
-        public void Draw(SpriteBatch spriteBatch, Room room)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle rect = new Rectangle((int)Position.X, (int)Position.Y, width, height);
             spriteBatch.FillRectangle(rect, Color.Blue);
 
-            DrawVision(spriteBatch, room);
+            DrawVision(spriteBatch);
         }
 
-        public void DrawVision(SpriteBatch spriteBatch, Room room)
+        public void UpdateVision(Room room, Vector2 playerPosition)
         {
+
             Vector2 centerPosition = new Vector2(Position.X + width / 2, Position.Y + height / 2);
+            line = playerPosition - centerPosition;
+            line.Normalize();
+            line *= VisionRange;
 
-            Vector2 leftBoundary = Vector2.Transform(Direction, Matrix.CreateRotationZ(-VisionAngle / 2));
-            Vector2 rightBoundary = Vector2.Transform(Direction, Matrix.CreateRotationZ(VisionAngle / 2));
-
-            Vector2 leftPoint = centerPosition + leftBoundary * VisionRange;
-            Vector2 rightPoint = centerPosition + rightBoundary * VisionRange;
-
-            List<Vector2> visionVertices = new List<Vector2> { centerPosition, leftPoint, rightPoint };
-
+            List<Vector2> visionVertices = new List<Vector2> { centerPosition, centerPosition + line };
             for (int i = 1; i < visionVertices.Count; i++)
             {
                 Vector2 start = visionVertices[0];
@@ -118,7 +117,7 @@ namespace Dungeon.src.EnemyClass
                 for (float j = 0; j < VisionRange; j += 1f)
                 {
                     Vector2 checkPosition = start + direction * j;
-                    if (CheckCollisionVision(room.tiles, checkPosition))
+                    if (CheckCollisionVision(room.tiles, checkPosition) || j == (VisionRange - 1f))
                     {
                         visionVertices[i] = checkPosition;
                         break;
@@ -126,10 +125,15 @@ namespace Dungeon.src.EnemyClass
                 }
             }
 
-            spriteBatch.DrawLine(visionVertices[0], visionVertices[1], Color.Yellow);
-            spriteBatch.DrawLine(visionVertices[0], visionVertices[2], Color.Yellow);
+            line = visionVertices[1];
 
-            spriteBatch.DrawLine(visionVertices[1], visionVertices[2], Color.Yellow * 0.5f);
+        }
+
+        public void DrawVision(SpriteBatch spriteBatch)
+        {
+            Vector2 centerPosition = new Vector2(Position.X + width / 2, Position.Y + height / 2);
+
+            spriteBatch.DrawLine(centerPosition, line, Color.Yellow);
         }
     }
 }
