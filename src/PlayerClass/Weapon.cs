@@ -9,8 +9,10 @@ namespace Dungeon.src.PlayerClass
     public class Weapon
     {
         public int damage = 1;
-        public int range = 50;
+        public int range = 10;
         public Vector2 Position;
+
+        public int width, height;
 
         public Weapon(Vector2 position)
         {
@@ -19,12 +21,46 @@ namespace Dungeon.src.PlayerClass
 
         public void Update(Vector2 playerPosition, Vector2 direction, Enemy[] enemies)
         {
-            var keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Space))
+            switch (direction)
+            {
+                case Vector2 v when v.X == 0 && v.Y == -1:
+                    Position = new Vector2((int)playerPosition.X + 5, (int)playerPosition.Y + 80);
+                    break;
+                case Vector2 v when v.X == 0 && v.Y == 1:
+                    Position = new Vector2((int)playerPosition.X + 5, (int)playerPosition.Y - 5);
+                    break;
+                case Vector2 v when v.X == -1 && v.Y == 0:
+                    Position = new Vector2((int)playerPosition.X, (int)playerPosition.Y + 5);
+                    break;
+                case Vector2 v when v.X == 1 && v.Y == 0:
+                    Position = new Vector2((int)playerPosition.X + 65, (int)playerPosition.Y + 5);
+                    break;
+            }
+            switch (direction)
+            {
+                case Vector2 v when v == new Vector2(1, 0):
+                    this.width = 75;
+                    this.height = range;
+                    break;
+                case Vector2 v when v == new Vector2(-1, 0):
+
+                    this.width = 75;
+                    this.height = range;
+                    break;
+                case Vector2 v when v == new Vector2(0, 1):
+                    this.width = range;
+                    this.height = 65;
+                    break;
+                case Vector2 v when v == new Vector2(0, -1):
+                    this.width = range;
+                    this.height = 65;
+                    break;
+            }
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 Attack(enemies);
             }
-            this.Position = playerPosition + direction * range;
         }
 
 
@@ -43,7 +79,7 @@ namespace Dungeon.src.PlayerClass
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(new Rectangle((int)Position.X, (int)Position.Y, 10, 10), Color.Red);
+            spriteBatch.FillRectangle(new Rectangle((int)Position.X, (int)Position.Y, height, width), Color.Red);
         }
 
     }

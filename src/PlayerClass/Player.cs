@@ -1,3 +1,4 @@
+using System;
 using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -9,9 +10,9 @@ namespace Dungeon.src.PlayerClass
 {
     public class Player
     {
-        private const float DefaultScale = 3.0f; // Facteur d'échelle par défaut
-        private const float DefaultSpeed = 10.0f; // Vitesse par défaut
-        private const int Deadzone = 4096; // Zone morte pour les contrôles de joystick
+        private const float DefaultScale = 3.0f;
+        private const float DefaultSpeed = 10.0f;
+        private const int Deadzone = 4096;
 
         public Vector2 Position;
         public Vector2 centerPosition;
@@ -54,7 +55,7 @@ namespace Dungeon.src.PlayerClass
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
 
-            this.direction = new Vector2(0, -1);
+            this.direction = new Vector2(0, 1);
 
             weapon = new Weapon(Position);
 
@@ -76,10 +77,7 @@ namespace Dungeon.src.PlayerClass
             }
         }
 
-        public Rectangle GetHitbox()
-        {
-            return new Rectangle((int)Position.X, (int)Position.Y, (int)(spriteWidth * scale), (int)(spriteHeight * scale));
-        }
+
 
         public bool CheckCollisionWithRoom(Room room)
         {
@@ -180,28 +178,12 @@ namespace Dungeon.src.PlayerClass
                 spriteEffect = SpriteEffects.FlipHorizontally;
                 this.direction = new Vector2(1, 0);
             }
-            if (keyboardState.IsKeyDown(Keys.Space))
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 attack = true;
-                weaponPosition = new Vector2((int)Position.X, (int)Position.Y);
-                switch (direction)
-                {
-                    case Vector2 v when v.X == 0 && v.Y == -1:
-                        weaponPosition = new Vector2((int)Position.X + 5, (int)Position.Y - 50);
-                        break;
-                    case Vector2 v when v.X == 0 && v.Y == 1:
-                        weaponPosition = new Vector2((int)Position.X + 5, (int)Position.Y + 50);
-                        break;
-                    case Vector2 v when v.X == -1 && v.Y == 0:
-                        weaponPosition = new Vector2((int)Position.X - 50, (int)Position.Y + 5);
-                        break;
-                    case Vector2 v when v.X == 1 && v.Y == 0:
-                        weaponPosition = new Vector2((int)Position.X + 50, (int)Position.Y + 5);
-                        break;
-                }
-                weapon.Update(weaponPosition, direction, map.room.enemies);
+                weapon.Update(Position, direction, map.room.enemies);
             }
-            if (keyboardState.IsKeyUp(Keys.Space))
+            if (Mouse.GetState().LeftButton == ButtonState.Released)
             {
                 attack = false;
             }
@@ -245,7 +227,7 @@ namespace Dungeon.src.PlayerClass
             }
 
             this.centerPosition = new Vector2(Position.X + spriteWidth * scale / 2, Position.Y + spriteHeight * scale / 2);
-
+            weapon.Update(Position, direction, map.room.enemies);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -253,7 +235,7 @@ namespace Dungeon.src.PlayerClass
             Rectangle sourceRectangle = new Rectangle(0, 0, spriteWidth, spriteHeight);
             spriteBatch.Draw(spriteSheetNoMove[currentSpriteSheet], Position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, spriteEffect, 0f);
 
-            hitbox = new Rectangle((int)Position.X + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 10, (int)(spriteHeight * scale) - 10);
+            hitbox = new Rectangle((int)Position.X + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
             DrawRectangle(spriteBatch, hitbox, Color.Red);
             if (attack)
             {
@@ -262,6 +244,11 @@ namespace Dungeon.src.PlayerClass
             }
 
 
+        }
+
+        public Rectangle GetHitbox()
+        {
+            return new Rectangle((int)(Position.X) + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
         }
 
         private void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color)
