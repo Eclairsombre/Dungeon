@@ -26,11 +26,18 @@ namespace Dungeon.src.PlayerClass
 
         private float scale;
 
-        Rectangle hitbox;
+        public Rectangle hitbox;
 
         private Texture2D hitboxTexture;
 
         public SpriteEffects spriteEffect = SpriteEffects.None;
+
+        public Vector2 direction;
+
+        public Weapon weapon;
+        public Vector2 weaponPosition;
+
+        public bool attack;
 
         public Player(GraphicsDevice graphicsDevice)
         {
@@ -46,6 +53,12 @@ namespace Dungeon.src.PlayerClass
 
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
+
+            this.direction = new Vector2(0, -1);
+
+            weapon = new Weapon(Position);
+
+            attack = false;
         }
 
         public void LoadContent(ContentManager content)
@@ -128,7 +141,7 @@ namespace Dungeon.src.PlayerClass
         }
 
 
-        public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight, ContentManager content)
+        public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight, ContentManager content, SpriteBatch spriteBatch)
         {
             var keyboardState = Keyboard.GetState();
 
@@ -144,28 +157,53 @@ namespace Dungeon.src.PlayerClass
                 Position.Y -= Speed;
                 currentSpriteSheet = 2;
                 spriteEffect = SpriteEffects.None;
+                this.direction = new Vector2(0, 1);
             }
             if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
             {
                 Position.Y += Speed;
                 currentSpriteSheet = 0;
                 spriteEffect = SpriteEffects.None;
+                this.direction = new Vector2(0, -1);
             }
             if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
             {
                 Position.X -= Speed;
                 currentSpriteSheet = 1;
                 spriteEffect = SpriteEffects.None;
+                this.direction = new Vector2(-1, 0);
             }
             if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
             {
                 Position.X += Speed;
                 currentSpriteSheet = 1;
                 spriteEffect = SpriteEffects.FlipHorizontally;
+                this.direction = new Vector2(1, 0);
             }
             if (keyboardState.IsKeyDown(Keys.Space))
             {
-                map.room.finished = true;
+                attack = true;
+                weaponPosition = new Vector2((int)Position.X, (int)Position.Y);
+                switch (direction)
+                {
+                    case Vector2 v when v.X == 0 && v.Y == -1:
+                        weaponPosition = new Vector2((int)Position.X + 5, (int)Position.Y - 50);
+                        break;
+                    case Vector2 v when v.X == 0 && v.Y == 1:
+                        weaponPosition = new Vector2((int)Position.X + 5, (int)Position.Y + 50);
+                        break;
+                    case Vector2 v when v.X == -1 && v.Y == 0:
+                        weaponPosition = new Vector2((int)Position.X - 50, (int)Position.Y + 5);
+                        break;
+                    case Vector2 v when v.X == 1 && v.Y == 0:
+                        weaponPosition = new Vector2((int)Position.X + 50, (int)Position.Y + 5);
+                        break;
+                }
+                weapon.Update(weaponPosition, direction, map.room.enemies);
+            }
+            if (keyboardState.IsKeyUp(Keys.Space))
+            {
+                attack = false;
             }
 
             // Gestion du joystick
@@ -217,6 +255,12 @@ namespace Dungeon.src.PlayerClass
 
             hitbox = new Rectangle((int)Position.X + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 10, (int)(spriteHeight * scale) - 10);
             DrawRectangle(spriteBatch, hitbox, Color.Red);
+            if (attack)
+            {
+                weapon.Draw(spriteBatch);
+
+            }
+
 
         }
 

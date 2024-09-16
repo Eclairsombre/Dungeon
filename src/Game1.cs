@@ -52,7 +52,7 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
-        player.Update(gameTime, map, screenWidth, screenHeight, Content);
+        player.Update(gameTime, map, screenWidth, screenHeight, Content, _spriteBatch);
         map.Update(player.centerPosition);
         base.Update(gameTime);
     }

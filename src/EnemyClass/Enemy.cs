@@ -19,9 +19,13 @@ namespace Dungeon.src.EnemyClass
         public Vector2 line;
         public int width, height;
 
+        public bool agroPlayer = false;
+
         public float VisionRadius { get; set; } = 150f;
         public float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
         public float VisionRange { get; set; } = 250f;
+
+        public Rectangle hitbox;
 
         public Enemy()
         {
@@ -29,27 +33,76 @@ namespace Dungeon.src.EnemyClass
             this.height = 50;
             this.Position = new Vector2(300, 200);
             this.Direction = new Vector2(1, 0);
+
+            this.hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
         }
 
         public void Update(Vector2 playerPosition, Room room)
         {
+            this.hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
+
             Tiles[,] tiles = room.tiles;
 
-            if (CheckCollisionWithRoom(tiles))
+            if (agroPlayer)
             {
-                this.speed = -this.speed;
-                this.Direction = -this.Direction;
+                FollowPlayer(playerPosition, room);
 
             }
-            this.Position.X += speed;
+            else
+            {
 
+                if (CheckCollisionWithRoom(tiles))
+                {
+                    this.speed = -this.speed;
+                    this.Direction = -this.Direction;
+
+                }
+                this.Position.X += speed;
+
+
+            }
             UpdateVision(room, playerPosition);
+
 
         }
 
-        public void FollowPlayer(Point playerTileIndex, Room room)
+        public Vector2[] findPath(Vector2 position, Vector2 playerPosition, Tiles[,] tiles)
+        {
+            return new Vector2[1];
+        }
+
+        public void FollowPlayer(Vector2 playerPosition, Room room)
         {
             Tiles[,] tiles = room.tiles;
+
+            // Vector2[] path = findPath(Position, playerPosition, tiles);
+
+            if (CheckCollisionWithRoom(tiles))
+            {
+                agroPlayer = false;
+
+
+
+            }
+            else
+            {
+                GoToo(playerPosition);
+
+            }
+
+
+
+        }
+
+        public void GoToo(Vector2 end)
+        {
+            Vector2 direction = end - Position;
+            direction.Normalize();
+
+            Position += direction * speed;
+            Direction = direction;
+
+
         }
 
         public bool CheckCollisionWithRoom(Tiles[,] tiles)
@@ -91,6 +144,11 @@ namespace Dungeon.src.EnemyClass
             }
             return false;
         }
+
+        public bool CheckIfPlayerInVision(Vector2 playerPosition)
+        {
+            return true;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle rect = new Rectangle((int)Position.X, (int)Position.Y, width, height);
@@ -105,13 +163,18 @@ namespace Dungeon.src.EnemyClass
             Vector2 toPlayer = playerPosition - centerPosition;
             float distanceToPlayer = toPlayer.Length();
 
+
             if (distanceToPlayer <= VisionRange)
             {
+
+
                 toPlayer.Normalize();
+
                 float angleToPlayer = (float)Math.Acos(Vector2.Dot(Direction, toPlayer));
 
                 if (angleToPlayer <= VisionAngle / 2)
                 {
+                    agroPlayer = true;
                     line = toPlayer * VisionRange;
 
                     List<Vector2> visionVertices = new List<Vector2> { centerPosition, centerPosition + line };

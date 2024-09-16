@@ -27,7 +27,7 @@ public class Room
 
     string fileContent;
 
-    Enemy enemy;
+    public Enemy[] enemies;
 
     public Room()
     {
@@ -36,7 +36,12 @@ public class Room
         this.width = 52;
         this.height = 30;
 
-        enemy = new Enemy();
+        enemies = new Enemy[2];
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i] = new Enemy();
+        }
+        enemies[1].Position = new Vector2(600, 200);
     }
 
     public void LoadContent(ContentManager content, int room)
@@ -51,8 +56,21 @@ public class Room
 
     public void Update(Vector2 playerPosition)
     {
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].Update(playerPosition, this);
 
-        enemy.Update(playerPosition, this);
+            if (enemies[i].hp <= 0)
+            {
+                enemies = enemies.Where((e, index) => index != i).ToArray();
+                i--;
+            }
+        }
+
+        if (enemies.Length == 0)
+        {
+            finished = true;
+        }
 
     }
 
@@ -85,6 +103,9 @@ public class Room
             }
         }
 
-        enemy.Draw(spriteBatch);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].Draw(spriteBatch);
+        }
     }
 }
