@@ -112,7 +112,7 @@ namespace Dungeon.src.EnemyClass
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    if (tiles[i, y].id == 1)
+                    if (tiles[i, y].id.Item1 == 1)
                     {
                         if (enemyHitbox.Intersects(tiles[i, y].hitbox))
                         {
@@ -132,7 +132,7 @@ namespace Dungeon.src.EnemyClass
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    if (tiles[i, y].id == 1)
+                    if (tiles[i, y].id.Item1 == 1)
                     {
                         if (view.Intersects(tiles[i, y].hitbox))
                         {

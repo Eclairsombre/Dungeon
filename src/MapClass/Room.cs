@@ -27,7 +27,7 @@ public class Room
 
     string fileContent;
 
-    public Enemy[] enemies;
+    public List<Enemy> enemies;
 
     public Room()
     {
@@ -36,12 +36,7 @@ public class Room
         this.width = 52;
         this.height = 30;
 
-        enemies = new Enemy[2];
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i] = new Enemy();
-        }
-        enemies[1].Position = new Vector2(600, 200);
+
     }
 
     public void LoadContent(ContentManager content, int room)
@@ -56,18 +51,18 @@ public class Room
 
     public void Update(Vector2 playerPosition, GameTime gameTime)
     {
-        for (int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].Update(playerPosition, this, gameTime);
 
             if (enemies[i].hp <= 0)
             {
-                enemies = enemies.Where((e, index) => index != i).ToArray();
+                enemies = enemies.Where((e, index) => index != i).ToList();
                 i--;
             }
         }
 
-        if (enemies.Length == 0)
+        if (enemies.Count == 0)
         {
             finished = true;
         }
@@ -77,16 +72,34 @@ public class Room
 
     public void Generate()
     {
-        // Lire les données des tiles à partir du fichier texte
         string[] lines = fileContent.Split('\n');
-
+        this.enemies = new List<Enemy>();
         for (int i = 0; i < 14; i++)
         {
-            string[] tileValues = lines[i].Split(',');
+            string[] tileValues = lines[i].Split('|');
             for (int j = 0; j < 26; j++)
             {
-                int tileType = int.Parse(tileValues[j]);
-                tiles[j, i] = new Tiles(tileType, j * 70 + 40, i * 70 + 40, 70, 70);
+                String tileType = tileValues[j];
+                int firstValue = tileType[1] - '0';
+                int secondValue = tileType[3] - '0';
+                int thirdValue = tileType[5] - '0';
+                if (secondValue == 2)
+                {
+                    Enemy enemy = new Enemy();
+                    enemy.Position = new Vector2(j * 70 + 40, i * 70 + 40);
+                    if (thirdValue == 5)
+                    {
+                        enemy.Direction = new Vector2(1, 0);
+                    }
+                    else
+                    {
+                        enemy.Direction = new Vector2(0, 1);
+                    }
+                    this.enemies.Add(enemy);
+
+                }
+                Tuple<int, int> tile = new Tuple<int, int>(firstValue, secondValue);
+                tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70);
             }
         }
     }
@@ -104,7 +117,7 @@ public class Room
             }
         }
 
-        for (int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].Draw(spriteBatch);
         }

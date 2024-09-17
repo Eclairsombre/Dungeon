@@ -85,7 +85,7 @@ namespace Dungeon.src.PlayerClass
             {
                 for (int y = 0; y < room.tiles.GetLength(1); y++)
                 {
-                    if (room.tiles[i, y].id == 1)
+                    if (room.tiles[i, y].id.Item1 == 1)
                     {
 
                         if (CheckCollision(room.tiles[i, y].hitbox))

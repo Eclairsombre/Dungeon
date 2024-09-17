@@ -11,20 +11,20 @@ namespace Dungeon.src.MapClass
 {
     public class Tiles
     {
-        public int id;
+        public Tuple<int, int> id;
         public int x, y, width, height;
 
         public Rectangle hitbox;
 
         public Door door = null;
 
-        public Tiles(int id, int x, int y, int width, int height)
+        public Tiles(Tuple<int, int> id, int x, int y, int width, int height)
         {
             this.id = id;
 
             this.hitbox = new Rectangle(x, y, width, height);
 
-            if (id == 2)
+            if (id.Item1 == 2)
             {
                 door = new Door(x, y, width, height);
             }
@@ -32,15 +32,15 @@ namespace Dungeon.src.MapClass
 
         public void Draw(SpriteBatch spriteBatch, bool finished)
         {
-            if (id == 0)
+            if (id.Item1 == 0)
             {
                 spriteBatch.DrawRectangle(this.hitbox, Color.White);
             }
-            else if (id == 1)
+            else if (id.Item1 == 1)
             {
                 spriteBatch.FillRectangle(this.hitbox, Color.White);
             }
-            else if (id == 2)
+            else if (id.Item1 == 2)
             {
                 if (!finished)
                 {

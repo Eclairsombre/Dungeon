@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,7 +21,7 @@ namespace Dungeon.src.PlayerClass
             this.Position = position;
         }
 
-        public void Update(Vector2 playerPosition, Vector2 direction, Enemy[] enemies)
+        public void Update(Vector2 playerPosition, Vector2 direction, List<Enemy> enemies)
         {
 
             switch (direction)
@@ -59,7 +60,7 @@ namespace Dungeon.src.PlayerClass
         }
 
 
-        public void Attack(Enemy[] enemies)
+        public void Attack(List<Enemy> enemies)
         {
             Rectangle hitbox = new Rectangle((int)Position.X, (int)Position.Y, 50, 50);
             foreach (var enemy in enemies)
