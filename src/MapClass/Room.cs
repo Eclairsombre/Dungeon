@@ -54,11 +54,11 @@ public class Room
         }
     }
 
-    public void Update(Vector2 playerPosition)
+    public void Update(Vector2 playerPosition, GameTime gameTime)
     {
         for (int i = 0; i < enemies.Length; i++)
         {
-            enemies[i].Update(playerPosition, this);
+            enemies[i].Update(playerPosition, this, gameTime);
 
             if (enemies[i].hp <= 0)
             {
@@ -73,6 +73,7 @@ public class Room
         }
 
     }
+
 
     public void Generate()
     {

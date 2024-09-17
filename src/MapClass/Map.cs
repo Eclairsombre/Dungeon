@@ -36,9 +36,9 @@ public class Map
 
     }
 
-    public void Update(Vector2 playerPosition)
+    public void Update(Vector2 playerPosition, GameTime gameTime)
     {
-        room.Update(playerPosition);
+        room.Update(playerPosition, gameTime);
     }
 
     public void Draw(SpriteBatch spriteBatch)

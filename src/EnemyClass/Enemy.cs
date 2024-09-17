@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Dungeon.src.PlayerClass;
+using System.IO;
 
 namespace Dungeon.src.EnemyClass
 {
@@ -19,13 +20,19 @@ namespace Dungeon.src.EnemyClass
         public Vector2 line;
         public int width, height;
 
+        public bool inVision = false;
+
         public bool agroPlayer = false;
+        private float timeSinceLastSeenPlayer = 0f;
+        private const float maxTimeWithoutSeeingPlayer = 3f; // 3 seconds
 
         public float VisionRadius { get; set; } = 150f;
         public float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
         public float VisionRange { get; set; } = 250f;
 
         public Rectangle hitbox;
+
+        public Vector2 lastPlayerPosition;
 
         public Enemy()
         {
@@ -37,7 +44,7 @@ namespace Dungeon.src.EnemyClass
             this.hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
         }
 
-        public void Update(Vector2 playerPosition, Room room)
+        public void Update(Vector2 playerPosition, Room room, GameTime gameTime)
         {
             this.hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
 
@@ -47,58 +54,50 @@ namespace Dungeon.src.EnemyClass
             {
                 FollowPlayer(playerPosition, room);
 
+                if (!inVision)
+                {
+                    timeSinceLastSeenPlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (timeSinceLastSeenPlayer >= maxTimeWithoutSeeingPlayer)
+                    {
+                        agroPlayer = false;
+                        timeSinceLastSeenPlayer = 0f;
+                    }
+                }
+                else
+                {
+                    timeSinceLastSeenPlayer = 0f;
+                }
             }
             else
             {
-
                 if (CheckCollisionWithRoom(tiles))
                 {
-                    this.speed = -this.speed;
                     this.Direction = -this.Direction;
-
                 }
-                this.Position.X += speed;
-
-
+                this.Position += Direction * speed;
             }
+
             UpdateVision(room, playerPosition);
-
-
         }
 
-        public Vector2[] findPath(Vector2 position, Vector2 playerPosition, Tiles[,] tiles)
-        {
-            return new Vector2[1];
-        }
+
 
         public void FollowPlayer(Vector2 playerPosition, Room room)
         {
-            Tiles[,] tiles = room.tiles;
-
-            // Vector2[] path = findPath(Position, playerPosition, tiles);
-
-            if (CheckCollisionWithRoom(tiles))
-            {
-                agroPlayer = false;
 
 
-
-            }
-            else
-            {
-                GoToo(playerPosition);
-
-            }
-
-
-
+            GoToo(lastPlayerPosition);
         }
+
+
+
+
 
         public void GoToo(Vector2 end)
         {
+
             Vector2 direction = end - Position;
             direction.Normalize();
-
             Position += direction * speed;
             Direction = direction;
 
@@ -145,10 +144,7 @@ namespace Dungeon.src.EnemyClass
             return false;
         }
 
-        public bool CheckIfPlayerInVision(Vector2 playerPosition)
-        {
-            return true;
-        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle rect = new Rectangle((int)Position.X, (int)Position.Y, width, height);
@@ -174,7 +170,7 @@ namespace Dungeon.src.EnemyClass
 
                 if (angleToPlayer <= VisionAngle / 2)
                 {
-                    agroPlayer = true;
+                    lastPlayerPosition = playerPosition;
                     line = toPlayer * VisionRange;
 
                     List<Vector2> visionVertices = new List<Vector2> { centerPosition, centerPosition + line };
@@ -188,9 +184,18 @@ namespace Dungeon.src.EnemyClass
                         for (float j = 0; j < VisionRange; j += 1f)
                         {
                             Vector2 checkPosition = start + direction * j;
-                            if (CheckCollisionVision(room.tiles, checkPosition) || j == (VisionRange - 1f))
+                            if (CheckCollisionVision(room.tiles, checkPosition))
                             {
+                                break;
+                            }
+                            if (j == (VisionRange - 1f))
+                            {
+                                agroPlayer = true;
+
                                 visionVertices[i] = checkPosition;
+                                inVision = true;
+                                lastPlayerPosition = playerPosition;
+                                timeSinceLastSeenPlayer = 0f;
                                 break;
                             }
                         }
@@ -200,11 +205,13 @@ namespace Dungeon.src.EnemyClass
                 }
                 else
                 {
+                    inVision = false;
                     line = centerPosition;
                 }
             }
             else
             {
+                inVision = false;
                 line = centerPosition;
             }
         }

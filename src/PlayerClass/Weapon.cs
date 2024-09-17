@@ -10,6 +10,7 @@ namespace Dungeon.src.PlayerClass
     {
         public int damage = 1;
         public int range = 10;
+        //TODO : Fix range hitbox
         public Vector2 Position;
 
         public int width, height;
