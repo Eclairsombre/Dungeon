@@ -216,7 +216,10 @@ namespace Dungeon.src.PlayerClass
             if (CheckCollisionWithDoor(map.room))
             {
                 map.room = new Room();
-                map.room.LoadContent(content, 2);
+                Random random = new Random();
+                int roomNumber = random.Next(2, 4);
+                Console.WriteLine(roomNumber);
+                map.room.LoadContent(content, roomNumber);
                 map.room.Generate();
                 Position = StartPosition;
             }
