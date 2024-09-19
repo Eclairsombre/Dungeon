@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Dungeon.src.PlayerClass;
 using System.IO;
+using Dungeon.src.DropClass;
 
 namespace Dungeon.src.EnemyClass
 {
@@ -30,6 +31,7 @@ namespace Dungeon.src.EnemyClass
         public float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
         public float VisionRange { get; set; } = 250f;
 
+        public Drop[] loot = new Drop[1];
         public Rectangle hitbox;
 
         public Vector2 lastPlayerPosition;
@@ -42,6 +44,8 @@ namespace Dungeon.src.EnemyClass
             this.Direction = new Vector2(1, 0);
 
             this.hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
+
+            loot[0] = new XpDrop((int)this.Position.X, (int)this.Position.Y, 4, 4, this.xp);
         }
 
         public void Update(Vector2 playerPosition, Room room, GameTime gameTime)
