@@ -1,4 +1,5 @@
 using System;
+using Dungeon.src.EnemyClass;
 using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -39,6 +40,19 @@ namespace Dungeon.src.PlayerClass
         public Vector2 weaponPosition;
 
         public bool attack;
+
+        public int xp = 0;
+        public int level = 1;
+
+        public int nbHeart = 3;
+
+        public Rectangle xpBar = new Rectangle(20, 60, 200, 20);
+
+        public Rectangle heart = new Rectangle(20, 10, 50, 50);
+        public int xpToLevelUp = 100;
+
+        public int invincibilityTime = 0;
+
 
         public Player(GraphicsDevice graphicsDevice)
         {
@@ -143,13 +157,17 @@ namespace Dungeon.src.PlayerClass
         {
             var keyboardState = Keyboard.GetState();
 
-            // Définir la hitbox de la salle
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (invincibilityTime > 0)
+            {
+                invincibilityTime -= (int)(deltaTime * 1000);
+            }
+
             Rectangle roomHitbox = new Rectangle(40, 40, 52 * 35, 30 * 32 + 20);
 
-            // Sauvegarder la position actuelle
             Vector2 previousPosition = Position;
 
-            // Mettre à jour la position en fonction des entrées clavier
             if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
             {
                 Position.Y -= Speed;
@@ -228,6 +246,18 @@ namespace Dungeon.src.PlayerClass
             {
                 Position = previousPosition;
             }
+            if (invincibilityTime <= 0)
+            {
+                foreach (Enemy enemy in map.room.enemies)
+                {
+                    if (CheckCollision(enemy.hitbox))
+                    {
+                        nbHeart--;
+                        invincibilityTime = 3000;
+                        break;
+                    }
+                }
+            }
 
             this.centerPosition = new Vector2(Position.X + spriteWidth * scale / 2, Position.Y + spriteHeight * scale / 2);
             weapon.Update(Position, direction, map.room.enemies);
@@ -244,6 +274,13 @@ namespace Dungeon.src.PlayerClass
             {
                 weapon.Draw(spriteBatch);
 
+            }
+
+            spriteBatch.DrawRectangle(xpBar, Color.Green);
+
+            for (int i = 0; i < nbHeart; i++)
+            {
+                spriteBatch.FillRectangle(new Rectangle(heart.X + i * 60, heart.Y, heart.Width, heart.Height), Color.Red);
             }
 
 

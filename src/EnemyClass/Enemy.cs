@@ -14,7 +14,7 @@ namespace Dungeon.src.EnemyClass
 {
     public class Enemy
     {
-        public int hp = 1, damage = 0, speed = 3;
+        public int hp = 1, damage = 1, speed = 3, xp = 10;
         public Vector2 Position;
         public Vector2 Direction;
         public Vector2 line;

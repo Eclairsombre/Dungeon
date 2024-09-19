@@ -39,6 +39,8 @@ public static class TileTypes
             T.Floor => Floor,
             T.Wall => Wall,
             T.Door => Door,
+            T.EnemyGoDown => new TileType(3, 2, 5),
+            T.EnemyGoRight => new TileType(3, 2, 0),
             _ => throw new ArgumentOutOfRangeException(nameof(tilesType), tilesType, null)
         };
     }
@@ -48,7 +50,10 @@ public enum T
 {
     Floor,
     Wall,
-    Door
+    Door,
+
+    EnemyGoDown,
+    EnemyGoRight
 }
 
 public class Room
