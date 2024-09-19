@@ -1,12 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using MonoGame.Extended;
-using MonoGame.Extended.Shapes;
 using System.Linq;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 using Dungeon.src.EnemyClass;
@@ -14,6 +11,45 @@ using Dungeon.src.EnemyClass;
 
 
 namespace Dungeon.src.MapClass;
+
+
+public struct TileType
+{
+    public int FirstValue;
+    public int SecondValue;
+    public int ThirdValue;
+
+    public TileType(int firstValue, int secondValue, int thirdValue)
+    {
+        FirstValue = firstValue;
+        SecondValue = secondValue;
+        ThirdValue = thirdValue;
+    }
+}
+public static class TileTypes
+{
+    public static readonly TileType Floor = new TileType(0, 0, 0);
+    public static readonly TileType Wall = new TileType(1, 0, 0);
+    public static readonly TileType Door = new TileType(2, 0, 0);
+
+    public static TileType GetTileType(T tilesType)
+    {
+        return tilesType switch
+        {
+            T.Floor => Floor,
+            T.Wall => Wall,
+            T.Door => Door,
+            _ => throw new ArgumentOutOfRangeException(nameof(tilesType), tilesType, null)
+        };
+    }
+}
+
+public enum T
+{
+    Floor,
+    Wall,
+    Door
+}
 
 public class Room
 {
@@ -77,13 +113,15 @@ public class Room
         this.enemies = new List<Enemy>();
         for (int i = 0; i < 14; i++)
         {
-            string[] tileValues = lines[i].Split('|');
+            string[] tileValues = lines[i].Split(' ');
             for (int j = 0; j < 26; j++)
             {
-                String tileType = tileValues[j];
-                int firstValue = tileType[1] - '0';
-                int secondValue = tileType[3] - '0';
-                int thirdValue = tileType[5] - '0';
+                T tileType = (T)int.Parse(tileValues[j]);
+                TileType tileTypeValues = TileTypes.GetTileType(tileType);
+                int firstValue = tileTypeValues.FirstValue;
+                int secondValue = tileTypeValues.SecondValue;
+                int thirdValue = tileTypeValues.ThirdValue;
+
                 if (secondValue == 2)
                 {
                     Enemy enemy = new Enemy();

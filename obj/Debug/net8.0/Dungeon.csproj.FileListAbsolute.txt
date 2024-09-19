@@ -114,3 +114,4 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\zh-Hant\Microsoft.TestPl
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\RoomPatern\Room3.txt
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\RoomPatern\Room4.txt

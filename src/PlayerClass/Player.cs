@@ -217,7 +217,7 @@ namespace Dungeon.src.PlayerClass
             {
                 map.room = new Room();
                 Random random = new Random();
-                int roomNumber = random.Next(2, 4);
+                int roomNumber = random.Next(2, 5);
                 Console.WriteLine(roomNumber);
                 map.room.LoadContent(content, roomNumber);
                 map.room.Generate();
