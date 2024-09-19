@@ -15,12 +15,16 @@ namespace Dungeon.src.DropClass
     {
         public int x, y, height, width;
 
+        public Rectangle hitbox;
+
         public Drop(int x, int y, int height, int width)
         {
             this.x = x;
             this.y = y;
             this.height = height;
             this.width = width;
+
+            this.hitbox = new Rectangle(x, y, width, height);
         }
 
         public bool isColliding(Rectangle player)
@@ -44,5 +48,8 @@ namespace Dungeon.src.DropClass
                 spriteBatch.Draw(texture, new Rectangle(x, y, width, height), Color.White);
             }
         }
+
+
+
     }
 }

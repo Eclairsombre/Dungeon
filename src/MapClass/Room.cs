@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 using Dungeon.src.EnemyClass;
+using Dungeon.src.DropClass;
 
 
 
@@ -70,6 +71,8 @@ public class Room
 
     public List<Enemy> enemies;
 
+    public Drop[] dropsList;
+
     public Room()
     {
         this.x = 0;
@@ -77,6 +80,7 @@ public class Room
         this.width = 52;
         this.height = 30;
 
+        this.dropsList = new Drop[0];
 
     }
 
@@ -98,6 +102,18 @@ public class Room
 
             if (enemies[i].hp <= 0)
             {
+                Drop[] newDropsList = new Drop[dropsList.Length + enemies[i].loot.Length];
+                for (int j = 0; j < dropsList.Length; j++)
+                {
+                    newDropsList[j] = dropsList[j];
+                }
+                for (int j = 0; j < enemies[i].loot.Length; j++)
+                {
+                    enemies[i].loot[j].x = (int)enemies[i].Position.X;
+                    enemies[i].loot[j].y = (int)enemies[i].Position.Y;
+                    newDropsList[j + dropsList.Length] = enemies[i].loot[j];
+                }
+                dropsList = newDropsList;
                 enemies = enemies.Where((e, index) => index != i).ToList();
                 i--;
             }
@@ -164,6 +180,11 @@ public class Room
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].Draw(spriteBatch);
+        }
+
+        for (int i = 0; i < dropsList.Length; i++)
+        {
+            dropsList[i].Draw(spriteBatch);
         }
     }
 }

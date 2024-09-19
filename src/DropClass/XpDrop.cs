@@ -1,3 +1,5 @@
+using Dungeon.src.PlayerClass;
+
 namespace Dungeon.src.DropClass
 {
     public class XpDrop : Drop
@@ -8,6 +10,8 @@ namespace Dungeon.src.DropClass
         {
             this.xp = xp;
         }
+
+
 
     }
 }

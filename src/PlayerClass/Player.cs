@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Dungeon.src.DropClass;
 using Dungeon.src.EnemyClass;
 using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
@@ -246,6 +248,25 @@ namespace Dungeon.src.PlayerClass
             {
                 Position = previousPosition;
             }
+
+            for (int i = 0; i < map.room.dropsList.Length; i++)
+            {
+
+                if (map.room.dropsList[i].isColliding(this.hitbox))
+                {
+                    if (map.room.dropsList[i] is XpDrop xpDrop)
+                    {
+                        xp += xpDrop.xp;
+                        if (xp >= xpToLevelUp)
+                        {
+                            xp -= xpToLevelUp;
+                            level++;
+                            xpToLevelUp = (int)(xpToLevelUp * 1.2);
+                        }
+                    }
+                    map.room.dropsList = map.room.dropsList.Where((drop, index) => index != i).ToArray();
+                }
+            }
             if (invincibilityTime <= 0)
             {
                 foreach (Enemy enemy in map.room.enemies)
@@ -276,7 +297,10 @@ namespace Dungeon.src.PlayerClass
 
             }
 
-            spriteBatch.DrawRectangle(xpBar, Color.Green);
+            float xpPercentage = (float)xp / xpToLevelUp;
+            Rectangle filledXpBar = new Rectangle(xpBar.X, xpBar.Y, (int)(xpBar.Width * xpPercentage), xpBar.Height);
+            spriteBatch.FillRectangle(filledXpBar, Color.Green);
+            spriteBatch.DrawRectangle(xpBar, Color.Black);
 
             for (int i = 0; i < nbHeart; i++)
             {
