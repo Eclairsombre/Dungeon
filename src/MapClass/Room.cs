@@ -40,8 +40,10 @@ public static class TileTypes
             T.Floor => Floor,
             T.Wall => Wall,
             T.Door => Door,
-            T.EnemyGoDown => new TileType(3, 2, 5),
-            T.EnemyGoRight => new TileType(3, 2, 0),
+            T.EnemyGoDown => new TileType(3, 2, 3),
+            T.EnemyGoRight => new TileType(3, 2, 1),
+            T.EnemyGoLeft => new TileType(3, 2, 2),
+            T.EnemyGoUp => new TileType(3, 2, 4),
             _ => throw new ArgumentOutOfRangeException(nameof(tilesType), tilesType, null)
         };
     }
@@ -54,7 +56,9 @@ public enum T
     Door,
 
     EnemyGoDown,
-    EnemyGoRight
+    EnemyGoRight,
+    EnemyGoLeft,
+    EnemyGoUp
 }
 
 public class Room
@@ -147,11 +151,19 @@ public class Room
                 {
                     Enemy enemy = new Enemy();
                     enemy.Position = new Vector2(j * 70 + 40, i * 70 + 40);
-                    if (thirdValue == 5)
+                    if (thirdValue == 1)
                     {
                         enemy.Direction = new Vector2(1, 0);
                     }
-                    else
+                    else if (thirdValue == 4)
+                    {
+                        enemy.Direction = new Vector2(0, -1);
+                    }
+                    else if (thirdValue == 2)
+                    {
+                        enemy.Direction = new Vector2(-1, 0);
+                    }
+                    else if (thirdValue == 3)
                     {
                         enemy.Direction = new Vector2(0, 1);
                     }
