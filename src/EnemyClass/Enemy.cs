@@ -25,7 +25,7 @@ namespace Dungeon.src.EnemyClass
 
         public bool agroPlayer = false;
         private float timeSinceLastSeenPlayer = 0f;
-        private const float maxTimeWithoutSeeingPlayer = 3f; // 3 seconds
+        private const float maxTimeWithoutSeeingPlayer = 3f;
 
         public float VisionRadius { get; set; } = 150f;
         public float VisionAngle { get; set; } = MathHelper.ToRadians(90f);

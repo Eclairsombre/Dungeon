@@ -11,23 +11,13 @@ using Dungeon.src.PlayerClass;
 using System.IO;
 namespace Dungeon.src.DropClass
 {
-    public class Drop
+    public class Drop(int x, int y, int height, int width)
     {
-        public int x, y, height, width;
+        public int x = x, y = y, height = height, width = width;
 
-        public Rectangle hitbox;
+        public Rectangle hitbox = new Rectangle(x, y, width, height);
 
-        public Drop(int x, int y, int height, int width)
-        {
-            this.x = x;
-            this.y = y;
-            this.height = height;
-            this.width = width;
-
-            this.hitbox = new Rectangle(x, y, width, height);
-        }
-
-        public bool isColliding(Rectangle player)
+        public bool IsColliding(Rectangle player)
         {
             if (player.Intersects(new Rectangle(x, y, width, height)))
             {

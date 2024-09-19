@@ -48,9 +48,9 @@ namespace Dungeon.src.PlayerClass
 
         public int nbHeart = 3;
 
-        public Rectangle xpBar = new Rectangle(20, 60, 200, 20);
+        public Rectangle xpBar = new Rectangle(30, 70, 200, 20);
 
-        public Rectangle heart = new Rectangle(20, 10, 50, 50);
+        public Rectangle heart = new Rectangle(30, 10, 50, 50);
         public int xpToLevelUp = 100;
 
         public int invincibilityTime = 0;
@@ -252,7 +252,7 @@ namespace Dungeon.src.PlayerClass
             for (int i = 0; i < map.room.dropsList.Length; i++)
             {
 
-                if (map.room.dropsList[i].isColliding(this.hitbox))
+                if (map.room.dropsList[i].IsColliding(this.hitbox))
                 {
                     if (map.room.dropsList[i] is XpDrop xpDrop)
                     {
@@ -317,7 +317,6 @@ namespace Dungeon.src.PlayerClass
 
         private void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color)
         {
-            // Dessiner les quatre côtés du rectangle
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color); // Haut
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color); // Bas
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color); // Gauche

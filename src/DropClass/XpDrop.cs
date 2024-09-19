@@ -2,16 +2,8 @@ using Dungeon.src.PlayerClass;
 
 namespace Dungeon.src.DropClass
 {
-    public class XpDrop : Drop
+    public class XpDrop(int x, int y, int height, int width, int xp) : Drop(x, y, height, width)
     {
-        public int xp;
-
-        public XpDrop(int x, int y, int height, int width, int xp) : base(x, y, height, width)
-        {
-            this.xp = xp;
-        }
-
-
-
+        public int xp = xp;
     }
 }
