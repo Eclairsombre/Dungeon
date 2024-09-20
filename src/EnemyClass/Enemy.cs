@@ -29,7 +29,7 @@ namespace Dungeon.src.EnemyClass
 
         public float VisionRadius { get; set; } = 150f;
         public float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
-        public float VisionRange { get; set; } = 250f;
+        public float VisionRange { get; set; } = 500f;
 
         public Drop[] loot = new Drop[1];
         public Rectangle hitbox;
