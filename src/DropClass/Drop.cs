@@ -15,6 +15,8 @@ namespace Dungeon.src.DropClass
     {
         public int x = x, y = y, height = height, width = width;
 
+        public Color color = Color.White;
+
         public Rectangle hitbox = new Rectangle(x, y, width, height);
 
         public bool IsColliding(Rectangle player)
@@ -30,7 +32,7 @@ namespace Dungeon.src.DropClass
         {
             if (texture == null)
             {
-                spriteBatch.FillRectangle(new Rectangle(x, y, width, height), Color.Yellow);
+                spriteBatch.FillRectangle(new Rectangle(x, y, width, height), color);
                 return;
             }
             else

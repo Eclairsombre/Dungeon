@@ -45,7 +45,7 @@ namespace Dungeon.src.EnemyClass
 
             this.hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
 
-            loot[0] = new XpDrop((int)this.Position.X, (int)this.Position.Y, 4, 4, this.xp);
+            loot[0] = new XpDrop((int)this.Position.X, (int)this.Position.Y, 10, 10, this.xp);
         }
 
         public void Update(Vector2 playerPosition, Room room, GameTime gameTime)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Microsoft.Xna.Framework;
@@ -21,34 +22,36 @@ namespace Dungeon.src.PlayerClass
             this.Position = position;
         }
 
-        public void Update(Vector2 playerPosition, Vector2 direction, List<Enemy> enemies)
+        public void Update(Player player, Vector2 direction, List<Enemy> enemies)
         {
-
             switch (direction)
             {
                 case Vector2 v when v == new Vector2(1, 0):
-                    this.width = 75;
+                    //Console.WriteLine("Right");
+                    this.width = (int)(player.spriteWidth * player.scale);
                     this.height = range;
-                    Position = new Vector2((int)playerPosition.X + 65, (int)playerPosition.Y + 5);
+                    Position = new Vector2((int)player.Position.X + player.spriteWidth * player.scale, (int)player.Position.Y + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(-1, 0):
-
-                    this.width = 75;
+                    //Console.WriteLine("Left");
+                    this.width = (int)(player.spriteWidth * player.scale);
                     this.height = range;
-                    Position = new Vector2((int)playerPosition.X, (int)playerPosition.Y + 5);
+                    Position = new Vector2((int)player.Position.X - this.range + 5, (int)player.Position.Y + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(0, 1):
+                    //Console.WriteLine("up");
                     this.width = range;
-                    this.height = 65;
-                    Position = new Vector2((int)playerPosition.X + 5, (int)playerPosition.Y - 5);
+                    this.height = (int)(player.spriteWidth * player.scale) - 5;
+                    Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y - this.range + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(0, -1):
+                    //Console.WriteLine("Down");
                     this.width = range;
-                    this.height = 65;
-                    Position = new Vector2((int)playerPosition.X + 5, (int)playerPosition.Y + 80);
+                    this.height = (int)(player.spriteWidth * player.scale) - 5; ;
+                    Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y + player.spriteHeight * player.scale - 5);
 
                     break;
             }
@@ -71,6 +74,16 @@ namespace Dungeon.src.PlayerClass
                 }
             }
 
+        }
+
+        public void SetRange(int newRange)
+        {
+            range = newRange;
+        }
+
+        public void SetDamage(int newDamage)
+        {
+            damage = newDamage;
         }
 
         public void Draw(SpriteBatch spriteBatch)

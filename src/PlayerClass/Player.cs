@@ -25,10 +25,10 @@ namespace Dungeon.src.PlayerClass
 
         private Texture2D[] spriteSheetNoMove = new Texture2D[3];
         private int currentSpriteSheet = 0;
-        private int spriteWidth;
-        private int spriteHeight;
+        public int spriteWidth;
+        public int spriteHeight;
 
-        private float scale;
+        public float scale;
 
         public Rectangle hitbox;
 
@@ -73,7 +73,8 @@ namespace Dungeon.src.PlayerClass
 
             this.direction = new Vector2(0, 1);
 
-            weapon = new Weapon(Position);
+            weapon = new Sword(Position);
+            Console.WriteLine(weapon.range);
 
             attack = false;
         }
@@ -201,7 +202,7 @@ namespace Dungeon.src.PlayerClass
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 attack = true;
-                weapon.Update(Position, direction, map.room.enemies);
+                weapon.Update(this, direction, map.room.enemies);
             }
             if (Mouse.GetState().LeftButton == ButtonState.Released)
             {
@@ -281,7 +282,7 @@ namespace Dungeon.src.PlayerClass
             }
 
             this.centerPosition = new Vector2(Position.X + spriteWidth * scale / 2, Position.Y + spriteHeight * scale / 2);
-            weapon.Update(Position, direction, map.room.enemies);
+            weapon.Update(this, direction, map.room.enemies);
         }
 
         public void Draw(SpriteBatch spriteBatch)
