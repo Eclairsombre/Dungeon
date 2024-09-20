@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Dungeon.src.MapClass;
 using Dungeon.src.PlayerClass;
+using Dungeon.src.InterfaceClass;
 namespace Dungeon;
 
 public class Game1 : Game
@@ -15,6 +16,8 @@ public class Game1 : Game
 
     Player player;
     Map map;
+
+    Interface gameInterface;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -34,6 +37,7 @@ public class Game1 : Game
         // TODO: Add your initialization logic here
         player = new Player(_graphics.GraphicsDevice);
         map = new Map();
+        gameInterface = new Interface();
         base.Initialize();
     }
 
@@ -68,6 +72,7 @@ public class Game1 : Game
 
         map.Draw(_spriteBatch);
         player.Draw(_spriteBatch);
+        gameInterface.Draw(_spriteBatch, player);
 
         _spriteBatch.End();
 

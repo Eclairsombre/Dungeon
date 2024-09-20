@@ -48,9 +48,7 @@ namespace Dungeon.src.PlayerClass
 
         public int nbHeart = 3;
 
-        public Rectangle xpBar = new Rectangle(30, 70, 200, 20);
 
-        public Rectangle heart = new Rectangle(30, 10, 50, 50);
         public int xpToLevelUp = 100;
 
         public int invincibilityTime = 0;
@@ -113,6 +111,11 @@ namespace Dungeon.src.PlayerClass
                 }
             }
             return false;
+        }
+
+        public void Equip(Weapon weapon)
+        {
+            this.weapon = weapon;
         }
 
         public bool CheckCollision(Rectangle rect)
@@ -298,15 +301,7 @@ namespace Dungeon.src.PlayerClass
 
             }
 
-            float xpPercentage = (float)xp / xpToLevelUp;
-            Rectangle filledXpBar = new Rectangle(xpBar.X, xpBar.Y, (int)(xpBar.Width * xpPercentage), xpBar.Height);
-            spriteBatch.FillRectangle(filledXpBar, Color.Green);
-            spriteBatch.DrawRectangle(xpBar, Color.Black);
 
-            for (int i = 0; i < nbHeart; i++)
-            {
-                spriteBatch.FillRectangle(new Rectangle(heart.X + i * 60, heart.Y, heart.Width, heart.Height), Color.Red);
-            }
 
 
         }

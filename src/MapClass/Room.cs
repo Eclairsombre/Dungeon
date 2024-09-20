@@ -33,6 +33,8 @@ public static class TileTypes
     public static readonly TileType Wall = new TileType(1, 0, 0);
     public static readonly TileType Door = new TileType(2, 0, 0);
 
+    public static readonly TileType Holder = new TileType(4, 0, 0);
+
     public static TileType GetTileType(T tilesType)
     {
         return tilesType switch
@@ -44,6 +46,7 @@ public static class TileTypes
             T.EnemyGoRight => new TileType(3, 2, 1),
             T.EnemyGoLeft => new TileType(3, 2, 2),
             T.EnemyGoUp => new TileType(3, 2, 4),
+            T.Holder => Holder,
             _ => throw new ArgumentOutOfRangeException(nameof(tilesType), tilesType, null)
         };
     }
@@ -58,7 +61,8 @@ public enum T
     EnemyGoDown,
     EnemyGoRight,
     EnemyGoLeft,
-    EnemyGoUp
+    EnemyGoUp,
+    Holder
 }
 
 public class Room

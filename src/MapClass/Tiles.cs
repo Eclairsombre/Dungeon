@@ -6,6 +6,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Shapes;
 using System.Linq;
 using System.Collections.Generic;
+using Dungeon.src.MapClass.HolderClass;
 
 namespace Dungeon.src.MapClass
 {
@@ -18,38 +19,58 @@ namespace Dungeon.src.MapClass
 
         public Door door = null;
 
+        public Holder holder = null;
+
         public Tiles(Tuple<int, int> id, int x, int y, int width, int height)
         {
             this.id = id;
 
             this.hitbox = new Rectangle(x, y, width, height);
 
-            if (id.Item1 == 2)
+            switch (id.Item1)
             {
-                door = new Door(x, y, width, height);
+                case 2:
+                    door = new Door(x, y, width, height);
+                    break;
+                case 4:
+                    holder = new Holder(x, y);
+                    break;
+                default:
+                    break;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch, bool finished)
         {
-            if (id.Item1 == 0)
+
+            switch (id.Item1)
             {
-                spriteBatch.DrawRectangle(this.hitbox, Color.White);
-            }
-            else if (id.Item1 == 1)
-            {
-                spriteBatch.FillRectangle(this.hitbox, Color.White);
-            }
-            else if (id.Item1 == 2)
-            {
-                if (!finished)
-                {
+                case 0:
+                    spriteBatch.DrawRectangle(this.hitbox, Color.White);
+                    break;
+                case 1:
                     spriteBatch.FillRectangle(this.hitbox, Color.White);
-                }
-                else
-                {
-                    door.Draw(spriteBatch);
-                }
+                    break;
+                case 2:
+                    if (!finished)
+                    {
+                        spriteBatch.FillRectangle(this.hitbox, Color.White);
+                    }
+                    else
+                    {
+                        door.Draw(spriteBatch);
+                    }
+                    break;
+                case 4:
+                    if (finished)
+                    {
+                        holder.Draw(spriteBatch);
+                    }
+                    break;
+
+                default:
+                    break;
+
             }
         }
     }
