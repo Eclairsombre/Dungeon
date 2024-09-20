@@ -5,11 +5,15 @@ using MonoGame.Extended;
 
 namespace Dungeon.src.DropClass
 {
-    public class XpDrop(int x, int y, int height, int width, int xp) : Drop(x, y, height, width)
+    public class XpDrop : Drop
     {
-        public int xp = xp;
+        public int xp;
 
-        new Color color = Color.Green;
+        public XpDrop(int x, int y, int height, int width, int xp) : base(x, y, height, width)
+        {
+            this.xp = xp;
+            this.color = Color.Green;
+        }
     }
 
 
