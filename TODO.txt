@@ -1,0 +1,15 @@
+TODO :
+
+- Add Weapon Holder and switch weapon on holder capacity
+- Fix enemy deplacement
+- Add distance weapon
+- Add new enemy
+- Add stat upgrade when level up
+- Add menu
+- Add Boss(different move set, heal bar...)
+- EN COURS : Refactor code for better organisation
+- make texture
+- Add a move to move quickly ? (roulade..)
+- Add ingame lobby to upgrade the player (png?, shop?)
+- Add heal bar in top of the enemies
+

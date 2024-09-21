@@ -40,13 +40,13 @@ namespace Dungeon.src.MapClass
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, bool finished)
+        public void Draw(SpriteBatch spriteBatch, bool finished, Texture2D texture)
         {
 
             switch (id.Item1)
             {
                 case 0:
-                    spriteBatch.DrawRectangle(this.hitbox, Color.White);
+                    spriteBatch.Draw(texture, this.hitbox, Color.White);
                     break;
                 case 1:
                     spriteBatch.FillRectangle(this.hitbox, Color.White);
@@ -61,11 +61,16 @@ namespace Dungeon.src.MapClass
                         door.Draw(spriteBatch);
                     }
                     break;
+                case 3:
+                    spriteBatch.Draw(texture, this.hitbox, Color.White);
+                    break;
                 case 4:
                     if (finished)
                     {
                         holder.Draw(spriteBatch);
                     }
+                    spriteBatch.Draw(texture, this.hitbox, Color.White);
+
                     break;
 
                 default:

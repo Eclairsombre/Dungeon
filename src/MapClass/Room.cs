@@ -81,6 +81,8 @@ public class Room
 
     public Drop[] dropsList;
 
+    Texture2D sol;
+
     public Room()
     {
         this.x = 0;
@@ -100,6 +102,10 @@ public class Room
         {
             fileContent = reader.ReadToEnd();
         }
+
+        sol = content.Load<Texture2D>("Sol");
+
+
     }
 
     public void Update(Vector2 playerPosition, GameTime gameTime)
@@ -189,7 +195,7 @@ public class Room
         {
             for (int j = 0; j < 14; j++)
             {
-                tiles[i, j].Draw(spriteBatch, finished);
+                tiles[i, j].Draw(spriteBatch, finished, sol);
             }
         }
 
