@@ -1,5 +1,3 @@
-using System.Data;
-using Dungeon.src.PlayerClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;

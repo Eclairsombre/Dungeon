@@ -1,27 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
-using Dungeon.src.PlayerClass;
-using System.IO;
+
 namespace Dungeon.src.DropClass
 {
     public class Drop(int x, int y, int height, int width)
     {
-        public int x = x, y = y, height = height, width = width;
+        private int x = x;
+        private int y = y;
+        private readonly int height = height;
+        private readonly int width = width;
+        protected Color color;
 
-        public Color color = Color.White;
+        private Rectangle hitbox = new(x, y, width, height);
 
-        public Rectangle hitbox = new Rectangle(x, y, width, height);
+        public int X { get { return x; } set { x = value; } }
+        public int Y { get { return y; } set { y = value; } }
+
+
 
         public bool IsColliding(Rectangle player)
         {
-            if (player.Intersects(new Rectangle(x, y, width, height)))
+            if (player.Intersects(hitbox))
             {
                 return true;
             }

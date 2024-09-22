@@ -14,26 +14,19 @@ using Dungeon.src.DropClass;
 namespace Dungeon.src.MapClass;
 
 
-public struct TileType
+public struct TileType(int firstValue, int secondValue, int thirdValue)
 {
-    public int FirstValue;
-    public int SecondValue;
-    public int ThirdValue;
-
-    public TileType(int firstValue, int secondValue, int thirdValue)
-    {
-        FirstValue = firstValue;
-        SecondValue = secondValue;
-        ThirdValue = thirdValue;
-    }
+    public int FirstValue = firstValue;
+    public int SecondValue = secondValue;
+    public int ThirdValue = thirdValue;
 }
 public static class TileTypes
 {
-    public static readonly TileType Floor = new TileType(0, 0, 0);
-    public static readonly TileType Wall = new TileType(1, 0, 0);
-    public static readonly TileType Door = new TileType(2, 0, 0);
+    public static readonly TileType Floor = new(0, 0, 0);
+    public static readonly TileType Wall = new(1, 0, 0);
+    public static readonly TileType Door = new(2, 0, 0);
 
-    public static readonly TileType Holder = new TileType(4, 0, 0);
+    public static readonly TileType Holder = new(4, 0, 0);
 
     public static TileType GetTileType(T tilesType)
     {
@@ -67,45 +60,44 @@ public enum T
 
 public class Room
 {
-    public int x, y, width, height, nbDoors;
+    private int x, y, width, height, nbDoors;
 
-    public Tiles[,] tiles = new Tiles[26, 14];
+    private Tiles[,] tiles = new Tiles[26, 14];
 
-    public bool finished = false;
+    private bool finished = false;
 
-    Random random = new Random();
+    readonly Random random = new();
 
-    string fileContent;
+    private string fileContent;
 
-    public List<Enemy> enemies;
+    private List<Enemy> enemies;
 
-    public Drop[] dropsList;
+    private Drop[] dropsList;
 
-    Texture2D sol;
+    private Texture2D[] texture2Ds;
+
+    public Tiles[,] Tiles { get { return tiles; } set { tiles = value; } }
+    public List<Enemy> Enemies { get { return enemies; } set { enemies = value; } }
+    public Drop[] DropsList { get { return dropsList; } set { dropsList = value; } }
+    public bool Finished { get { return finished; } set { finished = value; } }
 
     public Room()
     {
-        this.x = 0;
-        this.y = 0;
-        this.width = 52;
-        this.height = 30;
-
-        this.dropsList = new Drop[0];
-
+        x = 0;
+        y = 0;
+        width = 52;
+        height = 30;
+        dropsList = [];
     }
 
     public void LoadContent(ContentManager content, int room)
     {
-        // Load the file content using the ContentManager
         using (var stream = TitleContainer.OpenStream("Content/RoomPatern/Room" + room + ".txt"))
         using (var reader = new StreamReader(stream))
         {
             fileContent = reader.ReadToEnd();
         }
-
-        sol = content.Load<Texture2D>("Sol");
-
-
+        texture2Ds[0] = content.Load<Texture2D>("Sol");
     }
 
     public void Update(Vector2 playerPosition, GameTime gameTime)
@@ -114,18 +106,18 @@ public class Room
         {
             enemies[i].Update(playerPosition, this, gameTime);
 
-            if (enemies[i].hp <= 0)
+            if (enemies[i].Hp <= 0)
             {
-                Drop[] newDropsList = new Drop[dropsList.Length + enemies[i].loot.Length];
+                Drop[] newDropsList = new Drop[dropsList.Length + enemies[i].Loot.Length];
                 for (int j = 0; j < dropsList.Length; j++)
                 {
                     newDropsList[j] = dropsList[j];
                 }
-                for (int j = 0; j < enemies[i].loot.Length; j++)
+                for (int j = 0; j < enemies[i].Loot.Length; j++)
                 {
-                    enemies[i].loot[j].x = (int)enemies[i].Position.X;
-                    enemies[i].loot[j].y = (int)enemies[i].Position.Y;
-                    newDropsList[j + dropsList.Length] = enemies[i].loot[j];
+                    enemies[i].Loot[j].X = (int)enemies[i].Position.X;
+                    enemies[i].Loot[j].Y = (int)enemies[i].Position.Y;
+                    newDropsList[j + dropsList.Length] = enemies[i].Loot[j];
                 }
                 dropsList = newDropsList;
                 enemies = enemies.Where((e, index) => index != i).ToList();
@@ -145,7 +137,7 @@ public class Room
     {
         string[] lines = fileContent.Split('\n');
 
-        this.enemies = new List<Enemy>();
+        enemies = [];
         for (int i = 0; i < 14; i++)
         {
             string[] tileValues = lines[i].Split(' ');
@@ -159,8 +151,10 @@ public class Room
 
                 if (secondValue == 2)
                 {
-                    Enemy enemy = new Enemy();
-                    enemy.Position = new Vector2(j * 70 + 40, i * 70 + 40);
+                    Enemy enemy = new()
+                    {
+                        Position = new Vector2(j * 70 + 40, i * 70 + 40)
+                    };
                     if (thirdValue == 1)
                     {
                         enemy.Direction = new Vector2(1, 0);
@@ -177,10 +171,10 @@ public class Room
                     {
                         enemy.Direction = new Vector2(0, 1);
                     }
-                    this.enemies.Add(enemy);
+                    enemies.Add(enemy);
 
                 }
-                Tuple<int, int> tile = new Tuple<int, int>(firstValue, secondValue);
+                Tuple<int, int> tile = new(firstValue, secondValue);
                 tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70);
             }
         }
@@ -190,20 +184,17 @@ public class Room
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.DrawRectangle(new Rectangle(x * 32 + 40, y * 32 + 40, width * 35, height * 32 + 20), Color.Black);
-
         for (int i = 0; i < 26; i++)
         {
             for (int j = 0; j < 14; j++)
             {
-                tiles[i, j].Draw(spriteBatch, finished, sol);
+                tiles[i, j].Draw(spriteBatch, finished, texture2Ds);
             }
         }
-
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].Draw(spriteBatch);
         }
-
         for (int i = 0; i < dropsList.Length; i++)
         {
             dropsList[i].Draw(spriteBatch);

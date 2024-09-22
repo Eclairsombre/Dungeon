@@ -6,18 +6,12 @@ using MonoGame.Extended;
 using MonoGame.Extended.Shapes;
 namespace Dungeon.src.MapClass;
 
-public class Door
+public class Door(int x, int y, int width, int height)
 {
+    private Rectangle hitbox = new(x, y, width, height);
 
+    public Rectangle Hitbox { get { return hitbox; } }
 
-    public Rectangle hitbox;
-    public Door(int x, int y, int width, int height)
-    {
-
-
-        hitbox = new Rectangle(x, y, width, height);
-
-    }
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.FillRectangle(hitbox, Color.Red);

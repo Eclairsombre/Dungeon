@@ -13,19 +13,15 @@ public class Map
 {
 
 
-    private Random random = new Random();
+    private readonly Random random = new();
 
-    public Room room;
+    private Room room;
 
 
-    public int screenWidth;
-    public int screenHeight;
+    public Room ActualRoom { get { return room; } set { room = value; } }
 
     public Map()
     {
-        screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-        screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-
     }
 
     public void GenerateDungeon(ContentManager content)
@@ -33,7 +29,6 @@ public class Map
         room = new Room();
         room.LoadContent(content, 1);
         room.Generate();
-
     }
 
     public void Update(Vector2 playerPosition, GameTime gameTime)

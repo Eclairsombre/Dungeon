@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Microsoft.Xna.Framework;
@@ -8,19 +7,17 @@ using MonoGame.Extended;
 
 namespace Dungeon.src.PlayerClass
 {
-    public class Weapon
+    public class Weapon(Vector2 position)
     {
-        public int damage = 1;
-        public int range = 10;
-        //TODO : Fix range hitbox
-        public Vector2 Position;
+        protected int damage = 1;
+        protected int range = 10;
+        protected Vector2 position = position;
+        protected int width, height;
 
-        public int width, height;
+        public int Damage { get { return damage; } set { damage = value; } }
+        public int Range { get { return range; } set { range = value; } }
+        public Vector2 Position { get { return position; } set { position = value; } }
 
-        public Weapon(Vector2 position)
-        {
-            this.Position = position;
-        }
 
         public void Update(Player player, Vector2 direction, List<Enemy> enemies)
         {
@@ -28,30 +25,30 @@ namespace Dungeon.src.PlayerClass
             {
                 case Vector2 v when v == new Vector2(1, 0):
                     //Console.WriteLine("Right");
-                    this.width = (int)(player.spriteWidth * player.scale);
-                    this.height = range;
-                    Position = new Vector2((int)player.Position.X + player.spriteWidth * player.scale, (int)player.Position.Y + 5);
+                    width = (int)(player.SpriteWidth * player.Scale);
+                    height = range;
+                    Position = new Vector2((int)player.Position.X + player.SpriteWidth * player.Scale, (int)player.Position.Y + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(-1, 0):
                     //Console.WriteLine("Left");
-                    this.width = (int)(player.spriteWidth * player.scale);
-                    this.height = range;
-                    Position = new Vector2((int)player.Position.X - this.range + 5, (int)player.Position.Y + 5);
+                    width = (int)(player.SpriteWidth * player.Scale);
+                    height = range;
+                    Position = new Vector2((int)player.Position.X - range + 5, (int)player.Position.Y + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(0, 1):
                     //Console.WriteLine("up");
-                    this.width = range;
-                    this.height = (int)(player.spriteWidth * player.scale) - 5;
-                    Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y - this.range + 5);
+                    width = range;
+                    height = (int)(player.SpriteWidth * player.Scale) - 5;
+                    Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y - range + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(0, -1):
                     //Console.WriteLine("Down");
-                    this.width = range;
-                    this.height = (int)(player.spriteWidth * player.scale) - 5; ;
-                    Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y + player.spriteHeight * player.scale - 5);
+                    width = range;
+                    height = (int)(player.SpriteWidth * player.Scale) - 5; ;
+                    Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y + player.SpriteHeight * player.Scale - 5);
 
                     break;
             }
@@ -65,15 +62,14 @@ namespace Dungeon.src.PlayerClass
 
         public void Attack(List<Enemy> enemies)
         {
-            Rectangle hitbox = new Rectangle((int)Position.X, (int)Position.Y, 50, 50);
+            Rectangle hitbox = new((int)Position.X, (int)Position.Y, 50, 50);
             foreach (var enemy in enemies)
             {
-                if (hitbox.Intersects(enemy.hitbox))
+                if (hitbox.Intersects(enemy.Hitbox))
                 {
-                    enemy.hp -= damage;
+                    enemy.Hp -= damage;
                 }
             }
-
         }
 
         public void SetRange(int newRange)

@@ -4,29 +4,25 @@ using Microsoft.Xna.Framework.Input;
 using Dungeon.src.MapClass;
 using Dungeon.src.PlayerClass;
 using Dungeon.src.InterfaceClass;
-namespace Dungeon;
+
+namespace Dungeon.src;
 
 public class Game1 : Game
 {
-    private GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    private int screenWidth;
-    private int screenHeight;
 
-    Player player;
-    Map map;
 
-    Interface gameInterface;
+    private Player player;
+    private Map map;
+
+    private Interface gameInterface;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-
-        screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-        screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         _graphics.ApplyChanges();
@@ -34,7 +30,6 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
         player = new Player(_graphics.GraphicsDevice);
         map = new Map();
         gameInterface = new Interface();
@@ -47,7 +42,6 @@ public class Game1 : Game
         player.LoadContent(Content);
         map.GenerateDungeon(Content);
 
-        // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
@@ -55,20 +49,15 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
-        player.Update(gameTime, map, screenWidth, screenHeight, Content, _spriteBatch);
-        map.Update(player.centerPosition, gameTime);
+        player.Update(gameTime, map, Content);
+        map.Update(player.CenterPosition, gameTime);
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
-
-
         _spriteBatch.Begin();
-
-
 
         map.Draw(_spriteBatch);
         player.Draw(_spriteBatch);

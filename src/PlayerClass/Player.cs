@@ -17,63 +17,53 @@ namespace Dungeon.src.PlayerClass
         private const float DefaultSpeed = 10.0f;
         private const int Deadzone = 4096;
 
-        public Vector2 Position;
-        public Vector2 centerPosition;
+        private Vector2 position, centerPosition, startPosition, direction;
+        private float speed, scale;
 
-        public Vector2 StartPosition;
-        public float Speed;
+        private readonly Texture2D[] spriteSheetNoMove = new Texture2D[3];
+        private readonly Texture2D hitboxTexture;
+        private int currentSpriteSheet;
+        private SpriteEffects spriteEffect = SpriteEffects.None;
 
-        private Texture2D[] spriteSheetNoMove = new Texture2D[3];
-        private int currentSpriteSheet = 0;
-        public int spriteWidth;
-        public int spriteHeight;
+        private int spriteWidth, spriteHeight;
+        private Rectangle hitbox;
 
-        public float scale;
+        private Weapon weapon;
+        private Vector2 weaponPosition;
 
-        public Rectangle hitbox;
+        private bool attack;
+        private int level = 1, xp = 0;
 
-        private Texture2D hitboxTexture;
+        private int nbHeart = 3, xpToLevelUp = 100, invincibilityTime = 0;
 
-        public SpriteEffects spriteEffect = SpriteEffects.None;
+        public int Level { get { return level; } set { level = value; } }
+        public int Xp { get { return xp; } set { xp = value; } }
+        public int NbHeart { get { return nbHeart; } set { nbHeart = value; } }
+        public int XpToLevelUp { get { return xpToLevelUp; } set { xpToLevelUp = value; } }
 
-        public Vector2 direction;
-
-        public Weapon weapon;
-        public Vector2 weaponPosition;
-
-        public bool attack;
-
-        public int xp = 0;
-        public int level = 1;
-
-        public int nbHeart = 3;
+        public int SpriteWidth { get { return spriteWidth; } set { spriteWidth = value; } }
+        public int SpriteHeight { get { return spriteHeight; } set { spriteHeight = value; } }
+        public int Scale { get { return (int)scale; } set { scale = value; } }
+        public Vector2 Position { get { return position; } set { position = value; } }
+        public Vector2 CenterPosition { get { return centerPosition; } set { centerPosition = value; } }
 
 
-        public int xpToLevelUp = 100;
-
-        public int invincibilityTime = 0;
 
 
         public Player(GraphicsDevice graphicsDevice)
         {
             int screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 40;
             int screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 40;
-            Position = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
-            StartPosition = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
-            Speed = DefaultSpeed;
+            position = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
+            startPosition = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
+            speed = DefaultSpeed;
             scale = DefaultScale;
-
-            centerPosition = new Vector2((Position.X + spriteWidth) * scale / 2, (Position.Y + spriteHeight) * scale / 2);
-
-
+            centerPosition = new Vector2((position.X + spriteWidth) * scale / 2, (position.Y + spriteHeight) * scale / 2);
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
-
-            this.direction = new Vector2(0, 1);
-
-            weapon = new Sword(Position);
-            Console.WriteLine(weapon.range);
-
+            direction = new Vector2(0, 1);
+            weapon = new Sword(position);
+            Console.WriteLine(weapon.Range);
             attack = false;
         }
 
@@ -84,8 +74,6 @@ namespace Dungeon.src.PlayerClass
             spriteSheetNoMove[2] = content.Load<Texture2D>("PlayerNoMoveBack");
             spriteWidth = spriteSheetNoMove[0].Width;
             spriteHeight = spriteSheetNoMove[0].Height;
-
-            // Appliquer un filtre de texture pour améliorer la qualité
             foreach (var texture in spriteSheetNoMove)
             {
                 texture.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
@@ -96,14 +84,14 @@ namespace Dungeon.src.PlayerClass
 
         public bool CheckCollisionWithRoom(Room room)
         {
-            for (int i = 0; i < room.tiles.GetLength(0); i++)
+            for (int i = 0; i < room.Tiles.GetLength(0); i++)
             {
-                for (int y = 0; y < room.tiles.GetLength(1); y++)
+                for (int y = 0; y < room.Tiles.GetLength(1); y++)
                 {
-                    if (room.tiles[i, y].id.Item1 == 1)
+                    if (room.Tiles[i, y].Id.Item1 == 1)
                     {
 
-                        if (CheckCollision(room.tiles[i, y].hitbox))
+                        if (CheckCollision(room.Tiles[i, y].Hitbox))
                         {
                             return true;
                         }
@@ -132,34 +120,32 @@ namespace Dungeon.src.PlayerClass
 
         public bool CheckCollisionWithDoor(Room room)
         {
-            if (room.finished)
+            if (room.Finished)
             {
                 Rectangle playerHitbox = GetHitbox();
-                Door door1 = room.tiles[10, 0].door;
-                Door door2 = room.tiles[14, 0].door;
+                Door door1 = room.Tiles[10, 0].Door;
+                Door door2 = room.Tiles[14, 0].Door;
                 if (door1 != null)
                 {
-                    if (playerHitbox.Intersects(door1.hitbox))
+                    if (playerHitbox.Intersects(door1.Hitbox))
                     {
                         return true;
                     }
                 }
                 if (door2 != null)
                 {
-                    if (playerHitbox.Intersects(door2.hitbox))
+                    if (playerHitbox.Intersects(door2.Hitbox))
                     {
                         return true;
                     }
                 }
 
             }
-
-
             return false;
         }
 
 
-        public void Update(GameTime gameTime, Map map, int screenWidth, int screenHeight, ContentManager content, SpriteBatch spriteBatch)
+        public void Update(GameTime gameTime, Map map, ContentManager content)
         {
             var keyboardState = Keyboard.GetState();
 
@@ -170,97 +156,95 @@ namespace Dungeon.src.PlayerClass
                 invincibilityTime -= (int)(deltaTime * 1000);
             }
 
-            Rectangle roomHitbox = new Rectangle(40, 40, 52 * 35, 30 * 32 + 20);
+            Rectangle roomHitbox = new(40, 40, 52 * 35, 30 * 32 + 20);
 
-            Vector2 previousPosition = Position;
+            Vector2 previousPosition = position;
 
             if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
             {
-                Position.Y -= Speed;
+                position.Y -= speed;
                 currentSpriteSheet = 2;
                 spriteEffect = SpriteEffects.None;
-                this.direction = new Vector2(0, 1);
+                direction = new Vector2(0, 1);
             }
             if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
             {
-                Position.Y += Speed;
+                position.Y += speed;
                 currentSpriteSheet = 0;
                 spriteEffect = SpriteEffects.None;
-                this.direction = new Vector2(0, -1);
+                direction = new Vector2(0, -1);
             }
             if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
             {
-                Position.X -= Speed;
+                position.X -= speed;
                 currentSpriteSheet = 1;
                 spriteEffect = SpriteEffects.None;
-                this.direction = new Vector2(-1, 0);
+                direction = new Vector2(-1, 0);
             }
             if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
             {
-                Position.X += Speed;
+                position.X += speed;
                 currentSpriteSheet = 1;
                 spriteEffect = SpriteEffects.FlipHorizontally;
-                this.direction = new Vector2(1, 0);
+                direction = new Vector2(1, 0);
             }
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 attack = true;
-                weapon.Update(this, direction, map.room.enemies);
+                weapon.Update(this, direction, map.ActualRoom.Enemies);
             }
             if (Mouse.GetState().LeftButton == ButtonState.Released)
             {
                 attack = false;
             }
 
-            // Gestion du joystick
             JoystickState jstate = Joystick.GetState((int)PlayerIndex.One);
-            float updatedPlayerSpeed = Speed;
 
             if (jstate.IsConnected)
             {
                 if (jstate.Axes[1] < -Deadzone)
                 {
-                    Position.Y -= updatedPlayerSpeed;
+                    position.Y -= speed;
                 }
                 else if (jstate.Axes[1] > Deadzone)
                 {
-                    Position.Y += updatedPlayerSpeed;
+                    position.Y += speed;
                 }
 
                 if (jstate.Axes[0] < -Deadzone)
                 {
-                    Position.X -= updatedPlayerSpeed;
+                    position.X -= speed;
                 }
                 else if (jstate.Axes[0] > Deadzone)
                 {
-                    Position.X += updatedPlayerSpeed;
+                    position.X += speed;
                 }
             }
 
-            if (CheckCollisionWithDoor(map.room))
+            if (CheckCollisionWithDoor(map.ActualRoom))
             {
-                map.room = new Room();
-                Random random = new Random();
+                map.ActualRoom = new Room();
+                Random random = new();
                 int roomNumber = random.Next(2, 5);
                 Console.WriteLine(roomNumber);
-                map.room.LoadContent(content, roomNumber);
-                map.room.Generate();
-                Position = StartPosition;
+                map.ActualRoom.LoadContent(content, roomNumber);
+                map.ActualRoom.Generate();
+                position = startPosition;
             }
 
-            if (CheckCollisionWithRoom(map.room))
+            if (CheckCollisionWithRoom(map.ActualRoom))
             {
-                Position = previousPosition;
+                position = previousPosition;
             }
 
-            for (int i = 0; i < map.room.dropsList.Length; i++)
+            for (int i = 0; i < map.ActualRoom.DropsList.Length; i++)
             {
 
-                if (map.room.dropsList[i].IsColliding(this.hitbox))
+                if (map.ActualRoom.DropsList[i].IsColliding(hitbox))
                 {
-                    if (map.room.dropsList[i] is XpDrop xpDrop)
+                    if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
                     {
-                        xp += xpDrop.xp;
+                        xp += xpDrop.Xp;
                         if (xp >= xpToLevelUp)
                         {
                             xp -= xpToLevelUp;
@@ -268,14 +252,14 @@ namespace Dungeon.src.PlayerClass
                             xpToLevelUp = (int)(xpToLevelUp * 1.2);
                         }
                     }
-                    map.room.dropsList = map.room.dropsList.Where((drop, index) => index != i).ToArray();
+                    map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
                 }
             }
             if (invincibilityTime <= 0)
             {
-                foreach (Enemy enemy in map.room.enemies)
+                foreach (Enemy enemy in map.ActualRoom.Enemies)
                 {
-                    if (CheckCollision(enemy.hitbox))
+                    if (CheckCollision(enemy.Hitbox))
                     {
                         nbHeart--;
                         invincibilityTime = 3000;
@@ -284,39 +268,35 @@ namespace Dungeon.src.PlayerClass
                 }
             }
 
-            this.centerPosition = new Vector2(Position.X + spriteWidth * scale / 2, Position.Y + spriteHeight * scale / 2);
-            weapon.Update(this, direction, map.room.enemies);
+            centerPosition = new Vector2(position.X + spriteWidth * scale / 2, position.Y + spriteHeight * scale / 2);
+            weapon.Update(this, direction, map.ActualRoom.Enemies);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle sourceRectangle = new Rectangle(0, 0, spriteWidth, spriteHeight);
-            spriteBatch.Draw(spriteSheetNoMove[currentSpriteSheet], Position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, spriteEffect, 0f);
+            Rectangle sourceRectangle = new(0, 0, spriteWidth, spriteHeight);
+            spriteBatch.Draw(spriteSheetNoMove[currentSpriteSheet], position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, spriteEffect, 0f);
 
-            hitbox = new Rectangle((int)Position.X + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
+            hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
             DrawRectangle(spriteBatch, hitbox, Color.Red);
             if (attack)
             {
                 weapon.Draw(spriteBatch);
 
             }
-
-
-
-
         }
 
         public Rectangle GetHitbox()
         {
-            return new Rectangle((int)(Position.X) + 5, (int)Position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
+            return new Rectangle((int)position.X + 5, (int)position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
         }
 
         private void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color)
         {
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color); // Haut
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color); // Bas
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color); // Gauche
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right, rectangle.Top, 1, rectangle.Height), color); // Droite
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right, rectangle.Top, 1, rectangle.Height), color);
         }
     }
 }
