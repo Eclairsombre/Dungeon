@@ -29,7 +29,6 @@ namespace Dungeon.src.PlayerClass
         private Rectangle hitbox;
 
         private Weapon weapon;
-        private Vector2 weaponPosition;
 
         private bool attack;
         private int level = 1, xp = 0;
@@ -63,7 +62,6 @@ namespace Dungeon.src.PlayerClass
             hitboxTexture.SetData(new[] { Color.White });
             direction = new Vector2(0, 1);
             weapon = new Sword(position);
-            Console.WriteLine(weapon.Range);
             attack = false;
         }
 
@@ -226,7 +224,6 @@ namespace Dungeon.src.PlayerClass
                 map.ActualRoom = new Room();
                 Random random = new();
                 int roomNumber = random.Next(2, 5);
-                Console.WriteLine(roomNumber);
                 map.ActualRoom.LoadContent(content, roomNumber);
                 map.ActualRoom.Generate();
                 position = startPosition;
@@ -242,8 +239,10 @@ namespace Dungeon.src.PlayerClass
 
                 if (map.ActualRoom.DropsList[i].IsColliding(hitbox))
                 {
+                    Console.WriteLine("Drop");
                     if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
                     {
+                        Console.WriteLine("Xp");
                         xp += xpDrop.Xp;
                         if (xp >= xpToLevelUp)
                         {

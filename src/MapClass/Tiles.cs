@@ -9,8 +9,6 @@ namespace Dungeon.src.MapClass
     public class Tiles
     {
         private Tuple<int, int> id;
-        private int x, y, width, height;
-
         private Rectangle hitbox;
 
         private Door door = null;

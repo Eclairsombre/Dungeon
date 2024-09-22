@@ -60,7 +60,7 @@ public enum T
 
 public class Room
 {
-    private int x, y, width, height, nbDoors;
+    private int x, y, width, height;
 
     private Tiles[,] tiles = new Tiles[26, 14];
 
@@ -97,11 +97,13 @@ public class Room
         {
             fileContent = reader.ReadToEnd();
         }
+        texture2Ds = new Texture2D[1];
         texture2Ds[0] = content.Load<Texture2D>("Sol");
     }
 
     public void Update(Vector2 playerPosition, GameTime gameTime)
     {
+
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].Update(playerPosition, this, gameTime);
@@ -115,8 +117,10 @@ public class Room
                 }
                 for (int j = 0; j < enemies[i].Loot.Length; j++)
                 {
-                    enemies[i].Loot[j].X = (int)enemies[i].Position.X;
-                    enemies[i].Loot[j].Y = (int)enemies[i].Position.Y;
+
+                    Rectangle hitbox = new((int)enemies[i].Position.X, (int)enemies[i].Position.Y, enemies[i].Loot[j].Height, enemies[i].Loot[j].Width);
+                    enemies[i].Loot[j].Hitbox = hitbox;
+
                     newDropsList[j + dropsList.Length] = enemies[i].Loot[j];
                 }
                 dropsList = newDropsList;

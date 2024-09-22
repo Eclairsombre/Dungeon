@@ -37,7 +37,7 @@ namespace Dungeon.src.EnemyClass
         {
             width = 50;
             height = 50;
-            Position = new Vector2(300, 200);
+            Position = new Vector2();
             Direction = new Vector2(1, 0);
             hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
             loot[0] = new XpDrop((int)Position.X, (int)Position.Y, 10, 10, xp);

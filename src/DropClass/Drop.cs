@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -8,19 +9,23 @@ namespace Dungeon.src.DropClass
     {
         private int x = x;
         private int y = y;
-        private readonly int height = height;
-        private readonly int width = width;
+        private int height = height;
+        private int width = width;
         protected Color color;
 
         private Rectangle hitbox = new(x, y, width, height);
 
         public int X { get { return x; } set { x = value; } }
         public int Y { get { return y; } set { y = value; } }
+        public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
+        public int Height { get { return height; } set { height = value; } }
+        public int Width { get { return width; } set { width = value; } }
 
 
 
         public bool IsColliding(Rectangle player)
         {
+        
             if (player.Intersects(hitbox))
             {
                 return true;
@@ -32,12 +37,12 @@ namespace Dungeon.src.DropClass
         {
             if (texture == null)
             {
-                spriteBatch.FillRectangle(new Rectangle(x, y, width, height), color);
+                spriteBatch.FillRectangle(hitbox, color);
                 return;
             }
             else
             {
-                spriteBatch.Draw(texture, new Rectangle(x, y, width, height), Color.White);
+                spriteBatch.Draw(texture, hitbox, Color.White);
             }
         }
 

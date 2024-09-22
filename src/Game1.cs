@@ -5,7 +5,7 @@ using Dungeon.src.MapClass;
 using Dungeon.src.PlayerClass;
 using Dungeon.src.InterfaceClass;
 
-namespace Dungeon.src;
+namespace Dungeon;
 
 public class Game1 : Game
 {
