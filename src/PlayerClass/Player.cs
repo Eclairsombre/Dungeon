@@ -239,16 +239,14 @@ namespace Dungeon.src.PlayerClass
 
                 if (map.ActualRoom.DropsList[i].IsColliding(hitbox))
                 {
-                    Console.WriteLine("Drop");
                     if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
                     {
-                        Console.WriteLine("Xp");
                         xp += xpDrop.Xp;
                         if (xp >= xpToLevelUp)
                         {
                             xp -= xpToLevelUp;
                             level++;
-                            xpToLevelUp = (int)(xpToLevelUp * 1.2);
+                            xpToLevelUp = (int)(xpToLevelUp * 1.1);
                         }
                     }
                     map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
