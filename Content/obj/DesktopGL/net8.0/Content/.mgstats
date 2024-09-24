@@ -1,1 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveBack.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveBack.xnb","TextureProcessor","Texture2DContent",1218,2085,0,176381
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveFront.xnb","TextureProcessor","Texture2DContent",1227,2773,0,0106881
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveLeft.xnb","TextureProcessor","Texture2DContent",637,2785,0,0053208
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sol.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/Sol.xnb","TextureProcessor","Texture2DContent",482,19685,0,0040749

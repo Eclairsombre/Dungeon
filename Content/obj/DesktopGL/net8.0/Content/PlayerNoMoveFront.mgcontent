@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png</SourceFile>
-  <SourceTime>2024-09-08T21:04:33.2584327+02:00</SourceTime>
+  <SourceTime>2024-09-09T12:02:12.8751702+01:00</SourceTime>
   <DestFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveFront.xnb</DestFile>
-  <DestTime>2024-09-21T23:25:50.2188364+02:00</DestTime>
+  <DestTime>2024-09-23T06:56:42.6814537+01:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
+  <ImporterTime>2024-08-16T18:05:56+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2024-08-16T19:05:56+02:00</ProcessorTime>
+  <ProcessorTime>2024-08-16T18:05:56+01:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>
