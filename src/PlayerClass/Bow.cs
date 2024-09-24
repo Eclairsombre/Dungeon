@@ -45,6 +45,7 @@ namespace Dungeon.src.PlayerClass
         public void Update(GameTime gameTime, List<Enemy> enemies, Vector2 position, Tiles[,] tiles)
         {
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             this.Position = position;
 
             List<Arrow> arrowsToRemove = [];

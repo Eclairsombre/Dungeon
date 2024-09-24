@@ -2,7 +2,7 @@ TODO :
 
 - Add Weapon Holder and switch weapon on holder capacity
 - Fix enemy deplacement
-- Add distance weapon
+- DONE : Add distance weapon
 - Add new enemy
 - Add stat upgrade when level up
 - Add menu
