@@ -74,14 +74,15 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.Black);
+        GraphicsDevice.Clear(Color.White);
         _spriteBatch.Begin();
 
         //map.Draw(_spriteBatch);
         //player.Draw(_spriteBatch);
         //gameInterface.Draw(_spriteBatch, player);
+        float scale = animation.GetScale();
+        _spriteBatch.Draw(animation.texture, new Vector2(100, 100), sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-        _spriteBatch.Draw(animation.texture, new Vector2(100, 100), sourceRectangle, Color.White);
 
         _spriteBatch.End();
 

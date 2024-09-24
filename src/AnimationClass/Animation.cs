@@ -11,42 +11,46 @@ namespace Dungeon.src
 
     public delegate void AnimationCallback(Vector2 position, Vector2 size);
 
-    public class Animation
+    public class Animation(string fileName, AnimationCallback callback, int timeline = 0, int offset = 0)
     {
-        private string fileName;
-        private AnimationCallback callback;
-        private int timeline;
-        private int offset;
-
+        private string fileName = fileName;
+        private AnimationCallback callback = callback;
+        private int offset = offset;
         private bool paused = false;
-        private List<int> framePerTimeLine = new List<int>();
-        private List<int> linkToAnotherTimeLine = new List<int>();
-        private List<int> timelineFrameTime = new List<int>();
+        private List<int> framePerTimeLine = [];
+        private List<int> linkToAnotherTimeLine = [];
+        private List<int> timelineFrameTime = [];
         private Vector2 size;
         private int nbTimeline = 0;
         private int currentFrame = 0;
-        private int currentTime;
-        private int currentTimeline;
+        private float currentTime = offset;
+        private int currentTimeline = timeline;
         private int totalAnimationTime = 0;
 
         private double deltaTime = 0;
 
         public Texture2D texture;
 
+        private float scale = 3.0f;
 
-        public Animation(String fileName, AnimationCallback callback, int timeline = 0, int offset = 0)
+        public void SetScale(float newScale)
         {
-            this.fileName = fileName;
-            this.callback = callback;
-            this.timeline = timeline;
-            this.offset = offset;
+            scale = newScale;
+        }
 
+        public float GetScale()
+        {
+            return scale;
+        }
 
+        public void LoadContent(ContentManager content)
+        {
+            texture = content.Load<Texture2D>("Sprites/" + fileName);
 
-            if (File.Exists(fileName + ".txt"))
+            if (File.Exists(@"Content\SpriteData\" + fileName + ".txt"))
             {
-                String[] lines = File.ReadAllLines(fileName + ".txt");
-                String[] data = lines[0].Split(' ');
+                string[] lines = File.ReadAllLines(@"Content\SpriteData\" + fileName + ".txt");
+                string[] data = lines[0].Split(' ');
 
                 int width = int.Parse(data[0]);
                 int height = int.Parse(data[1]);
@@ -57,13 +61,18 @@ namespace Dungeon.src
                 for (int i = 2; i < lines.Length; i++)
                 {
                     data = lines[i].Split(' ');
-                    int nbFrame = int.Parse(data[1]);
-                    int link = int.Parse(data[2]);
-                    int timelineFrame = int.Parse(data[3]);
+                    if (data.Length >= 4 && int.TryParse(data[1], out int nbFrame) && int.TryParse(data[2], out int link) && int.TryParse(data[3], out int timelineFrame))
+                    {
+                        framePerTimeLine.Add(nbFrame);
+                        linkToAnotherTimeLine.Add(link);
+                        timelineFrameTime.Add(timelineFrame);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Invalid data format in line {i + 1}: {lines[i]}");
+                    }
 
-                    framePerTimeLine.Add(nbFrame);
-                    linkToAnotherTimeLine.Add(link);
-                    timelineFrameTime.Add(timelineFrame);
+
 
 
                 }
@@ -73,16 +82,7 @@ namespace Dungeon.src
                 totalAnimationTime = timelineFrameTime[currentTimeline] * framePerTimeLine[currentTimeline];
 
                 TriggerCallBack();
-
-
-
             }
-
-        }
-
-        public void LoadContent(ContentManager content)
-        {
-            texture = content.Load<Texture2D>(fileName);
         }
 
         public bool Paused()
@@ -131,12 +131,12 @@ namespace Dungeon.src
             {
                 return;
             }
-            currentTime = (int)(gameTime.ElapsedGameTime.TotalMilliseconds - deltaTime);
-            deltaTime = gameTime.ElapsedGameTime.TotalMilliseconds;
+            currentTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
 
             if (linkToAnotherTimeLine[currentTimeline] != -1 && currentTime >= totalAnimationTime)
             {
-                offset = currentTime % totalAnimationTime;
+                offset = (int)(currentTime % totalAnimationTime);
                 setTimeLine(linkToAnotherTimeLine[currentTimeline], false);
                 currentTime = offset;
                 currentFrame = -1;
@@ -146,7 +146,7 @@ namespace Dungeon.src
                 currentTime %= totalAnimationTime;
             }
 
-            int newFrame = currentTime / timelineFrameTime[currentTimeline];
+            int newFrame = (int)(currentTime / timelineFrameTime[currentTimeline]);
             if (newFrame != currentFrame)
             {
                 currentFrame = newFrame;
