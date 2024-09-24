@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Microsoft.Xna.Framework;
@@ -14,13 +15,18 @@ namespace Dungeon.src.PlayerClass
         protected Vector2 position = position;
         protected int width, height;
 
+        private const float attackCooldown = 0.5f; // Délai de 0.5 secondes entre les attaques
+        private float timeSinceLastAttack = 0f;
+
         public int Damage { get { return damage; } set { damage = value; } }
         public int Range { get { return range; } set { range = value; } }
         public Vector2 Position { get { return position; } set { position = value; } }
 
 
-        public void Update(Player player, Vector2 direction, List<Enemy> enemies)
+        public void Update(Player player, Vector2 direction, List<Enemy> enemies, GameTime gameTime)
         {
+            timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             switch (direction)
             {
                 case Vector2 v when v == new Vector2(1, 0):
@@ -62,13 +68,19 @@ namespace Dungeon.src.PlayerClass
 
         public void Attack(List<Enemy> enemies)
         {
-            Rectangle hitbox = new((int)Position.X, (int)Position.Y, 50, 50);
-            foreach (var enemy in enemies)
+            if (timeSinceLastAttack >= attackCooldown)
             {
-                if (hitbox.Intersects(enemy.Hitbox))
+                Rectangle hitbox = new((int)Position.X, (int)Position.Y, 50, 50);
+                foreach (var enemy in enemies)
                 {
-                    enemy.Hp -= damage;
+                    if (hitbox.Intersects(enemy.Hitbox))
+                    {
+                        enemy.Hp -= damage;
+                    }
                 }
+
+                // Réinitialiser le temps écoulé depuis la dernière attaque
+                timeSinceLastAttack = 0f;
             }
         }
 

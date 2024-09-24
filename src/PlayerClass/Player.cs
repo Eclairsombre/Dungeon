@@ -35,6 +35,8 @@ namespace Dungeon.src.PlayerClass
 
         private int nbHeart = 3, xpToLevelUp = 100, invincibilityTime = 0;
 
+
+
         public int Level { get { return level; } set { level = value; } }
         public int Xp { get { return xp; } set { xp = value; } }
         public int NbHeart { get { return nbHeart; } set { nbHeart = value; } }
@@ -189,12 +191,10 @@ namespace Dungeon.src.PlayerClass
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 attack = true;
-                weapon.Update(this, direction, map.ActualRoom.Enemies);
-            }
-            if (Mouse.GetState().LeftButton == ButtonState.Released)
-            {
+                weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
                 attack = false;
             }
+
 
             JoystickState jstate = Joystick.GetState((int)PlayerIndex.One);
 
@@ -252,6 +252,8 @@ namespace Dungeon.src.PlayerClass
                     map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
                 }
             }
+
+
             if (invincibilityTime <= 0)
             {
                 foreach (Enemy enemy in map.ActualRoom.Enemies)
@@ -266,7 +268,9 @@ namespace Dungeon.src.PlayerClass
             }
 
             centerPosition = new Vector2(position.X + spriteWidth * scale / 2, position.Y + spriteHeight * scale / 2);
-            weapon.Update(this, direction, map.ActualRoom.Enemies);
+            weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

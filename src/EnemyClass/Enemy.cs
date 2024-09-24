@@ -10,7 +10,7 @@ namespace Dungeon.src.EnemyClass
 {
     public class Enemy
     {
-        protected int hp = 1, damage = 1, speed = 3, xp = 10;
+        protected int hp = 3, damage = 1, speed = 3, xp = 10, maxHp = 3;
         protected Vector2 position;
         protected Vector2 direction;
         protected Vector2 line;
@@ -24,6 +24,8 @@ namespace Dungeon.src.EnemyClass
         protected float VisionRange { get; set; } = 500f;
         protected Drop[] loot = new Drop[1];
         protected Rectangle hitbox;
+
+        protected Rectangle healthBar;
         protected Vector2 lastPlayerPosition;
 
         public Rectangle Hitbox { get { return hitbox; } }
@@ -40,6 +42,7 @@ namespace Dungeon.src.EnemyClass
             Position = new Vector2();
             Direction = new Vector2(1, 0);
             hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
+            healthBar = new Rectangle((int)Position.X, (int)Position.Y - 10, width, 5);
             loot[0] = new XpDrop((int)Position.X, (int)Position.Y, 10, 10, xp);
         }
 
@@ -145,8 +148,17 @@ namespace Dungeon.src.EnemyClass
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle rect = new((int)position.X, (int)position.Y, width, height);
-            spriteBatch.FillRectangle(rect, Color.Blue);
+            spriteBatch.FillRectangle(hitbox, Color.Blue);
             DrawVision(spriteBatch);
+
+            Rectangle healthBarBackground = new Rectangle((int)position.X, (int)position.Y - 10, width, 5);
+            spriteBatch.FillRectangle(healthBarBackground, Color.Red);
+
+            float healthPercentage = (float)hp / maxHp;
+            int healthBarWidth = (int)(width * healthPercentage);
+
+            Rectangle healthBarForeground = new Rectangle((int)position.X, (int)position.Y - 10, healthBarWidth, 5);
+            spriteBatch.FillRectangle(healthBarForeground, Color.Green);
         }
 
         public void UpdateVision(Room room, Vector2 playerPosition)
