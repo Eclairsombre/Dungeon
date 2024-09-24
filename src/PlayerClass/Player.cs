@@ -30,7 +30,6 @@ namespace Dungeon.src.PlayerClass
 
         private Weapon weapon;
 
-        private bool attack;
         private int level = 1, xp = 0;
 
         private int nbHeart = 3, xpToLevelUp = 100, invincibilityTime = 0;
@@ -63,8 +62,7 @@ namespace Dungeon.src.PlayerClass
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
             direction = new Vector2(0, 1);
-            weapon = new Sword(position);
-            attack = false;
+            weapon = new Bow(position);
         }
 
         public void LoadContent(ContentManager content)
@@ -190,9 +188,14 @@ namespace Dungeon.src.PlayerClass
             }
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                attack = true;
-                weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
-                attack = false;
+                if (weapon is Bow b)
+                {
+                    b.Attack(direction, position);
+                }
+                else
+                {
+                    weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
+                }
             }
 
 
@@ -268,7 +271,14 @@ namespace Dungeon.src.PlayerClass
             }
 
             centerPosition = new Vector2(position.X + spriteWidth * scale / 2, position.Y + spriteHeight * scale / 2);
-            weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
+            if (weapon is Bow bow)
+            {
+                bow.Update(gameTime, map.ActualRoom.Enemies, position, map.ActualRoom.Tiles);
+            }
+            else
+            {
+                weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
+            }
 
 
         }
@@ -280,11 +290,11 @@ namespace Dungeon.src.PlayerClass
 
             hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
             DrawRectangle(spriteBatch, hitbox, Color.Red);
-            if (attack)
-            {
-                weapon.Draw(spriteBatch);
 
-            }
+            weapon.Draw(spriteBatch);
+
+
+
         }
 
         public Rectangle GetHitbox()

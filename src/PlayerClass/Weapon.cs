@@ -15,8 +15,10 @@ namespace Dungeon.src.PlayerClass
         protected Vector2 position = position;
         protected int width, height;
 
-        private const float attackCooldown = 0.5f; // Délai de 0.5 secondes entre les attaques
-        private float timeSinceLastAttack = 0f;
+        protected bool attacking = false;
+
+        protected float attackCooldown = 0.5f; // Délai de 0.5 secondes entre les attaques
+        protected float timeSinceLastAttack = 0f;
 
         public int Damage { get { return damage; } set { damage = value; } }
         public int Range { get { return range; } set { range = value; } }
@@ -61,26 +63,29 @@ namespace Dungeon.src.PlayerClass
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                Attack(enemies);
+                attacking = true;
+
+                Attack(enemies, direction);
+            }
+            if (Mouse.GetState().LeftButton == ButtonState.Released)
+            {
+                attacking = false;
             }
         }
 
 
-        public void Attack(List<Enemy> enemies)
+        public virtual void Attack(List<Enemy> enemies, Vector2 direction)
         {
             if (timeSinceLastAttack >= attackCooldown)
             {
-                Rectangle hitbox = new((int)Position.X, (int)Position.Y, 50, 50);
+                timeSinceLastAttack = 0f;
                 foreach (var enemy in enemies)
                 {
-                    if (hitbox.Intersects(enemy.Hitbox))
+                    if (enemy.Hitbox.Intersects(new Rectangle((int)position.X, (int)position.Y, width, height)))
                     {
-                        enemy.Hp -= damage;
+                        enemy.Hp -= Damage;
                     }
                 }
-
-                // Réinitialiser le temps écoulé depuis la dernière attaque
-                timeSinceLastAttack = 0f;
             }
         }
 
@@ -94,9 +99,12 @@ namespace Dungeon.src.PlayerClass
             damage = newDamage;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(new Rectangle((int)Position.X, (int)Position.Y, height, width), Color.Red);
+            if (attacking)
+            {
+                spriteBatch.FillRectangle(new Rectangle((int)position.X, (int)position.Y, width, height), Color.Red);
+            }
         }
 
     }
