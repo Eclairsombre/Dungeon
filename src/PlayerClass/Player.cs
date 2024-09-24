@@ -95,6 +95,13 @@ namespace Dungeon.src.PlayerClass
                             return true;
                         }
                     }
+                    else if (room.Tiles[i, y].Id.Item1 == 4)
+                    {
+                        if (CheckCollision(room.Tiles[i, y].Holder.Hitbox))
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
             return false;

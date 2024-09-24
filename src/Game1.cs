@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Dungeon.src.MapClass;
 using Dungeon.src.PlayerClass;
 using Dungeon.src.InterfaceClass;
+using Dungeon.src;
 
 namespace Dungeon;
 
@@ -17,7 +18,12 @@ public class Game1 : Game
     private Player player;
     private Map map;
 
+    private static Rectangle sourceRectangle;
+
+
     private Interface gameInterface;
+
+    private Animation animation;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -26,21 +32,26 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         _graphics.ApplyChanges();
+
+        animation = new Animation("testRegression", MyCallback, 0, 0);
     }
 
     protected override void Initialize()
     {
-        player = new Player(_graphics.GraphicsDevice);
-        map = new Map();
-        gameInterface = new Interface();
+        //player = new Player(_graphics.GraphicsDevice);
+        //map = new Map();
+        //gameInterface = new Interface();
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        player.LoadContent(Content);
-        map.GenerateDungeon(Content);
+        //player.LoadContent(Content);
+
+        //map.GenerateDungeon(Content);
+
+        animation.LoadContent(Content);
 
     }
 
@@ -49,9 +60,16 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        player.Update(gameTime, map, Content);
-        map.Update(player.CenterPosition, gameTime);
-        base.Update(gameTime);
+        animation.Update(gameTime);
+
+        //player.Update(gameTime, map, Content);
+        //map.Update(player.CenterPosition, gameTime);
+        //base.Update(gameTime);
+    }
+
+    static void MyCallback(Vector2 position, Vector2 size)
+    {
+        sourceRectangle = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
     }
 
     protected override void Draw(GameTime gameTime)
@@ -59,9 +77,11 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         _spriteBatch.Begin();
 
-        map.Draw(_spriteBatch);
-        player.Draw(_spriteBatch);
-        gameInterface.Draw(_spriteBatch, player);
+        //map.Draw(_spriteBatch);
+        //player.Draw(_spriteBatch);
+        //gameInterface.Draw(_spriteBatch, player);
+
+        _spriteBatch.Draw(animation.texture, new Vector2(100, 100), sourceRectangle, Color.White);
 
         _spriteBatch.End();
 

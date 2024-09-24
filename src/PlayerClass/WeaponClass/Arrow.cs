@@ -21,7 +21,6 @@ namespace Dungeon.src.PlayerClass.WeaponClass
 
         public void Update(GameTime gameTime)
         {
-            Console.WriteLine(Direction);
             Position += Direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 

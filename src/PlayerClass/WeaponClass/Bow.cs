@@ -67,7 +67,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 foreach (var tile in tiles)
                 {
-                    if (tile.Id.Item1 == 1 || tile.Id.Item1 == 2 && tile.Hitbox.Intersects(arrow.Hitbox))
+                    if ((tile.Id.Item1 == 1 || tile.Id.Item1 == 2) && tile.Hitbox.Intersects(arrow.Hitbox))
                     {
                         arrowsToRemove.Add(arrow);
                     }

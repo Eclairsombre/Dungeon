@@ -116,3 +116,4 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\zh-Hant\Microsoft.Visual
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\RoomPatern\Room3.txt
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\RoomPatern\Room4.txt
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sol.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\testRegression.xnb
