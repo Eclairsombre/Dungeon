@@ -3,6 +3,7 @@ using System.Linq;
 using Dungeon.src.DropClass;
 using Dungeon.src.EnemyClass;
 using Dungeon.src.MapClass;
+using Dungeon.src.PlayerClass.WeaponClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
-namespace Dungeon.src.PlayerClass
+namespace Dungeon.src.PlayerClass.WeaponClass
 {
     public class Weapon(Vector2 position)
     {

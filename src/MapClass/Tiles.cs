@@ -64,11 +64,11 @@ namespace Dungeon.src.MapClass
                     spriteBatch.Draw(texture[0], hitbox, Color.White);
                     break;
                 case 4:
+                    spriteBatch.Draw(texture[0], hitbox, Color.White);
                     if (finished)
                     {
                         holder.Draw(spriteBatch);
                     }
-                    spriteBatch.Draw(texture[0], hitbox, Color.White);
 
                     break;
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Microsoft.Xna.Framework;
 
-namespace Dungeon.src.PlayerClass
+namespace Dungeon.src.PlayerClass.WeaponClass
 {
     public class Sword : Weapon
     {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
-namespace Dungeon.src.PlayerClass
+namespace Dungeon.src.PlayerClass.WeaponClass
 {
     public class Arrow
     {

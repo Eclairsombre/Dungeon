@@ -5,7 +5,7 @@ using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Dungeon.src.PlayerClass
+namespace Dungeon.src.PlayerClass.WeaponClass
 {
     public class Bow : Weapon
     {
@@ -22,7 +22,6 @@ namespace Dungeon.src.PlayerClass
         {
             if (timeSinceLastAttack >= attackCooldown)
             {
-                Console.WriteLine("Shoot");
 
                 timeSinceLastAttack = 0f;
                 Vector2 newDir;
@@ -53,7 +52,6 @@ namespace Dungeon.src.PlayerClass
             foreach (var arrow in arrows)
             {
                 arrow.Update(gameTime);
-                Console.WriteLine(arrow.Position);
 
                 foreach (var enemy in enemies)
                 {
@@ -69,7 +67,7 @@ namespace Dungeon.src.PlayerClass
             {
                 foreach (var tile in tiles)
                 {
-                    if (tile.Id.Item1 == 1 && tile.Hitbox.Intersects(arrow.Hitbox))
+                    if (tile.Id.Item1 == 1 || tile.Id.Item1 == 2 && tile.Hitbox.Intersects(arrow.Hitbox))
                     {
                         arrowsToRemove.Add(arrow);
                     }
@@ -86,8 +84,6 @@ namespace Dungeon.src.PlayerClass
         {
             foreach (var arrow in arrows)
             {
-                Console.WriteLine("Draw");
-
                 arrow.Draw(spriteBatch, arrowTexture);
             }
         }
