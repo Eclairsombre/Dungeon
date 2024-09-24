@@ -49,7 +49,7 @@
 /processorParam:TextureFormat=Color
 /build:PlayerNoMoveLeft.png
 
-#begin Sol.png
+#begin Sprites/Arrow-Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,7 +59,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sol.png
+/build:Sprites/Arrow-Sheet.png
+
+#begin Sprites/Sol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Sol.png
 
 #begin Sprites/testRegression.png
 /importer:TextureImporter

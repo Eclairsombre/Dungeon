@@ -77,6 +77,11 @@ namespace Dungeon.src.PlayerClass
             {
                 texture.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
             }
+            if (weapon is Bow bow)
+            {
+                bow.LoadContent(content);
+            }
+
         }
 
 
@@ -95,7 +100,7 @@ namespace Dungeon.src.PlayerClass
                             return true;
                         }
                     }
-                    else if (room.Tiles[i, y].Id.Item1 == 4)
+                    else if (room.Tiles[i, y].Id.Item1 == 4 && room.Finished)
                     {
                         if (CheckCollision(room.Tiles[i, y].Holder.Hitbox))
                         {

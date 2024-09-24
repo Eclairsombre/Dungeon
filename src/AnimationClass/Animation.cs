@@ -46,7 +46,10 @@ namespace Dungeon.src
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Sprites/" + fileName);
+        }
 
+        public void ParseData()
+        {
             if (File.Exists(@"Content\SpriteData\" + fileName + ".txt"))
             {
                 string[] lines = File.ReadAllLines(@"Content\SpriteData\" + fileName + ".txt");

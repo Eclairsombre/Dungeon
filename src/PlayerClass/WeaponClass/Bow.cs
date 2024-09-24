@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Dungeon.src.PlayerClass.WeaponClass
@@ -15,8 +16,9 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         public Bow(Vector2 position) : base(position)
         {
             //this.arrowTexture = arrowTexture;
-            this.attackCooldown = 0.1f;
+            this.attackCooldown = 0.2f;
         }
+
 
         public void Attack(Vector2 direction, Vector2 position)
         {
@@ -78,6 +80,12 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 arrows.Remove(arrow);
             }
+
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            arrowTexture = content.Load<Texture2D>("Sprites/Arrow-Sheet");
 
         }
         public override void Draw(SpriteBatch spriteBatch)

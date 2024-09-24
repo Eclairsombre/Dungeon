@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
@@ -73,6 +74,13 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             }
         }
 
+        public virtual void LoadContent(ContentManager content)
+
+        {
+
+            // Implementation for loading content specific to the weapon
+
+        }
 
         public virtual void Attack(List<Enemy> enemies, Vector2 direction)
         {

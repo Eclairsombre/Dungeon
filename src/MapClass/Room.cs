@@ -98,7 +98,7 @@ public class Room
             fileContent = reader.ReadToEnd();
         }
         texture2Ds = new Texture2D[1];
-        texture2Ds[0] = content.Load<Texture2D>("Sol");
+        texture2Ds[0] = content.Load<Texture2D>("Sprites/Sol");
     }
 
     public void Update(Vector2 playerPosition, GameTime gameTime)
