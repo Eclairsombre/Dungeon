@@ -23,28 +23,29 @@ namespace Dungeon.src.MenuClass
 
 
         private Dungeon dungeon;
-        private GameState gameState = GameState.Playing;
+        private GameState gameState = GameState.Menu;
 
+        private Bouton playButton = new Bouton(100, 100, 100, 100, GameState.Playing);
+
+        public GameState GameState { get { return gameState; } set { gameState = value; } }
         public void Initialize()
         {
             dungeon = new Dungeon();
             dungeon.Initialize(_graphicsDevice);
 
         }
-
         public void LoadContent()
         {
             _spriteBatch = new SpriteBatch(_graphicsDevice);
             dungeon.LoadContent(_content);
 
         }
-
         public void Update(GameTime gameTime)
         {
-
             switch (gameState)
             {
                 case GameState.Menu:
+                    gameState = playButton.OnClick(this);
                     break;
                 case GameState.Playing:
                     dungeon.UpdatePlaying(gameTime, content);
@@ -64,6 +65,7 @@ namespace Dungeon.src.MenuClass
             switch (gameState)
             {
                 case GameState.Menu:
+                    playButton.Draw(_spriteBatch);
                     break;
                 case GameState.Playing:
                     dungeon.Draw(_spriteBatch);
