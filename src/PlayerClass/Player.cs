@@ -19,7 +19,7 @@ namespace Dungeon.src.PlayerClass
         private const float DefaultSpeed = 10.0f;
         private const int Deadzone = 4096;
 
-        private Vector2 position, centerPosition, startPosition, direction;
+        private Vector2 position, centerPosition, startPosition, direction, directionDeplacement;
         private float speed, scale;
 
         private readonly Texture2D[] spriteSheetNoMove = new Texture2D[3];
@@ -39,6 +39,9 @@ namespace Dungeon.src.PlayerClass
         private const float spaceCooldown = 500f;
 
         private float spaceCooldownTimer = 0;
+
+        private bool isMovingHorizontally = false;
+        private bool isMovingVertically = false;
 
 
 
@@ -68,6 +71,7 @@ namespace Dungeon.src.PlayerClass
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
             direction = new Vector2(0, -1);
+            directionDeplacement = new Vector2(0, 0);
             weapon = new Bow(centerPosition);
         }
 
@@ -176,48 +180,26 @@ namespace Dungeon.src.PlayerClass
 
             Vector2 previousPosition = position;
 
-            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
-            {
-                position.Y -= speed;
-                currentSpriteSheet = 2;
-                spriteEffect = SpriteEffects.None;
-                direction = new Vector2(0, 1);
-            }
-            if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
-            {
-                position.Y += speed;
-                currentSpriteSheet = 0;
-                spriteEffect = SpriteEffects.None;
-                direction = new Vector2(0, -1);
-            }
-            if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
-            {
-                position.X -= speed;
-                currentSpriteSheet = 1;
-                spriteEffect = SpriteEffects.None;
-                direction = new Vector2(-1, 0);
-            }
-            if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
-            {
-                position.X += speed;
-                currentSpriteSheet = 1;
-                spriteEffect = SpriteEffects.FlipHorizontally;
-                direction = new Vector2(1, 0);
-            }
+
+            directionDeplacement = new Vector2(0, 0);
+
+
+
+
             if (keyboardState.IsKeyDown(Keys.Space) && spaceCooldownTimer >= spaceCooldown)
             {
                 spaceCooldownTimer = 0;
                 rangeInFrontPlayer = direction switch
                 {
-                    Vector2 v when v == new Vector2(0, 1) => new Rectangle((int)position.X, (int)position.Y - spriteHeight, (int)(SpriteWidth * scale), spriteHeight),//up
-                    Vector2 v when v == new Vector2(0, -1) => new Rectangle((int)position.X, (int)((int)position.Y + spriteHeight * scale), (int)(SpriteWidth * scale), spriteHeight),//down
+                    Vector2 v when v == new Vector2(0, -1) => new Rectangle((int)position.X, (int)position.Y - spriteHeight, (int)(SpriteWidth * scale), spriteHeight),//up
+                    Vector2 v when v == new Vector2(0, 1) => new Rectangle((int)position.X, (int)((int)position.Y + spriteHeight * scale), (int)(SpriteWidth * scale), spriteHeight),//down
                     Vector2 v when v == new Vector2(1, 0) => new Rectangle((int)((int)position.X + spriteWidth * scale), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)),//right
                     Vector2 v when v == new Vector2(-1, 0) => new Rectangle((int)((int)position.X - spriteWidth), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)),//left
                     _ => new Rectangle((int)position.X, (int)position.Y, 100, 100),
 
                 };
             }
-            else
+            else if (keyboardState.IsKeyUp(Keys.Space) && spaceCooldownTimer < spaceCooldown)
             {
                 spaceCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 rangeInFrontPlayer = Rectangle.Empty;
@@ -257,6 +239,72 @@ namespace Dungeon.src.PlayerClass
                     position.X += speed;
                 }
             }
+
+
+
+
+
+            if (invincibilityTime <= 0)
+            {
+                foreach (Enemy enemy in map.ActualRoom.Enemies)
+                {
+                    if (CheckCollision(enemy.Hitbox))
+                    {
+                        nbHeart--;
+                        invincibilityTime = 3000;
+                        break;
+                    }
+                }
+            }
+
+            centerPosition = new Vector2(position.X + spriteWidth * scale / 2, position.Y + spriteHeight * scale / 2);
+            if (weapon is Bow bow)
+            {
+                bow.Update(gameTime, map.ActualRoom.Enemies, centerPosition, map.ActualRoom.Tiles);
+            }
+            else
+            {
+                weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
+            }
+
+            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
+            {
+                isMovingVertically = true;
+                currentSpriteSheet = 2;
+                spriteEffect = SpriteEffects.None;
+                directionDeplacement += new Vector2(0, -1);
+                direction = new Vector2(0, -1);
+            }
+
+            if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
+            {
+                isMovingVertically = true;
+                currentSpriteSheet = 0;
+                spriteEffect = SpriteEffects.None;
+                directionDeplacement += new Vector2(0, 1);
+                direction = new Vector2(0, 1);
+            }
+
+            if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
+            {
+                isMovingHorizontally = true;
+                currentSpriteSheet = 1;
+                spriteEffect = SpriteEffects.None;
+                directionDeplacement += new Vector2(-1, 0);
+                direction = new Vector2(-1, 0);
+            }
+
+            if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+            {
+                isMovingHorizontally = true;
+                currentSpriteSheet = 1;
+                spriteEffect = SpriteEffects.FlipHorizontally;
+                directionDeplacement += new Vector2(1, 0);
+                direction = new Vector2(1, 0);
+            }
+
+
+            Deplacement();
 
             if (CheckCollisionWithDoor(map.ActualRoom))
             {
@@ -311,35 +359,29 @@ namespace Dungeon.src.PlayerClass
                 }
             }
 
-
-
-
-            if (invincibilityTime <= 0)
-            {
-                foreach (Enemy enemy in map.ActualRoom.Enemies)
-                {
-                    if (CheckCollision(enemy.Hitbox))
-                    {
-                        nbHeart--;
-                        invincibilityTime = 3000;
-                        break;
-                    }
-                }
-            }
-
-            centerPosition = new Vector2(position.X + spriteWidth * scale / 2, position.Y + spriteHeight * scale / 2);
-            if (weapon is Bow bow)
-            {
-                bow.Update(gameTime, map.ActualRoom.Enemies, centerPosition, map.ActualRoom.Tiles);
-            }
-            else
-            {
-                weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
-            }
-
-
         }
 
+        public void Deplacement()
+        {
+
+            float valAbs = (float)Math.Sqrt(directionDeplacement.X * directionDeplacement.X + directionDeplacement.Y * directionDeplacement.Y);
+            if (valAbs == 0)
+            {
+                return;
+            }
+
+
+            directionDeplacement = new Vector2(directionDeplacement.X / (float)Math.Sqrt(valAbs), directionDeplacement.Y / (float)Math.Sqrt(valAbs));
+
+
+            float adjustedSpeed = (isMovingHorizontally && isMovingVertically) ? speed / (float)Math.Sqrt(2) : speed;
+
+            Console.WriteLine(directionDeplacement);
+            Console.WriteLine(direction);
+
+            position = new Vector2(position.X + directionDeplacement.X * adjustedSpeed, position.Y + (directionDeplacement.Y * adjustedSpeed));
+
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle sourceRectangle = new(0, 0, spriteWidth, spriteHeight);
