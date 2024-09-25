@@ -256,6 +256,9 @@ namespace Dungeon.src.PlayerClass
                 position = futurePosition;
             }
 
+            hitbox = newHitbox;
+
+
             for (int i = 0; i < map.ActualRoom.DropsList.Length; i++)
             {
 
@@ -320,7 +323,6 @@ namespace Dungeon.src.PlayerClass
             Rectangle sourceRectangle = new(0, 0, spriteWidth, spriteHeight);
             spriteBatch.Draw(spriteSheetNoMove[currentSpriteSheet], position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, spriteEffect, 0f);
 
-            hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
             DrawRectangle(spriteBatch, hitbox, Color.Red);
 
             weapon.Draw(spriteBatch);
