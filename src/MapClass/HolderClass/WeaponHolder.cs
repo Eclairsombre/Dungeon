@@ -14,7 +14,7 @@ namespace Dungeon.src.MapClass.HolderClass
 
         public new void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle weaponRectangle = new Rectangle((int)hitbox.X + (hitbox.Width - weapon.Width) / 2, (int)hitbox.Y - weapon.Height - 10, weapon.Width, weapon.Height);
+            Rectangle weaponRectangle = new((int)hitbox.X + (hitbox.Width - weapon.Width) / 2, (int)hitbox.Y - weapon.Height - 10, weapon.Width, weapon.Height);
             spriteBatch.FillRectangle(hitbox, Color.White);
             spriteBatch.FillRectangle(weaponRectangle, Color.Red);
 

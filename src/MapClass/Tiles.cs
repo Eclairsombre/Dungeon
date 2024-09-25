@@ -34,7 +34,7 @@ namespace Dungeon.src.MapClass
                     door = new Door(x, y, width, height);
                     break;
                 case 4:
-                    Vector2 position = new Vector2(x, y);
+                    Vector2 position = new(x, y);
                     holder = new WeaponHolder(x, y, new Sword(position));
                     break;
                 default:

@@ -115,13 +115,13 @@ namespace Dungeon.src.EnemyClass
             spriteBatch.FillRectangle(hitbox, Color.Blue);
             DrawVision(spriteBatch);
 
-            Rectangle healthBarBackground = new Rectangle((int)position.X, (int)position.Y - 10, width, 5);
+            Rectangle healthBarBackground = new((int)position.X, (int)position.Y - 10, width, 5);
             spriteBatch.FillRectangle(healthBarBackground, Color.Red);
 
             float healthPercentage = (float)hp / maxHp;
             int healthBarWidth = (int)(width * healthPercentage);
 
-            Rectangle healthBarForeground = new Rectangle((int)position.X, (int)position.Y - 10, healthBarWidth, 5);
+            Rectangle healthBarForeground = new((int)position.X, (int)position.Y - 10, healthBarWidth, 5);
             spriteBatch.FillRectangle(healthBarForeground, Color.Green);
         }
 

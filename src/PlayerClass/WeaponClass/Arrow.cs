@@ -19,7 +19,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
 
         //private Rectangle sourceRectangle;
 
-        private CallBack callBack = new CallBack();
+        private CallBack callBack = new();
 
 
         public Arrow(Vector2 position, Vector2 direction, float speed, ContentManager content)

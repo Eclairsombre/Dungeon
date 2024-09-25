@@ -26,9 +26,6 @@ namespace Dungeon.src
         private float currentTime = offset;
         private int currentTimeline = timeline;
         private int totalAnimationTime = 0;
-
-        private double deltaTime = 0;
-
         public Texture2D texture;
 
         private float scale = 3.0f;
@@ -160,7 +157,7 @@ namespace Dungeon.src
 
         public void TriggerCallBack()
         {
-            Vector2 position = new Vector2(currentFrame * size.X, currentTimeline * size.Y);
+            Vector2 position = new(currentFrame * size.X, currentTimeline * size.Y);
             callback(position, size);
         }
 

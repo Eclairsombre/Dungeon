@@ -5,6 +5,7 @@ using Dungeon.src.MapClass;
 using Dungeon.src.PlayerClass;
 using Dungeon.src.InterfaceClass;
 using Dungeon.src;
+using Dungeon.src.MenuClass;
 
 namespace Dungeon;
 
@@ -13,17 +14,8 @@ public class Game1 : Game
     private readonly GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    private Menu menu;
 
-
-    private Player player;
-    private Map map;
-
-    private static Rectangle sourceRectangle;
-
-
-    private Interface gameInterface;
-
-    //private Animation animation;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -32,28 +24,19 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         _graphics.ApplyChanges();
-
-        //animation = new Animation("testRegression", MyCallback, 0, 0);
     }
 
     protected override void Initialize()
     {
-        player = new Player(_graphics.GraphicsDevice);
-        map = new Map();
-        gameInterface = new Interface();
+        menu = new Menu(_graphics.GraphicsDevice, _spriteBatch, Content);
+        menu.Initialize();
 
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        player.LoadContent(Content);
-
-        map.GenerateDungeon(Content);
-
-        //animation.LoadContent(Content);
-
+        menu.LoadContent();
     }
 
     protected override void Update(GameTime gameTime)
@@ -61,10 +44,7 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        //animation.Update(gameTime);
-
-        player.Update(gameTime, map, Content);
-        map.Update(player.CenterPosition, gameTime);
+        menu.Update(gameTime);
         base.Update(gameTime);
     }
 
@@ -73,17 +53,10 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.White);
-        _spriteBatch.Begin();
 
-        map.Draw(_spriteBatch);
-        player.Draw(_spriteBatch);
-        gameInterface.Draw(_spriteBatch, player);
-
-        //float scale = animation.GetScale();
-        //_spriteBatch.Draw(animation.texture, new Vector2(100, 100), sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+        menu.Draw();
 
 
-        _spriteBatch.End();
 
         base.Draw(gameTime);
     }

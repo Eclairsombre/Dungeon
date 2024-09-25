@@ -1,6 +1,6 @@
 TODO :
 
-- Add Weapon Holder and switch weapon on holder capacity
+- DONE : Add Weapon Holder and switch weapon on holder capacity
 - Fix enemy deplacement
 - DONE : Add distance weapon
 - Add new enemy

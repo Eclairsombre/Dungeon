@@ -75,6 +75,12 @@ namespace Dungeon.src.PlayerClass
             direction = new Vector2(0, -1);
             directionDeplacement = new Vector2(0, 0);
             weapon = new Bow(centerPosition);
+
+            hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
+            rangeInFrontPlayer = Rectangle.Empty;
+
+            spriteSheetNoMove = new Texture2D[3];
+
         }
 
         public void LoadContent(ContentManager content)
@@ -109,8 +115,6 @@ namespace Dungeon.src.PlayerClass
             {
                 invincibilityTime -= (int)(deltaTime * 1000);
             }
-
-            Rectangle roomHitbox = new(40, 40, 52 * 35, 30 * 32 + 20);
 
             Vector2 futurePosition = position;
 
@@ -254,9 +258,9 @@ namespace Dungeon.src.PlayerClass
             if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
             {
                 position = futurePosition;
+                hitbox = newHitbox;
             }
 
-            hitbox = newHitbox;
 
 
             for (int i = 0; i < map.ActualRoom.DropsList.Length; i++)
