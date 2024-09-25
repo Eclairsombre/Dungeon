@@ -39,7 +39,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                 {
                     newDir = direction;
                 }
-                arrows.Add(new Arrow(Position, newDir, 200f, content));
+                arrows.Add(new Arrow(Position, newDir, 400f, content));
             }
         }
 

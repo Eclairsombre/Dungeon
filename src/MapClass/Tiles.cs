@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using MonoGame.Extended;
 using Dungeon.src.MapClass.HolderClass;
+using Dungeon.src.PlayerClass.WeaponClass;
+using System.Diagnostics;
 
 namespace Dungeon.src.MapClass
 {
@@ -32,7 +34,8 @@ namespace Dungeon.src.MapClass
                     door = new Door(x, y, width, height);
                     break;
                 case 4:
-                    holder = new Holder(x, y);
+                    Vector2 position = new Vector2(x, y);
+                    holder = new WeaponHolder(x, y, new Sword(position));
                     break;
                 default:
                     break;
@@ -67,7 +70,14 @@ namespace Dungeon.src.MapClass
                     spriteBatch.Draw(texture[0], hitbox, Color.White);
                     if (finished)
                     {
-                        holder.Draw(spriteBatch);
+                        if (holder is WeaponHolder weaponHolder)
+                        {
+                            weaponHolder.Draw(spriteBatch);
+                        }
+                        else
+                        {
+                            holder.Draw(spriteBatch);
+                        }
                     }
 
                     break;

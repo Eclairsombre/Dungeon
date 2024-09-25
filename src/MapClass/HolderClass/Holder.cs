@@ -6,12 +6,12 @@ namespace Dungeon.src.MapClass.HolderClass
 {
     public class Holder
     {
-        private readonly int width = 40;
-        private readonly int height = 70;
-        private readonly int x;
-        private readonly int y;
+        protected readonly int width = 40;
+        protected readonly int height = 70;
+        protected readonly int x;
+        protected readonly int y;
 
-        private Rectangle hitbox;
+        protected Rectangle hitbox;
 
         public Rectangle Hitbox { get { return hitbox; } }
 

@@ -3,6 +3,7 @@ using System.Linq;
 using Dungeon.src.DropClass;
 using Dungeon.src.EnemyClass;
 using Dungeon.src.MapClass;
+using Dungeon.src.MapClass.HolderClass;
 using Dungeon.src.PlayerClass.WeaponClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -27,13 +28,17 @@ namespace Dungeon.src.PlayerClass
         private SpriteEffects spriteEffect = SpriteEffects.None;
 
         private int spriteWidth, spriteHeight;
-        private Rectangle hitbox;
+        private Rectangle hitbox, rangeInFrontPlayer;
 
         private Weapon weapon;
 
         private int level = 1, xp = 0;
 
         private int nbHeart = 3, xpToLevelUp = 100, invincibilityTime = 0;
+
+        private const float spaceCooldown = 500f;
+
+        private float spaceCooldownTimer = 0;
 
 
 
@@ -199,6 +204,24 @@ namespace Dungeon.src.PlayerClass
                 spriteEffect = SpriteEffects.FlipHorizontally;
                 direction = new Vector2(1, 0);
             }
+            if (keyboardState.IsKeyDown(Keys.Space) && spaceCooldownTimer >= spaceCooldown)
+            {
+                spaceCooldownTimer = 0;
+                rangeInFrontPlayer = direction switch
+                {
+                    Vector2 v when v == new Vector2(0, 1) => new Rectangle((int)position.X, (int)position.Y - spriteHeight, (int)(SpriteWidth * scale), spriteHeight),//up
+                    Vector2 v when v == new Vector2(0, -1) => new Rectangle((int)position.X, (int)((int)position.Y + spriteHeight * scale), (int)(SpriteWidth * scale), spriteHeight),//down
+                    Vector2 v when v == new Vector2(1, 0) => new Rectangle((int)((int)position.X + spriteWidth * scale), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)),//right
+                    Vector2 v when v == new Vector2(-1, 0) => new Rectangle((int)((int)position.X - spriteWidth), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)),//left
+                    _ => new Rectangle((int)position.X, (int)position.Y, 100, 100),
+
+                };
+            }
+            else
+            {
+                spaceCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                rangeInFrontPlayer = Rectangle.Empty;
+            }
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 if (weapon is Bow b)
@@ -268,6 +291,27 @@ namespace Dungeon.src.PlayerClass
                     map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
                 }
             }
+            for (int i = 0; i < map.ActualRoom.Tiles.GetLength(0); i++)
+            {
+                for (int y = 0; y < map.ActualRoom.Tiles.GetLength(1); y++)
+                {
+                    if (map.ActualRoom.Tiles[i, y].Id.Item1 == 4 && map.ActualRoom.Finished)
+                    {
+                        if (rangeInFrontPlayer.Intersects(map.ActualRoom.Tiles[i, y].Holder.Hitbox))
+                        {
+                            if (map.ActualRoom.Tiles[i, y].Holder is WeaponHolder weaponHolder)
+                            {
+                                Console.WriteLine("Weapon");
+                                Weapon weapon = weaponHolder.SwitchWeapon(this.weapon);
+                                Equip(weapon);
+                                Console.WriteLine(weapon is Bow);
+                            }
+                        }
+                    }
+                }
+            }
+
+
 
 
             if (invincibilityTime <= 0)
@@ -305,6 +349,11 @@ namespace Dungeon.src.PlayerClass
             DrawRectangle(spriteBatch, hitbox, Color.Red);
 
             weapon.Draw(spriteBatch);
+
+            if (rangeInFrontPlayer != Rectangle.Empty)
+            {
+                DrawRectangle(spriteBatch, rangeInFrontPlayer, Color.Blue);
+            }
 
 
 

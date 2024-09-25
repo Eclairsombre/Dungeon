@@ -14,7 +14,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         protected int damage = 1;
         protected int range = 10;
         protected Vector2 position = position;
-        protected int width, height;
+        protected int width = 40, height = 40;
 
         protected bool attacking = false;
 
@@ -24,6 +24,8 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         public int Damage { get { return damage; } set { damage = value; } }
         public int Range { get { return range; } set { range = value; } }
         public Vector2 Position { get { return position; } set { position = value; } }
+        public int Width { get { return width; } set { width = value; } }
+        public int Height { get { return height; } set { height = value; } }
 
 
         public void Update(Player player, Vector2 direction, List<Enemy> enemies, GameTime gameTime)
@@ -34,29 +36,29 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 case Vector2 v when v == new Vector2(1, 0):
                     //Console.WriteLine("Right");
-                    width = (int)(player.SpriteWidth * player.Scale);
-                    height = range;
+                    width = range;
+                    height = (int)(player.SpriteWidth * player.Scale);
                     Position = new Vector2((int)player.Position.X + player.SpriteWidth * player.Scale, (int)player.Position.Y + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(-1, 0):
                     //Console.WriteLine("Left");
-                    width = (int)(player.SpriteWidth * player.Scale);
-                    height = range;
+                    width = range;
+                    height = (int)(player.SpriteWidth * player.Scale);
                     Position = new Vector2((int)player.Position.X - range + 5, (int)player.Position.Y + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(0, 1):
                     //Console.WriteLine("up");
-                    width = range;
-                    height = (int)(player.SpriteWidth * player.Scale) - 5;
+                    width = (int)(player.SpriteWidth * player.Scale);
+                    height = range;
                     Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y - range + 5);
 
                     break;
                 case Vector2 v when v == new Vector2(0, -1):
                     //Console.WriteLine("Down");
-                    width = range;
-                    height = (int)(player.SpriteWidth * player.Scale) - 5; ;
+                    width = (int)(player.SpriteWidth * player.Scale) - 5;
+                    height = range;
                     Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y + player.SpriteHeight * player.Scale - 5);
 
                     break;
