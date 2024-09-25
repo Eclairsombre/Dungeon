@@ -20,7 +20,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         }
 
 
-        public void Attack(Vector2 direction, Vector2 position)
+        public void Attack(Vector2 direction, Vector2 position, ContentManager content)
         {
             if (timeSinceLastAttack >= attackCooldown)
             {
@@ -39,7 +39,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                 {
                     newDir = direction;
                 }
-                arrows.Add(new Arrow(Position, newDir, 200f));
+                arrows.Add(new Arrow(Position, newDir, 200f, content));
             }
         }
 
@@ -55,11 +55,11 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 arrow.Update(gameTime);
 
-                foreach (var enemy in enemies)
+                for (int i = 0; i < enemies.Count; i++)
                 {
-                    if (arrow.Hitbox.Intersects(enemy.Hitbox))
+                    if (arrow.Hitbox.Intersects(enemies[i].Hitbox))
                     {
-                        enemy.Hp -= Damage;
+                        enemies[i].Hp -= Damage;
                         arrowsToRemove.Add(arrow);
                     }
                 }
@@ -79,20 +79,21 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             foreach (var arrow in arrowsToRemove)
             {
                 arrows.Remove(arrow);
+
             }
 
         }
 
         public void LoadContent(ContentManager content)
         {
-            arrowTexture = content.Load<Texture2D>("Sprites/Arrow-Sheet");
+            arrowTexture = (content.Load<Texture2D>("Sprites/ArrowSpriteSheet"));
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var arrow in arrows)
+            for (int i = 0; i < arrows.Count; i++)
             {
-                arrow.Draw(spriteBatch, arrowTexture);
+                arrows[i].Draw(spriteBatch, arrowTexture);
             }
         }
     }

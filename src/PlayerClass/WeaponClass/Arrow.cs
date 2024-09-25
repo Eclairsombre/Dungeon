@@ -16,9 +16,11 @@ namespace Dungeon.src.PlayerClass.WeaponClass
 
         private Animation _animation;
 
-        private static Rectangle sourceRectangle;
+        private Rectangle sourceRectangle;
 
-        public Arrow(Vector2 position, Vector2 direction, float speed)
+        private Texture2D texture;
+
+        public Arrow(Vector2 position, Vector2 direction, float speed, ContentManager content)
         {
             Position = position;
             Direction = direction;
@@ -32,12 +34,30 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 _hitbox = new Rectangle((int)Position.X, (int)Position.Y, 30, 10);
             }
+            switch (Direction)
+            {
+                case var d when d == new Vector2(-1, 0):
+                    _animation = new Animation("ArrowSpriteSheet", MyCallback, 0, 0);
+                    break;
+                case var d when d == new Vector2(1, 0):
+                    _animation = new Animation("ArrowSpriteSheet", MyCallback, 2, 0);
+                    break;
+                case var d when d == new Vector2(0, -1):
+                    _animation = new Animation("ArrowSpriteSheet", MyCallback, 1, 0);
+                    break;
+                case var d when d == new Vector2(0, 1):
+                    _animation = new Animation("ArrowSpriteSheet", MyCallback, 3, 0);
+                    break;
+            }
 
-            _animation = new Animation("Arrow-Sheet", MyCallback, 0, 0);
+            texture = content.Load<Texture2D>("Sprites/ArrowSpriteSheet");
+
+
+            //_animation = new Animation("ArrowSpriteSheet", MyCallback, 0, 0);
 
             _animation.ParseData();
         }
-        static void MyCallback(Vector2 position, Vector2 size)
+        void MyCallback(Vector2 position, Vector2 size)
         {
             sourceRectangle = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
         }
@@ -61,7 +81,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
             float scale = 1.2f;
-            spriteBatch.Draw(texture, Position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.texture, Position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             //spriteBatch.FillRectangle(Hitbox, Color.Red);
 
         }

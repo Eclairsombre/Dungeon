@@ -1,0 +1,6 @@
+30 30 4
+
+ArrowLeft 8 -1 100
+ArrowUp 8 -1 100
+ArrowRight 8 -1 100
+ArrowDown 8 -1 100

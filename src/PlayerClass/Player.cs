@@ -203,7 +203,7 @@ namespace Dungeon.src.PlayerClass
             {
                 if (weapon is Bow b)
                 {
-                    b.Attack(direction, centerPosition);
+                    b.Attack(direction, centerPosition, content);
                 }
                 else
                 {

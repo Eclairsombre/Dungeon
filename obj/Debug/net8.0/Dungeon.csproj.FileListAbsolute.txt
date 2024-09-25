@@ -150,3 +150,8 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Arrow-Sh
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Arrow-Sheet.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\Arrow-Sheet.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\Arrow-Sheet.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\ArrowSpriteSheet.txt
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ArrowSpriteSheet.png
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ArrowSpriteSheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\ArrowSpriteSheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\ArrowSpriteSheet.mgcontent
