@@ -16,7 +16,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         public Bow(Vector2 position) : base(position)
         {
             //this.arrowTexture = arrowTexture;
-            this.attackCooldown = 0.2f;
+            this.attackCooldown = 0.5f;
         }
 
 

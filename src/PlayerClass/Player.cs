@@ -62,7 +62,7 @@ namespace Dungeon.src.PlayerClass
             centerPosition = new Vector2((position.X + spriteWidth) * scale / 2, (position.Y + spriteHeight) * scale / 2);
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
-            direction = new Vector2(0, 1);
+            direction = new Vector2(0, -1);
             weapon = new Bow(centerPosition);
         }
 

@@ -18,12 +18,13 @@ namespace Dungeon.src.PlayerClass.WeaponClass
 
         private Rectangle sourceRectangle;
 
-        private Texture2D texture;
 
         public Arrow(Vector2 position, Vector2 direction, float speed, ContentManager content)
         {
-            Position = position;
+            //Position = position;
             Direction = direction;
+
+            this.Position = new Vector2(position.X - 15, position.Y - 15);
             Speed = speed;
             if (Direction == new Vector2(0, -1) || Direction == new Vector2(0, 1))
             {
@@ -50,7 +51,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                     break;
             }
 
-            texture = content.Load<Texture2D>("Sprites/ArrowSpriteSheet");
+            //texture = content.Load<Texture2D>("Sprites/ArrowSpriteSheet");
 
 
             //_animation = new Animation("ArrowSpriteSheet", MyCallback, 0, 0);
@@ -81,7 +82,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
             float scale = 1.2f;
-            spriteBatch.Draw(this.texture, Position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, Position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             //spriteBatch.FillRectangle(Hitbox, Color.Red);
 
         }
