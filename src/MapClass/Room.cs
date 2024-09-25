@@ -50,7 +50,6 @@ public enum T
     Floor,
     Wall,
     Door,
-
     EnemyGoDown,
     EnemyGoRight,
     EnemyGoLeft,

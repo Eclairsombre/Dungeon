@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Dungeon.src.CollisionClass;
 using MonoGame.Extended;
 
 namespace Dungeon.src.PlayerClass
@@ -31,6 +32,7 @@ namespace Dungeon.src.PlayerClass
         private Rectangle hitbox, rangeInFrontPlayer;
 
         private Weapon weapon;
+
 
         private int level = 1, xp = 0;
 
@@ -93,78 +95,10 @@ namespace Dungeon.src.PlayerClass
 
         }
 
-
-
-        public bool CheckCollisionWithRoom(Room room)
-        {
-            for (int i = 0; i < room.Tiles.GetLength(0); i++)
-            {
-                for (int y = 0; y < room.Tiles.GetLength(1); y++)
-                {
-                    if (room.Tiles[i, y].Id.Item1 == 1)
-                    {
-
-                        if (CheckCollision(room.Tiles[i, y].Hitbox))
-                        {
-                            return true;
-                        }
-                    }
-                    else if (room.Tiles[i, y].Id.Item1 == 4 && room.Finished)
-                    {
-                        if (CheckCollision(room.Tiles[i, y].Holder.Hitbox))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
         public void Equip(Weapon weapon)
         {
             this.weapon = weapon;
         }
-
-        public bool CheckCollision(Rectangle rect)
-        {
-            Rectangle playerHitbox = GetHitbox();
-
-            if (playerHitbox.Intersects(rect))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool CheckCollisionWithDoor(Room room)
-        {
-            if (room.Finished)
-            {
-                Rectangle playerHitbox = GetHitbox();
-                Door door1 = room.Tiles[10, 0].Door;
-                Door door2 = room.Tiles[14, 0].Door;
-                if (door1 != null)
-                {
-                    if (playerHitbox.Intersects(door1.Hitbox))
-                    {
-                        return true;
-                    }
-                }
-                if (door2 != null)
-                {
-                    if (playerHitbox.Intersects(door2.Hitbox))
-                    {
-                        return true;
-                    }
-                }
-
-            }
-            return false;
-        }
-
-
         public void Update(GameTime gameTime, Map map, ContentManager content)
         {
             var keyboardState = Keyboard.GetState();
@@ -178,7 +112,7 @@ namespace Dungeon.src.PlayerClass
 
             Rectangle roomHitbox = new(40, 40, 52 * 35, 30 * 32 + 20);
 
-            Vector2 previousPosition = position;
+            Vector2 futurePosition = position;
 
 
             directionDeplacement = new Vector2(0, 0);
@@ -248,7 +182,7 @@ namespace Dungeon.src.PlayerClass
             {
                 foreach (Enemy enemy in map.ActualRoom.Enemies)
                 {
-                    if (CheckCollision(enemy.Hitbox))
+                    if (Collision.CheckCollisionTwoRect(hitbox, enemy.Hitbox))
                     {
                         nbHeart--;
                         invincibilityTime = 3000;
@@ -304,9 +238,10 @@ namespace Dungeon.src.PlayerClass
             }
 
 
-            Deplacement();
+            Deplacement(ref futurePosition);
+            Rectangle newHitbox = new((int)futurePosition.X + 5, (int)futurePosition.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
 
-            if (CheckCollisionWithDoor(map.ActualRoom))
+            if (Collision.CheckCollisionWithDoor(hitbox, map.ActualRoom))
             {
                 map.ActualRoom = new Room();
                 Random random = new();
@@ -316,15 +251,15 @@ namespace Dungeon.src.PlayerClass
                 position = startPosition;
             }
 
-            if (CheckCollisionWithRoom(map.ActualRoom))
+            if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
             {
-                position = previousPosition;
+                position = futurePosition;
             }
 
             for (int i = 0; i < map.ActualRoom.DropsList.Length; i++)
             {
 
-                if (map.ActualRoom.DropsList[i].IsColliding(hitbox))
+                if (Collision.CheckCollisionTwoRect(map.ActualRoom.DropsList[i].Hitbox, hitbox))
                 {
                     if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
                     {
@@ -349,10 +284,8 @@ namespace Dungeon.src.PlayerClass
                         {
                             if (map.ActualRoom.Tiles[i, y].Holder is WeaponHolder weaponHolder)
                             {
-                                Console.WriteLine("Weapon");
                                 Weapon weapon = weaponHolder.SwitchWeapon(this.weapon);
                                 Equip(weapon);
-                                Console.WriteLine(weapon is Bow);
                             }
                         }
                     }
@@ -361,7 +294,7 @@ namespace Dungeon.src.PlayerClass
 
         }
 
-        public void Deplacement()
+        public void Deplacement(ref Vector2 futurePosition)
         {
 
             float valAbs = (float)Math.Sqrt(directionDeplacement.X * directionDeplacement.X + directionDeplacement.Y * directionDeplacement.Y);
@@ -379,7 +312,7 @@ namespace Dungeon.src.PlayerClass
             Console.WriteLine(directionDeplacement);
             Console.WriteLine(direction);
 
-            position = new Vector2(position.X + directionDeplacement.X * adjustedSpeed, position.Y + (directionDeplacement.Y * adjustedSpeed));
+            futurePosition = new Vector2(position.X + directionDeplacement.X * adjustedSpeed, position.Y + (directionDeplacement.Y * adjustedSpeed));
 
         }
         public void Draw(SpriteBatch spriteBatch)

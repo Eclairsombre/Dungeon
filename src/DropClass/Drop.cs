@@ -23,15 +23,7 @@ namespace Dungeon.src.DropClass
 
 
 
-        public bool IsColliding(Rectangle player)
-        {
-        
-            if (player.Intersects(hitbox))
-            {
-                return true;
-            }
-            return false;
-        }
+
 
         public void Draw(SpriteBatch spriteBatch, Texture2D texture = null)
         {

@@ -26,20 +26,9 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
 
                 timeSinceLastAttack = 0f;
-                Vector2 newDir;
-                if (direction == new Vector2(0, -1))
-                {
-                    newDir = new Vector2(0, 1);
-                }
-                else if (direction == new Vector2(0, 1))
-                {
-                    newDir = new Vector2(0, -1);
-                }
-                else
-                {
-                    newDir = direction;
-                }
-                arrows.Add(new Arrow(Position, newDir, 400f, content));
+
+
+                arrows.Add(new Arrow(Position, direction, 400f, content));
             }
         }
 

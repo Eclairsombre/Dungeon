@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using Dungeon.src.DropClass;
+using Dungeon.src.CollisionClass;
 
 namespace Dungeon.src.EnemyClass
 {
@@ -72,7 +73,7 @@ namespace Dungeon.src.EnemyClass
             }
             else
             {
-                if (CheckCollisionWithRoom(tiles))
+                if (Collision.CheckCollisionWithRoom(hitbox, room))
                 {
                     direction = -direction;
                 }
@@ -104,45 +105,8 @@ namespace Dungeon.src.EnemyClass
 
         }
 
-        public bool CheckCollisionWithRoom(Tiles[,] tiles)
-        {
-            Rectangle enemyHitbox = new((int)position.X, (int)position.Y, width, height);
 
-            for (int i = 0; i < tiles.GetLength(0); i++)
-            {
-                for (int y = 0; y < tiles.GetLength(1); y++)
-                {
-                    if (tiles[i, y].Id.Item1 == 1)
-                    {
-                        if (enemyHitbox.Intersects(tiles[i, y].Hitbox))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
 
-        public static bool CheckCollisionVision(Tiles[,] tiles, Vector2 vision)
-        {
-            Rectangle view = new((int)vision.X, (int)vision.Y, 1, 1);
-
-            for (int i = 0; i < tiles.GetLength(0); i++)
-            {
-                for (int y = 0; y < tiles.GetLength(1); y++)
-                {
-                    if (tiles[i, y].Id.Item1 == 1)
-                    {
-                        if (view.Intersects(tiles[i, y].Hitbox))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
 
 
         public void Draw(SpriteBatch spriteBatch)
@@ -184,7 +148,7 @@ namespace Dungeon.src.EnemyClass
                         for (float j = 0; j < VisionRange; j += 1f)
                         {
                             Vector2 checkPosition = start + d * j;
-                            if (CheckCollisionVision(room.Tiles, checkPosition))
+                            if (Collision.CheckCollisionVision(room.Tiles, checkPosition))
                             {
                                 break;
                             }
