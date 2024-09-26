@@ -8,9 +8,9 @@ TODO :
 - Add menu
 - Add Boss(different move set, heal bar...)
 - DONE : Refactor code for better organisation
-- make texture
+- EN COURS : make texture and animation
 - Add a move to move quickly ? (roulade, dash ..)
 - Add ingame lobby to upgrade the player (png?, shop?)
 - DONE : Add heal bar in top of the enemies
 - animation mort( coeur qui bat + respiration -> resurection)
-- Fix door collision
+- DONE :  Fix door collision
