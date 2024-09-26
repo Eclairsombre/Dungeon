@@ -29,7 +29,7 @@ namespace Dungeon.src.MenuClass
         public void UpdatePlaying(GameTime gameTime, ContentManager content)
         {
             player.Update(gameTime, map, content);
-            map.Update(player.Position, gameTime);
+            map.Update(player.CenterPosition, gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

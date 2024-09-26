@@ -245,6 +245,11 @@ namespace Dungeon.src.PlayerClass
             Deplacement(ref futurePosition);
             Rectangle newHitbox = new((int)futurePosition.X + 5, (int)futurePosition.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
 
+            if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
+            {
+                position = futurePosition;
+                hitbox = newHitbox;
+            }
             if (Collision.CheckCollisionWithDoor(hitbox, map.ActualRoom))
             {
                 map.ActualRoom = new Room();
@@ -255,11 +260,7 @@ namespace Dungeon.src.PlayerClass
                 position = startPosition;
             }
 
-            if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
-            {
-                position = futurePosition;
-                hitbox = newHitbox;
-            }
+
 
 
 
