@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using Dungeon.src.DropClass;
 using Dungeon.src.CollisionClass;
+using Microsoft.Xna.Framework.Content;
 
 namespace Dungeon.src.EnemyClass
 {
@@ -23,7 +24,7 @@ namespace Dungeon.src.EnemyClass
         protected float VisionRadius { get; set; } = 150f;
         protected float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
         protected float VisionRange { get; set; } = 500f;
-        protected Drop[] loot = new Drop[1];
+        protected Drop[] loot = new Drop[2];
         protected Rectangle hitbox;
 
         protected Rectangle healthBar;
@@ -45,6 +46,20 @@ namespace Dungeon.src.EnemyClass
             hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
             healthBar = new Rectangle((int)Position.X, (int)Position.Y - 10, width, 5);
             loot[0] = new XpDrop((int)Position.X, (int)Position.Y, 10, 10, xp);
+            loot[1] = new HeartDrop((int)Position.X, (int)Position.Y, 20, 20);
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            //this.texture = texture;
+            foreach (var drop in loot)
+            {
+                if (drop is HeartDrop)
+                {
+                    drop.LoadContent(content);
+
+                }
+            }
         }
 
         public void Update(Vector2 playerPosition, Room room, GameTime gameTime)

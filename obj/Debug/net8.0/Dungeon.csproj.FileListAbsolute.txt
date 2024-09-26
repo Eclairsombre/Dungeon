@@ -155,3 +155,8 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ArrowSpr
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ArrowSpriteSheet.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\ArrowSpriteSheet.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\ArrowSpriteSheet.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\Coeur-Sheet.txt
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Coeur-Sheet.png
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Coeur-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\Coeur-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\Coeur-Sheet.mgcontent

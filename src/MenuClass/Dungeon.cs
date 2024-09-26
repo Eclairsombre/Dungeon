@@ -24,12 +24,14 @@ namespace Dungeon.src.MenuClass
         {
             player.LoadContent(content);
             map.GenerateDungeon(content);
+            gameInterface.LoadContent(content);
         }
 
         public void UpdatePlaying(GameTime gameTime, ContentManager content)
         {
             player.Update(gameTime, map, content);
             map.Update(player.CenterPosition, gameTime);
+            gameInterface.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

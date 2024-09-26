@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 
 
 namespace Dungeon.src.DropClass
@@ -13,6 +15,11 @@ namespace Dungeon.src.DropClass
         {
             this.xp = xp;
             color = Color.Green;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.FillRectangle(Hitbox, color);
         }
     }
 

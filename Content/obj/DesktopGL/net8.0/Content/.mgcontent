@@ -9,10 +9,12 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Arrow-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ArrowSpriteSheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Coeur-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Sol.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/testRegression.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -256,7 +256,7 @@ namespace Dungeon.src.PlayerClass
                 Random random = new();
                 int roomNumber = random.Next(2, 5);
                 map.ActualRoom.LoadContent(content, roomNumber);
-                map.ActualRoom.Generate();
+                map.ActualRoom.Generate(content);
                 position = startPosition;
             }
 
@@ -278,6 +278,10 @@ namespace Dungeon.src.PlayerClass
                             level++;
                             xpToLevelUp = (int)(xpToLevelUp * 1.1);
                         }
+                    }
+                    else if (map.ActualRoom.DropsList[i] is HeartDrop heartDrop)
+                    {
+                        nbHeart++;
                     }
                     map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
                 }
@@ -310,16 +314,8 @@ namespace Dungeon.src.PlayerClass
             {
                 return;
             }
-
-
             directionDeplacement = new Vector2(directionDeplacement.X / (float)Math.Sqrt(valAbs), directionDeplacement.Y / (float)Math.Sqrt(valAbs));
-
-
             float adjustedSpeed = (isMovingHorizontally && isMovingVertically) ? speed / (float)Math.Sqrt(2) : speed;
-
-            Console.WriteLine(directionDeplacement);
-            Console.WriteLine(direction);
-
             futurePosition = new Vector2(position.X + directionDeplacement.X * adjustedSpeed, position.Y + (directionDeplacement.Y * adjustedSpeed));
 
         }

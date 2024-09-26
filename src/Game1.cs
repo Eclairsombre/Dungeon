@@ -12,7 +12,7 @@ namespace Dungeon;
 public class Game1 : Game
 {
     private readonly GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
+    private readonly SpriteBatch _spriteBatch;
 
     private Menu menu;
 

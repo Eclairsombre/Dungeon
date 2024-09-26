@@ -73,7 +73,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
 
         }
 
-        public void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
             arrowTexture = (content.Load<Texture2D>("Sprites/ArrowSpriteSheet"));
 

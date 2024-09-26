@@ -1,0 +1,4 @@
+50 50 2
+
+CoeurStatique 1 -1 100
+CoeurBatement 5 -1 150

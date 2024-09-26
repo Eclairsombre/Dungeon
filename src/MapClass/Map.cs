@@ -28,7 +28,7 @@ public class Map
     {
         room = new Room();
         room.LoadContent(content, 1);
-        room.Generate();
+        room.Generate(content);
     }
 
     public void Update(Vector2 playerPosition, GameTime gameTime)

@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
@@ -7,10 +8,10 @@ namespace Dungeon.src.DropClass
 {
     public class Drop(int x, int y, int height, int width)
     {
-        private int x = x;
-        private int y = y;
-        private int height = height;
-        private int width = width;
+        protected int x = x;
+        protected int y = y;
+        protected int height = height;
+        protected int width = width;
         protected Color color;
 
         private Rectangle hitbox = new(x, y, width, height);
@@ -25,17 +26,24 @@ namespace Dungeon.src.DropClass
 
 
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture = null)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (texture == null)
-            {
-                spriteBatch.FillRectangle(hitbox, color);
-                return;
-            }
-            else
-            {
-                spriteBatch.Draw(texture, hitbox, Color.White);
-            }
+
+
+
+        }
+
+        public virtual void Update(GameTime gameTime)
+        {
+
+        }
+
+        public virtual void LoadContent(ContentManager content)
+
+        {
+
+            // Implementation for loading content
+
         }
 
 

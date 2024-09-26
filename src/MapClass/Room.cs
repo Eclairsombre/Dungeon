@@ -116,8 +116,15 @@ public class Room
                 }
                 for (int j = 0; j < enemies[i].Loot.Length; j++)
                 {
-
-                    Rectangle hitbox = new((int)enemies[i].Position.X, (int)enemies[i].Position.Y, enemies[i].Loot[j].Height, enemies[i].Loot[j].Width);
+                    Rectangle hitbox = new();
+                    if (enemies[i].Loot[j] is XpDrop)
+                    {
+                        hitbox = new((int)enemies[i].Position.X, (int)enemies[i].Position.Y, enemies[i].Loot[j].Height, enemies[i].Loot[j].Width);
+                    }
+                    else if (enemies[i].Loot[j] is HeartDrop)
+                    {
+                        hitbox = new((int)enemies[i].Position.X + 25, (int)enemies[i].Position.Y, enemies[i].Loot[j].Height, enemies[i].Loot[j].Width);
+                    }
                     enemies[i].Loot[j].Hitbox = hitbox;
 
                     newDropsList[j + dropsList.Length] = enemies[i].Loot[j];
@@ -133,10 +140,16 @@ public class Room
             finished = true;
         }
 
+        for (int i = 0; i < dropsList.Length; i++)
+        {
+            Console.WriteLine(dropsList[i].Hitbox);
+            dropsList[i].Update(gameTime);
+        }
+
     }
 
 
-    public void Generate()
+    public void Generate(ContentManager content)
     {
         string[] lines = fileContent.Split('\n');
 
@@ -158,6 +171,8 @@ public class Room
                     {
                         Position = new Vector2(j * 70 + 40, i * 70 + 40)
                     };
+                    enemy.LoadContent(content);
+
                     if (thirdValue == 1)
                     {
                         enemy.Direction = new Vector2(1, 0);
