@@ -17,6 +17,10 @@ namespace Dungeon.src.MenuClass
         private CallBack callBack;
         private Animation _animation;
 
+        public bool isClicked;
+        private double clickDelay;
+        private double elapsedTime;
+
         public Bouton(int x, int y, int width, int height, GameState gameState, string file)
         {
             hitbox = new Rectangle(x, y, width, height);
@@ -24,8 +28,11 @@ namespace Dungeon.src.MenuClass
             callBack = new CallBack();
             _animation = new Animation(file, callBack.StaticMyCallback, 0, 0);
             _animation.ParseData();
-        }
 
+            isClicked = false;
+            clickDelay = 500; // Délai en millisecondes
+            elapsedTime = 0;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -42,26 +49,41 @@ namespace Dungeon.src.MenuClass
         {
             MouseState mouseState = Mouse.GetState();
 
-            if (hitbox.Contains(mouseState.Position) && _animation.GetTimeline() == 0)
+            if (isClicked)
             {
-                _animation.SetTimeLine(1);
+                elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (elapsedTime >= clickDelay)
+                {
+                    isClicked = false;
+                    elapsedTime = 0;
+                }
             }
-            else if (_animation.GetTimeline() == 1 && !hitbox.Contains(mouseState.Position))
+
+            if (!isClicked)
             {
-                _animation.SetTimeLine(0);
+                if (hitbox.Contains(mouseState.Position) && _animation.GetTimeline() == 0)
+                {
+                    _animation.SetTimeLine(1);
+                }
+                else if (_animation.GetTimeline() == 1 && !hitbox.Contains(mouseState.Position))
+                {
+                    _animation.SetTimeLine(0);
+                }
             }
+
             _animation.Update(gameTime);
         }
 
-        public GameState OnClick(Menu menu)
+        public void OnClick(ref GameState gameState)
         {
             MouseState mouseState = Mouse.GetState();
-            if (mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
+            if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
             {
-                return gameState;
+                Console.WriteLine("Click");
+                Console.WriteLine(gameState);
+                gameState = this.gameState;
+                isClicked = true;
             }
-            return menu.GameState;
         }
-
     }
 }

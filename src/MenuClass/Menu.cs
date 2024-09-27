@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -61,13 +62,21 @@ namespace Dungeon.src.MenuClass
         }
         public void Update(GameTime gameTime)
         {
-
             switch (gameState)
             {
                 case GameState.Menu:
                     playButton.Update(gameTime);
                     optionsButton.Update(gameTime);
-                    gameState = playButton.OnClick(this);
+                    if (!dungeon.quitButton.isClicked)
+                    {
+                        playButton.OnClick(ref gameState);
+                        optionsButton.OnClick(ref gameState);
+                    }
+                    else
+                    {
+                        dungeon.quitButton.Update(gameTime);
+                    }
+
                     break;
                 case GameState.Playing:
                 case GameState.Pause:
@@ -90,7 +99,7 @@ namespace Dungeon.src.MenuClass
                     break;
                 case GameState.Playing:
                 case GameState.Pause:
-                    dungeon.Draw(_spriteBatch);
+                    dungeon.Draw(_spriteBatch, gameState);
                     break;
                 case GameState.Options:
                     break;
