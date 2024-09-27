@@ -1,4 +1,3 @@
-using System;
 using Dungeon.src.InterfaceClass;
 using Dungeon.src.MapClass;
 using Dungeon.src.PlayerClass;
@@ -15,7 +14,7 @@ namespace Dungeon.src.MenuClass
         private Map map;
         private Interface gameInterface;
 
-        private float pauseCooldown = 0.2f;
+        private readonly float pauseCooldown = 0.2f;
         private float pauseTimer = 0;
 
         private Rectangle pauseBackground;
