@@ -28,6 +28,8 @@ namespace Dungeon.src
         private int totalAnimationTime = 0;
         public Texture2D texture;
 
+
+        public int CurrentTimeLine { get { return currentTimeline; } set { currentTimeline = value; } }
         private float scale = 3.0f;
 
         public void SetScale(float newScale)
@@ -111,9 +113,9 @@ namespace Dungeon.src
             currentTime = 0;
         }
 
-        public void setTimeLine(int newTimeLine, bool triggerCallBack = true)
+        public void SetTimeLine(int newTimeLine, bool triggerCallBack = true)
         {
-            if (newTimeLine != currentTimeline && linkToAnotherTimeLine[newTimeLine] != -1)
+            if (newTimeLine != currentTimeline)
             {
                 ResetTimeLine();
                 currentTimeline = newTimeLine;
@@ -137,7 +139,7 @@ namespace Dungeon.src
             if (linkToAnotherTimeLine[currentTimeline] != -1 && currentTime >= totalAnimationTime)
             {
                 offset = (int)(currentTime % totalAnimationTime);
-                setTimeLine(linkToAnotherTimeLine[currentTimeline], false);
+                SetTimeLine(linkToAnotherTimeLine[currentTimeline], false);
                 currentTime = offset;
                 currentFrame = -1;
             }
@@ -161,7 +163,7 @@ namespace Dungeon.src
             callback(position, size);
         }
 
-        public Vector2 getSize()
+        public Vector2 GetSize()
         {
             return size;
         }

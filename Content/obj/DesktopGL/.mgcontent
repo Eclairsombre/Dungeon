@@ -4,11 +4,23 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveBack.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Arrow-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ArrowSpriteSheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Coeur-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Sol.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/../../Sprite/Dungeon/Sol.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/testRegression.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
-    <File>Sol.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

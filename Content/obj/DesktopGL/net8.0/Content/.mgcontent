@@ -4,6 +4,7 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/PlayBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveBack.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png</File>
@@ -14,6 +15,7 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/testRegression.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

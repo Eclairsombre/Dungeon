@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/../../Sprite/Dungeon/Sol.png</SourceFile>
-  <SourceTime>2024-09-24T22:09:00.2837894+02:00</SourceTime>
-  <DestFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Sol.xnb</DestFile>
-  <DestTime>2024-09-24T22:13:00.6489967+02:00</DestTime>
+  <SourceFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png</SourceFile>
+  <SourceTime>2024-09-08T21:04:33.2584327+02:00</SourceTime>
+  <DestFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveFront.xnb</DestFile>
+  <DestTime>2024-09-27T20:17:12.0044072+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

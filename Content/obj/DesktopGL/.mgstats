@@ -1,2 +1,9 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Sol.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Sprites/Sol.xnb","TextureProcessor","Texture2DContent",349,19685,0,0898298
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveBack.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveBack.xnb","TextureProcessor","Texture2DContent",1218,2085,0,1088728
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveFront.xnb","TextureProcessor","Texture2DContent",1227,2773,0,0032724
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/PlayerNoMoveLeft.xnb","TextureProcessor","Texture2DContent",637,2785,0,0025564
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Arrow-Sheet.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/Sprites/Arrow-Sheet.xnb","TextureProcessor","Texture2DContent",480,9685,0,0026174
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ArrowSpriteSheet.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/Sprites/ArrowSpriteSheet.xnb","TextureProcessor","Texture2DContent",2259,115285,0,0082485
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Coeur-Sheet.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/Sprites/Coeur-Sheet.xnb","TextureProcessor","Texture2DContent",1660,100085,0,0052514
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Sol.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/Sprites/Sol.xnb","TextureProcessor","Texture2DContent",349,19685,0,0030251
+"C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/testRegression.png","C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/Sprites/testRegression.xnb","TextureProcessor","Texture2DContent",1403,96181,0,0068395
