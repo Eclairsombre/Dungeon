@@ -243,7 +243,7 @@ namespace Dungeon.src.PlayerClass
 
 
             Deplacement(ref futurePosition);
-            Rectangle newHitbox = new((int)futurePosition.X + 5, (int)futurePosition.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
+            Rectangle newHitbox = new((int)futurePosition.X + 10, (int)futurePosition.Y + 10, (int)(spriteWidth * scale) - 10, (int)(spriteHeight * scale) - 15);
 
 
             if (Collision.CheckCollisionWithDoor(newHitbox, map.ActualRoom))

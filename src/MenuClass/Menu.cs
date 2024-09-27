@@ -12,21 +12,38 @@ namespace Dungeon.src.MenuClass
         Options,
         Pause
     }
-    public class Menu(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, ContentManager content)
+    public class Menu
     {
-        private GraphicsDevice _graphicsDevice = graphicsDevice;
-        private SpriteBatch _spriteBatch = spriteBatch;
+        private GraphicsDevice _graphicsDevice;
+        private SpriteBatch _spriteBatch;
 
-        private ContentManager _content = content;
+        private ContentManager _content;
 
 
         private Dungeon dungeon;
         private GameState gameState = GameState.Menu;
 
-        private Bouton playButton = new Bouton(100, 100, 300, 100, GameState.Playing, "PlayBouton-Sheet");
-
-
         public GameState GameState { get { return gameState; } set { gameState = value; } }
+
+        private Bouton playButton;
+
+
+        public Menu(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, ContentManager content)
+        {
+            _graphicsDevice = graphicsDevice;
+            _spriteBatch = spriteBatch;
+            _content = content;
+
+            int screenWidth = graphicsDevice.Viewport.Width;
+            int screenHeight = graphicsDevice.Viewport.Height;
+            int buttonWidth = 300;
+            int buttonHeight = 100;
+
+            int buttonX = (screenWidth - buttonWidth) / 2;
+            int buttonY = (screenHeight - buttonHeight) / 2;
+
+            playButton = new Bouton(buttonX, buttonY, buttonWidth, buttonHeight, GameState.Playing, "PlayBouton-Sheet");
+        }
         public void Initialize()
         {
             dungeon = new Dungeon();
@@ -55,9 +72,7 @@ namespace Dungeon.src.MenuClass
                     break;
                 case GameState.Options:
                     break;
-
             }
-
         }
 
         public void Draw()
