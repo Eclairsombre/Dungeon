@@ -171,3 +171,8 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\PlayBout
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\PlayBouton-Sheet.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\PlayBouton-Sheet.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\PlayBouton-Sheet.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\OptionsBouton-Sheet.txt
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\OptionsBouton-Sheet.png
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\OptionsBouton-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\OptionsBouton-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\OptionsBouton-Sheet.mgcontent

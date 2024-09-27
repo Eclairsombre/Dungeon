@@ -14,3 +14,4 @@ TODO :
 - DONE : Add heal bar in top of the enemies
 - animation mort( coeur qui bat + respiration -> resurection)
 - DONE :  Fix door collision
+- Add save system (multiple ?)

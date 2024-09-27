@@ -25,7 +25,7 @@ namespace Dungeon.src.MenuClass
 
         public GameState GameState { get { return gameState; } set { gameState = value; } }
 
-        private Bouton playButton;
+        private Bouton playButton, optionsButton;
 
 
         public Menu(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, ContentManager content)
@@ -43,6 +43,7 @@ namespace Dungeon.src.MenuClass
             int buttonY = (screenHeight - buttonHeight) / 2;
 
             playButton = new Bouton(buttonX, buttonY, buttonWidth, buttonHeight, GameState.Playing, "PlayBouton-Sheet");
+            optionsButton = new Bouton(buttonX, buttonY + buttonHeight + 10, buttonWidth, buttonHeight, GameState.Options, "OptionsBouton-Sheet");
         }
         public void Initialize()
         {
@@ -55,6 +56,7 @@ namespace Dungeon.src.MenuClass
             _spriteBatch = new SpriteBatch(_graphicsDevice);
             dungeon.LoadContent(_content);
             playButton.LoadContent(_content);
+            optionsButton.LoadContent(_content);
 
         }
         public void Update(GameTime gameTime)
@@ -64,6 +66,7 @@ namespace Dungeon.src.MenuClass
             {
                 case GameState.Menu:
                     playButton.Update(gameTime);
+                    optionsButton.Update(gameTime);
                     gameState = playButton.OnClick(this);
                     break;
                 case GameState.Playing:
@@ -83,6 +86,7 @@ namespace Dungeon.src.MenuClass
             {
                 case GameState.Menu:
                     playButton.Draw(_spriteBatch);
+                    optionsButton.Draw(_spriteBatch);
                     break;
                 case GameState.Playing:
                 case GameState.Pause:

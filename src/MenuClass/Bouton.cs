@@ -44,9 +44,7 @@ namespace Dungeon.src.MenuClass
 
             if (hitbox.Contains(mouseState.Position) && _animation.GetTimeline() == 0)
             {
-                Console.WriteLine("Mouse is over the button");
                 _animation.SetTimeLine(1);
-                Console.WriteLine(_animation.GetTimeline());
             }
             else if (_animation.GetTimeline() == 1 && !hitbox.Contains(mouseState.Position))
             {
