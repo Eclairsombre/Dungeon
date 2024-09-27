@@ -44,12 +44,11 @@ namespace Dungeon.src.MenuClass
             int buttonHeight = 100;
 
             int buttonX = (screenWidth - buttonWidth) / 2;
-            int buttonY = (screenHeight - buttonHeight) / 2;
 
-            resumeButton = new Bouton(buttonX, pauseBackground.Y + 50, buttonWidth, buttonHeight, GameState.Playing, "PlayBouton-Sheet");
+            resumeButton = new Bouton(buttonX, pauseBackground.Y + 50, buttonWidth, buttonHeight, GameState.Playing, "ResumeBouton-Sheet");
             optionsButton = new Bouton(buttonX, pauseBackground.Y + 50 + buttonHeight + 10, buttonWidth, buttonHeight, GameState.Options, "OptionsBouton-Sheet");
-            saveButton = new Bouton(buttonX, pauseBackground.Y + 50 + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "PlayBouton-Sheet");
-            quitButton = new Bouton(buttonX, pauseBackground.Y + 50 + 3 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "PlayBouton-Sheet");
+            saveButton = new Bouton(buttonX, pauseBackground.Y + 50 + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "SaveBouton-Sheet");
+            quitButton = new Bouton(buttonX, pauseBackground.Y + 50 + 3 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "ExitBouton-Sheet");
 
 
         }

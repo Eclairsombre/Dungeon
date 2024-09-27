@@ -184,3 +184,16 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Backgrou
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Background.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\Background.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\Background.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\ResumeBouton-Sheet.txt
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\SaveBouton-Sheet.txt
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ResumeBouton-Sheet.png
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\SaveBouton-Sheet.png
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ResumeBouton-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\SaveBouton-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\ResumeBouton-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\SaveBouton-Sheet.xnb
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\ResumeBouton-Sheet.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\SaveBouton-Sheet.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\ExitBouton-Sheet.txt
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ExitBouton-Sheet.png
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\ExitBouton-Sheet.xnb
