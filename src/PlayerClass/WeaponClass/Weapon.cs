@@ -17,8 +17,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         protected int width = 40, height = 40;
 
         protected bool attacking = false;
-
-        protected float attackCooldown = 0.5f; // Délai de 0.5 secondes entre les attaques
+        protected float attackCooldown = 0.5f;
         protected float timeSinceLastAttack = 0f;
 
         public int Damage { get { return damage; } set { damage = value; } }
@@ -48,14 +47,14 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                     Position = new Vector2((int)player.Position.X - range + 5, (int)player.Position.Y + 5);
 
                     break;
-                case Vector2 v when v == new Vector2(0, 1):
+                case Vector2 v when v == new Vector2(0, -1):
                     //Console.WriteLine("up");
                     width = (int)(player.SpriteWidth * player.Scale);
                     height = range;
                     Position = new Vector2((int)player.Position.X + 5, (int)player.Position.Y - range + 5);
 
                     break;
-                case Vector2 v when v == new Vector2(0, -1):
+                case Vector2 v when v == new Vector2(0, 1):
                     //Console.WriteLine("Down");
                     width = (int)(player.SpriteWidth * player.Scale) - 5;
                     height = range;

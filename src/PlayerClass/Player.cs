@@ -245,12 +245,8 @@ namespace Dungeon.src.PlayerClass
             Deplacement(ref futurePosition);
             Rectangle newHitbox = new((int)futurePosition.X + 5, (int)futurePosition.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
 
-            if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
-            {
-                position = futurePosition;
-                hitbox = newHitbox;
-            }
-            if (Collision.CheckCollisionWithDoor(hitbox, map.ActualRoom))
+
+            if (Collision.CheckCollisionWithDoor(newHitbox, map.ActualRoom))
             {
                 map.ActualRoom = new Room();
                 Random random = new();
@@ -258,6 +254,11 @@ namespace Dungeon.src.PlayerClass
                 map.ActualRoom.LoadContent(content, roomNumber);
                 map.ActualRoom.Generate(content);
                 position = startPosition;
+            }
+            if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
+            {
+                position = futurePosition;
+                hitbox = newHitbox;
             }
 
 
@@ -335,11 +336,6 @@ namespace Dungeon.src.PlayerClass
 
 
 
-        }
-
-        public Rectangle GetHitbox()
-        {
-            return new Rectangle((int)position.X + 5, (int)position.Y + 5, (int)(spriteWidth * scale) - 5, (int)(spriteHeight * scale) - 10);
         }
 
         private void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color)

@@ -1,9 +1,7 @@
-using Dungeon.src.InterfaceClass;
-using Dungeon.src.MapClass;
-using Dungeon.src.PlayerClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Dungeon.src.MenuClass
 {
@@ -25,7 +23,8 @@ namespace Dungeon.src.MenuClass
         private Dungeon dungeon;
         private GameState gameState = GameState.Menu;
 
-        private Bouton playButton = new Bouton(100, 100, 100, 100, GameState.Playing);
+        private Bouton playButton = new Bouton(100, 100, 300, 100, GameState.Playing);
+
 
         public GameState GameState { get { return gameState; } set { gameState = value; } }
         public void Initialize()
@@ -42,18 +41,19 @@ namespace Dungeon.src.MenuClass
         }
         public void Update(GameTime gameTime)
         {
+
             switch (gameState)
             {
                 case GameState.Menu:
                     gameState = playButton.OnClick(this);
                     break;
                 case GameState.Playing:
-                    dungeon.UpdatePlaying(gameTime, content);
+                case GameState.Pause:
+                    dungeon.UpdatePlaying(gameTime, _content, ref gameState);
                     break;
                 case GameState.Options:
                     break;
-                case GameState.Pause:
-                    break;
+
             }
 
         }
@@ -68,12 +68,12 @@ namespace Dungeon.src.MenuClass
                     playButton.Draw(_spriteBatch);
                     break;
                 case GameState.Playing:
+                case GameState.Pause:
                     dungeon.Draw(_spriteBatch);
                     break;
                 case GameState.Options:
                     break;
-                case GameState.Pause:
-                    break;
+
             }
 
             _spriteBatch.End();
