@@ -11,22 +11,25 @@ namespace Dungeon.src.MenuClass
         Menu,
         Playing,
         Options,
-        Pause
+        Pause,
+        Exit
     }
     public class Menu
     {
-        private GraphicsDevice _graphicsDevice;
+        private readonly GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
 
-        private ContentManager _content;
+        private readonly ContentManager _content;
 
 
         private Dungeon dungeon;
+
+        private readonly Options options;
         private GameState gameState = GameState.Menu;
 
         public GameState GameState { get { return gameState; } set { gameState = value; } }
 
-        private Bouton playButton, optionsButton;
+        private readonly Bouton playButton, optionsButton, exitButton;
 
 
         public Menu(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, ContentManager content)
@@ -45,6 +48,9 @@ namespace Dungeon.src.MenuClass
 
             playButton = new Bouton(buttonX, buttonY, buttonWidth, buttonHeight, GameState.Playing, "PlayBouton-Sheet");
             optionsButton = new Bouton(buttonX, buttonY + buttonHeight + 10, buttonWidth, buttonHeight, GameState.Options, "OptionsBouton-Sheet");
+            exitButton = new Bouton(buttonX, buttonY + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Exit, "ExitBouton-Sheet");
+
+            options = new Options(graphicsDevice);
         }
         public void Initialize()
         {
@@ -58,6 +64,9 @@ namespace Dungeon.src.MenuClass
             dungeon.LoadContent(_content);
             playButton.LoadContent(_content);
             optionsButton.LoadContent(_content);
+            exitButton.LoadContent(_content);
+
+            options.LoadContent(_content);
 
         }
         public void Update(GameTime gameTime)
@@ -67,10 +76,13 @@ namespace Dungeon.src.MenuClass
                 case GameState.Menu:
                     playButton.Update(gameTime);
                     optionsButton.Update(gameTime);
+                    exitButton.Update(gameTime);
+
                     if (!dungeon.quitButton.isClicked)
                     {
                         playButton.OnClick(ref gameState);
                         optionsButton.OnClick(ref gameState);
+                        exitButton.OnClick(ref gameState);
                     }
                     else
                     {
@@ -83,6 +95,10 @@ namespace Dungeon.src.MenuClass
                     dungeon.UpdatePlaying(gameTime, _content, ref gameState);
                     break;
                 case GameState.Options:
+                    options.Update(gameTime, ref gameState);
+                    break;
+                case GameState.Exit:
+                    Environment.Exit(0);
                     break;
             }
         }
@@ -96,12 +112,14 @@ namespace Dungeon.src.MenuClass
                 case GameState.Menu:
                     playButton.Draw(_spriteBatch);
                     optionsButton.Draw(_spriteBatch);
+                    exitButton.Draw(_spriteBatch);
                     break;
                 case GameState.Playing:
                 case GameState.Pause:
                     dungeon.Draw(_spriteBatch, gameState);
                     break;
                 case GameState.Options:
+                    options.Draw(_spriteBatch);
                     break;
 
             }

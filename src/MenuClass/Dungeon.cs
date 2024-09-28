@@ -100,6 +100,8 @@ namespace Dungeon.src.MenuClass
             }
             player.Update(gameTime, map, content);
             map.Update(player.CenterPosition, gameTime);
+
+            
             gameInterface.Update(gameTime);
         }
 

@@ -73,6 +73,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/ArrowSpriteSheet.png
 
+#begin Sprites/BackBouton-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/BackBouton-Sheet.png
+
 #begin Sprites/Background.png
 /importer:TextureImporter
 /processor:TextureProcessor
