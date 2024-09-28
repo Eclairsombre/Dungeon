@@ -12,7 +12,8 @@ namespace Dungeon.src.MenuClass
         Playing,
         Options,
         Pause,
-        Exit
+        Exit,
+        LevelUp
     }
     public class Menu
     {
@@ -26,6 +27,7 @@ namespace Dungeon.src.MenuClass
 
         private readonly Options options;
         private GameState gameState = GameState.Menu;
+        private GameState previousGameState = GameState.Menu;
 
         public GameState GameState { get { return gameState; } set { gameState = value; } }
 
@@ -71,6 +73,8 @@ namespace Dungeon.src.MenuClass
         }
         public void Update(GameTime gameTime)
         {
+
+
             switch (gameState)
             {
                 case GameState.Menu:
@@ -80,9 +84,9 @@ namespace Dungeon.src.MenuClass
 
                     if (!dungeon.quitButton.isClicked)
                     {
-                        playButton.OnClick(ref gameState);
-                        optionsButton.OnClick(ref gameState);
-                        exitButton.OnClick(ref gameState);
+                        playButton.OnClick(ref gameState, ref previousGameState);
+                        optionsButton.OnClick(ref gameState, ref previousGameState);
+                        exitButton.OnClick(ref gameState, ref previousGameState);
                     }
                     else
                     {
@@ -92,10 +96,11 @@ namespace Dungeon.src.MenuClass
                     break;
                 case GameState.Playing:
                 case GameState.Pause:
-                    dungeon.UpdatePlaying(gameTime, _content, ref gameState);
+                case GameState.LevelUp:
+                    dungeon.UpdatePlaying(gameTime, _content, ref gameState, ref previousGameState);
                     break;
                 case GameState.Options:
-                    options.Update(gameTime, ref gameState);
+                    options.Update(gameTime, ref gameState, ref previousGameState);
                     break;
                 case GameState.Exit:
                     Environment.Exit(0);
@@ -116,6 +121,7 @@ namespace Dungeon.src.MenuClass
                     break;
                 case GameState.Playing:
                 case GameState.Pause:
+                case GameState.LevelUp:
                     dungeon.Draw(_spriteBatch, gameState);
                     break;
                 case GameState.Options:

@@ -74,13 +74,12 @@ namespace Dungeon.src.MenuClass
             _animation.Update(gameTime);
         }
 
-        public void OnClick(ref GameState gameState)
+        public void OnClick(ref GameState gameState, ref GameState previousGameState)
         {
             MouseState mouseState = Mouse.GetState();
             if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
             {
-                Console.WriteLine("Click");
-                Console.WriteLine(gameState);
+                previousGameState = gameState;
                 gameState = this.gameState;
                 isClicked = true;
             }

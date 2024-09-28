@@ -22,10 +22,15 @@ namespace Dungeon.src.MenuClass
             backButton = new Bouton(buttonX, buttonY, buttonWidth, buttonHeight, GameState.Menu, "BackBouton-Sheet");
         }
 
-        public void Update(GameTime gameTime, ref GameState gameState)
+        public void Update(GameTime gameTime, ref GameState gameState, ref GameState previousGameState)
         {
             backButton.Update(gameTime);
-            backButton.OnClick(ref gameState);
+            GameState previousGameState1 = previousGameState;
+            backButton.OnClick(ref gameState, ref previousGameState);
+            if (previousGameState1 != previousGameState)
+            {
+                gameState = previousGameState1;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

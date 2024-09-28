@@ -14,6 +14,8 @@ namespace Dungeon.src.MenuClass
         private Map map;
         private Interface gameInterface;
 
+        private LevelUp levelUp;
+
         private readonly float pauseCooldown = 0.2f;
         private float pauseTimer = 0;
 
@@ -49,6 +51,9 @@ namespace Dungeon.src.MenuClass
             saveButton = new Bouton(buttonX, pauseBackground.Y + 50 + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "SaveBouton-Sheet");
             quitButton = new Bouton(buttonX, pauseBackground.Y + 50 + 3 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "ExitBouton-Sheet");
 
+            levelUp = new LevelUp(graphicsDevice);
+
+
 
         }
 
@@ -63,10 +68,12 @@ namespace Dungeon.src.MenuClass
             saveButton.LoadContent(content);
             quitButton.LoadContent(content);
 
+            levelUp.LoadContent(content);
+
 
         }
 
-        public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState)
+        public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState, ref GameState previousGameState)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) && pauseTimer <= 0)
             {
@@ -85,6 +92,12 @@ namespace Dungeon.src.MenuClass
                 pauseTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
+            if (gameState == GameState.LevelUp)
+            {
+                levelUp.Update(gameTime);
+                return;
+            }
+
             if (gameState == GameState.Pause)
             {
                 resumeButton.Update(gameTime);
@@ -92,16 +105,16 @@ namespace Dungeon.src.MenuClass
                 saveButton.Update(gameTime);
                 quitButton.Update(gameTime);
 
-                resumeButton.OnClick(ref gameState);
-                optionsButton.OnClick(ref gameState);
-                saveButton.OnClick(ref gameState);
-                quitButton.OnClick(ref gameState);
+                resumeButton.OnClick(ref gameState, ref previousGameState);
+                optionsButton.OnClick(ref gameState, ref previousGameState);
+                saveButton.OnClick(ref gameState, ref previousGameState);
+                quitButton.OnClick(ref gameState, ref previousGameState);
                 return;
             }
-            player.Update(gameTime, map, content);
+            player.Update(gameTime, map, content, ref gameState);
             map.Update(player.CenterPosition, gameTime);
 
-            
+
             gameInterface.Update(gameTime);
         }
 
@@ -111,7 +124,10 @@ namespace Dungeon.src.MenuClass
             map.Draw(spriteBatch);
             player.Draw(spriteBatch);
             gameInterface.Draw(spriteBatch, player);
-
+            if (gameState == GameState.LevelUp)
+            {
+                levelUp.Draw(spriteBatch);
+            }
             if (gameState == GameState.Pause)
             {
                 spriteBatch.Draw(pauseBackgroundTexture, pauseBackground, Color.White);

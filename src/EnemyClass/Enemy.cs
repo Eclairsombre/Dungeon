@@ -12,7 +12,7 @@ namespace Dungeon.src.EnemyClass
 {
     public class Enemy
     {
-        protected int hp = 3, damage = 1, speed = 3, xp = 10, maxHp = 3;
+        protected int hp = 3, damage = 1, speed = 3, xp = 100, maxHp = 3;
         protected Vector2 position;
         protected Vector2 direction;
         protected Vector2 line;

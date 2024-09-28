@@ -1,3 +1,4 @@
+using Dungeon.src.MenuClass;
 using Microsoft.Xna.Framework;
 
 
@@ -35,13 +36,15 @@ namespace Dungeon.src.PlayerClass.StatsClass
             _xpToLevelUp = 100;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, ref GameState gameState)
         {
             if (_xp >= _xpToLevelUp)
             {
                 _level++;
                 _xp -= _xpToLevelUp;
                 _xpToLevelUp = (int)(_xpToLevelUp * 1.2f);
+
+                gameState = GameState.LevelUp;
 
 
             }

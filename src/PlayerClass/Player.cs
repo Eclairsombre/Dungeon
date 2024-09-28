@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using Dungeon.src.CollisionClass;
 using MonoGame.Extended;
 using Dungeon.src.PlayerClass.StatsClass;
+using Dungeon.src.MenuClass;
 
 namespace Dungeon.src.PlayerClass
 {
@@ -94,7 +95,7 @@ namespace Dungeon.src.PlayerClass
         {
             this.weapon = weapon;
         }
-        public void Update(GameTime gameTime, Map map, ContentManager content)
+        public void Update(GameTime gameTime, Map map, ContentManager content, ref GameState gameState)
         {
             var keyboardState = Keyboard.GetState();
 
@@ -245,7 +246,7 @@ namespace Dungeon.src.PlayerClass
                     if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
                     {
                         stats.Xp += xpDrop.Xp;
-                        stats.Update(gameTime);
+                        stats.Update(gameTime, ref gameState);
                         map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
 
                     }
