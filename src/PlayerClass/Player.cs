@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Dungeon.src.CollisionClass;
 using MonoGame.Extended;
+using Dungeon.src.PlayerClass.StatsClass;
 
 namespace Dungeon.src.PlayerClass
 {
@@ -21,8 +22,8 @@ namespace Dungeon.src.PlayerClass
         private const int Deadzone = 4096;
 
         private Vector2 position, centerPosition, startPosition, direction, directionDeplacement;
-        private float speed, scale;
-
+        private readonly float speed;
+        private float scale;
         private readonly Texture2D[] spriteSheetNoMove = new Texture2D[3];
         private readonly Texture2D hitboxTexture;
         private int currentSpriteSheet;
@@ -30,13 +31,12 @@ namespace Dungeon.src.PlayerClass
 
         private int spriteWidth, spriteHeight;
         private Rectangle hitbox, rangeInFrontPlayer;
-
         private Weapon weapon;
+        private Stats stats = new();
 
+        public Stats Stats { get { return stats; } set { stats = value; } }
 
-        private int level = 1, xp = 0;
-
-        private int nbHeart = 3, xpToLevelUp = 100, invincibilityTime = 0;
+        private int invincibilityTime = 0;
 
         private const float spaceCooldown = 500f;
 
@@ -44,13 +44,6 @@ namespace Dungeon.src.PlayerClass
 
         private bool isMovingHorizontally = false;
         private bool isMovingVertically = false;
-
-
-
-        public int Level { get { return level; } set { level = value; } }
-        public int Xp { get { return xp; } set { xp = value; } }
-        public int NbHeart { get { return nbHeart; } set { nbHeart = value; } }
-        public int XpToLevelUp { get { return xpToLevelUp; } set { xpToLevelUp = value; } }
 
         public int SpriteWidth { get { return spriteWidth; } set { spriteWidth = value; } }
         public int SpriteHeight { get { return spriteHeight; } set { spriteHeight = value; } }
@@ -188,7 +181,7 @@ namespace Dungeon.src.PlayerClass
                 {
                     if (Collision.CheckCollisionTwoRect(hitbox, enemy.Hitbox))
                     {
-                        nbHeart--;
+                        stats.Health--;
                         invincibilityTime = 3000;
                         break;
                     }
@@ -272,19 +265,20 @@ namespace Dungeon.src.PlayerClass
                 {
                     if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
                     {
-                        xp += xpDrop.Xp;
-                        if (xp >= xpToLevelUp)
-                        {
-                            xp -= xpToLevelUp;
-                            level++;
-                            xpToLevelUp = (int)(xpToLevelUp * 1.1);
-                        }
+                        stats.Xp += xpDrop.Xp;
+                        stats.Update(gameTime);
+                        map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
+
                     }
                     else if (map.ActualRoom.DropsList[i] is HeartDrop heartDrop)
                     {
-                        nbHeart++;
+                        if (stats.Health < stats.MaxHealth)
+                        {
+                            stats.Health++;
+                            map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
+
+                        }
                     }
-                    map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
                 }
             }
             for (int i = 0; i < map.ActualRoom.Tiles.GetLength(0); i++)
@@ -316,7 +310,7 @@ namespace Dungeon.src.PlayerClass
                 return;
             }
             directionDeplacement = new Vector2(directionDeplacement.X / (float)Math.Sqrt(valAbs), directionDeplacement.Y / (float)Math.Sqrt(valAbs));
-            float adjustedSpeed = (isMovingHorizontally && isMovingVertically) ? speed / (float)Math.Sqrt(2) : speed;
+            float adjustedSpeed = (isMovingHorizontally && isMovingVertically) ? speed * stats.Speed / (float)Math.Sqrt(2) : speed * stats.Speed;
             futurePosition = new Vector2(position.X + directionDeplacement.X * adjustedSpeed, position.Y + (directionDeplacement.Y * adjustedSpeed));
 
         }

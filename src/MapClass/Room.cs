@@ -144,7 +144,6 @@ public class Room
 
         for (int i = 0; i < dropsList.Length; i++)
         {
-            Console.WriteLine(dropsList[i].Hitbox);
             dropsList[i].Update(gameTime);
         }
 

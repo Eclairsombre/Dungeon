@@ -3,7 +3,7 @@ TODO :
 - Fix enemy deplacement
 - Add new enemies
 - Add stat upgrade when level up
-- EN COURS : Add menu and pause menu
+- Add Option (change keybind, music volume etc)
 - Add Boss(different move set, heal bar...)
 - DONE : Refactor code for better organisation
 - EN COURS : make texture and animation
