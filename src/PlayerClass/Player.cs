@@ -51,7 +51,7 @@ namespace Dungeon.src.PlayerClass
         public Vector2 Position { get { return position; } set { position = value; } }
         public Vector2 CenterPosition { get { return centerPosition; } set { centerPosition = value; } }
 
-
+        public Vector2 Direction { get { return direction; } set { direction = value; } }
 
 
         public Player(GraphicsDevice graphicsDevice)
@@ -86,10 +86,6 @@ namespace Dungeon.src.PlayerClass
             foreach (var texture in spriteSheetNoMove)
             {
                 texture.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            }
-            if (weapon is Bow bow)
-            {
-                bow.LoadContent(content);
             }
 
         }
@@ -135,17 +131,7 @@ namespace Dungeon.src.PlayerClass
                 spaceCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 rangeInFrontPlayer = Rectangle.Empty;
             }
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                if (weapon is Bow b)
-                {
-                    b.Attack(direction, centerPosition, content);
-                }
-                else
-                {
-                    weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
-                }
-            }
+
 
 
             JoystickState jstate = Joystick.GetState((int)PlayerIndex.One);
@@ -189,14 +175,7 @@ namespace Dungeon.src.PlayerClass
             }
 
             centerPosition = new Vector2(position.X + spriteWidth * scale / 2, position.Y + spriteHeight * scale / 2);
-            if (weapon is Bow bow)
-            {
-                bow.Update(gameTime, map.ActualRoom.Enemies, centerPosition, map.ActualRoom.Tiles);
-            }
-            else
-            {
-                weapon.Update(this, direction, map.ActualRoom.Enemies, gameTime);
-            }
+            weapon.Update(this, gameTime, map, content);
 
             if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
             {

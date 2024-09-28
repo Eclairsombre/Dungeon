@@ -80,10 +80,10 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             _animation.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        public void Draw(SpriteBatch spriteBatch)
         {
             float scale = 1.2f;
-            spriteBatch.Draw(texture, Position, callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_animation.texture, Position, callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             //spriteBatch.FillRectangle(Hitbox, Color.Red);
 
         }

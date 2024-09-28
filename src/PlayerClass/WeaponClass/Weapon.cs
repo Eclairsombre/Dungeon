@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
+using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,11 +28,11 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         public int Height { get { return height; } set { height = value; } }
 
 
-        public void Update(Player player, Vector2 direction, List<Enemy> enemies, GameTime gameTime)
+        public virtual void Update(Player player, GameTime gameTime, Map map, ContentManager content)
         {
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            switch (direction)
+            switch (player.Direction)
             {
                 case Vector2 v when v == new Vector2(1, 0):
                     //Console.WriteLine("Right");
@@ -67,7 +68,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 attacking = true;
 
-                Attack(enemies, direction);
+                Attack(map.ActualRoom.Enemies, player.Direction);
             }
             if (Mouse.GetState().LeftButton == ButtonState.Released)
             {

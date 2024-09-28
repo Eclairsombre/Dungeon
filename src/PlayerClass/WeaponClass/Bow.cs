@@ -5,14 +5,13 @@ using Dungeon.src.MapClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Dungeon.src.PlayerClass.WeaponClass
 {
     public class Bow : Weapon
     {
-        private List<Arrow> arrows = [];
-        private Texture2D arrowTexture;
-
+        private readonly List<Arrow> arrows = [];
         public Bow(Vector2 position) : base(position)
         {
             //this.arrowTexture = arrowTexture;
@@ -20,23 +19,24 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         }
 
 
-        public void Attack(Vector2 direction, Vector2 position, ContentManager content)
+        public void Attack(Vector2 direction, ContentManager content)
         {
             if (timeSinceLastAttack >= attackCooldown)
             {
-
                 timeSinceLastAttack = 0f;
-
-
-                arrows.Add(new Arrow(Position, direction, 400f, content));
+                Arrow arrow = new(Position, direction, 400f, content);
+                arrow.LoadContent(content);
+                arrows.Add(arrow);
             }
         }
 
-        public void Update(GameTime gameTime, List<Enemy> enemies, Vector2 position, Tiles[,] tiles)
+        public override void Update(Player player, GameTime gameTime, Map map, ContentManager content)
         {
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            this.Position = position;
+            Position = player.CenterPosition;
+            Tiles[,] tiles = map.ActualRoom.Tiles;
+            List<Enemy> enemies = map.ActualRoom.Enemies;
 
             List<Arrow> arrowsToRemove = [];
 
@@ -71,18 +71,24 @@ namespace Dungeon.src.PlayerClass.WeaponClass
 
             }
 
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                Attack(player.Direction, content);
+            }
+            if (Mouse.GetState().LeftButton == ButtonState.Released)
+            {
+            }
+
         }
 
         public override void LoadContent(ContentManager content)
         {
-            arrowTexture = content.Load<Texture2D>("Sprites/ArrowSpriteSheet");
-
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < arrows.Count; i++)
             {
-                arrows[i].Draw(spriteBatch, arrowTexture);
+                arrows[i].Draw(spriteBatch);
             }
         }
     }
