@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Dungeon.src.MapClass;
+using Dungeon.src.PlayerClass.StatsClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -68,7 +69,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 attacking = true;
 
-                Attack(map.ActualRoom.Enemies, player.Direction);
+                Attack(map.ActualRoom.Enemies, player.Direction, player.playerStats);
             }
             if (Mouse.GetState().LeftButton == ButtonState.Released)
             {
@@ -84,7 +85,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
 
         }
 
-        public virtual void Attack(List<Enemy> enemies, Vector2 direction)
+        public virtual void Attack(List<Enemy> enemies, Vector2 direction, Stats playerStats)
         {
             if (timeSinceLastAttack >= attackCooldown)
             {
@@ -93,7 +94,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                 {
                     if (enemy.Hitbox.Intersects(new Rectangle((int)position.X, (int)position.Y, width, height)))
                     {
-                        enemy.Hp -= Damage;
+                        enemy.Hp -= Damage * playerStats.Attack;
                     }
                 }
             }

@@ -131,7 +131,6 @@ namespace Dungeon.src
 
         public void Update(GameTime gameTime)
         {
-            Console.WriteLine("CurrentTimeLine: " + currentTimeline);
 
             if (paused || (framePerTimeLine[currentTimeline] == 1 && linkToAnotherTimeLine[currentTimeline] == -1))
             {

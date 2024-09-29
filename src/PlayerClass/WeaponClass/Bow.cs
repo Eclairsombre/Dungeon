@@ -48,7 +48,8 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                 {
                     if (arrow.Hitbox.Intersects(enemies[i].Hitbox))
                     {
-                        enemies[i].Hp -= Damage;
+                        Console.WriteLine(Damage * player.playerStats.Attack);
+                        enemies[i].Hp -= Damage * player.playerStats.Attack;
                         arrowsToRemove.Add(arrow);
                     }
                 }

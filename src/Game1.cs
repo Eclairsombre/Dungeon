@@ -12,7 +12,6 @@ namespace Dungeon;
 public class Game1 : Game
 {
     private readonly GraphicsDeviceManager _graphics;
-    private readonly SpriteBatch _spriteBatch;
 
     private Menu menu;
 
@@ -28,7 +27,7 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        menu = new Menu(_graphics.GraphicsDevice, _spriteBatch, Content);
+        menu = new Menu(_graphics.GraphicsDevice, Content);
         menu.Initialize();
 
         base.Initialize();

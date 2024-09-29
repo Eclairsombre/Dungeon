@@ -12,7 +12,9 @@ namespace Dungeon.src.EnemyClass
 {
     public class Enemy
     {
-        protected int hp = 3, damage = 1, speed = 3, xp = 100, maxHp = 3;
+        protected int damage = 1, speed = 3, xp = 100, maxHp = 3;
+
+        protected float hp = 3;
         protected Vector2 position;
         protected Vector2 direction;
         protected Vector2 line;
@@ -31,7 +33,7 @@ namespace Dungeon.src.EnemyClass
         protected Vector2 lastPlayerPosition;
 
         public Rectangle Hitbox { get { return hitbox; } }
-        public int Hp { get { return hp; } set { hp = value; } }
+        public float Hp { get { return hp; } set { hp = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
         public Vector2 Position { get { return position; } set { position = value; } }
         public Vector2 Direction { get { return direction; } set { direction = value; } }

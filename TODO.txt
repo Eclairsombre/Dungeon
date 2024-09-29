@@ -2,10 +2,10 @@ TODO :
 
 - Fix enemy deplacement
 - Add new enemies
-- Add stat upgrade when level up
+- EN COURS :Add stat upgrade when level up
 - Add Option (change keybind, music volume etc)
 - Add Boss(different move set, heal bar...)
-- DONE : Refactor code for better organisation
+-  Refactor code for better organisation
 - EN COURS : make texture and animation
 - Add a move to move quickly ? (roulade, dash ..)
 - Add ingame lobby to upgrade the player (png?, shop?)

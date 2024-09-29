@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
+using Dungeon.src.PlayerClass.StatsClass;
 using Microsoft.Xna.Framework;
 
 namespace Dungeon.src.PlayerClass.WeaponClass
@@ -12,7 +13,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             SetDamage(2);
         }
 
-        public void Attack(Vector2 direction, List<Enemy> enemies)
+        public void Attack(Vector2 direction, List<Enemy> enemies, Stats playerStats)
         {
             if (timeSinceLastAttack >= attackCooldown)
             {
@@ -21,7 +22,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                 {
                     if (enemy.Hitbox.Intersects(new Rectangle((int)position.X, (int)position.Y, width, height)))
                     {
-                        enemy.Hp -= Damage;
+                        enemy.Hp -= Damage * playerStats.Attack;
                     }
                 }
             }

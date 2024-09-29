@@ -35,10 +35,11 @@ namespace Dungeon.src.MenuClass
         private readonly Bouton playButton, optionsButton, exitButton;
 
 
-        public Menu(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, ContentManager content)
+        public Menu(GraphicsDevice graphicsDevice, ContentManager content)
         {
             _graphicsDevice = graphicsDevice;
-            _spriteBatch = spriteBatch;
+
+            ;
             _content = content;
 
             int screenWidth = graphicsDevice.Viewport.Width;
