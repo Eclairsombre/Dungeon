@@ -35,7 +35,7 @@ namespace Dungeon.src.PlayerClass
         private Weapon weapon;
         private Stats stats = new();
 
-        public Stats Stats { get { return stats; } set { stats = value; } }
+        public Stats playerStats { get { return stats; } set { stats = value; } }
 
         private int invincibilityTime = 0;
 

@@ -13,38 +13,50 @@ namespace Dungeon.src.InterfaceClass
 
         private Rectangle heart = new(50, 10, 50, 50);
 
-        private readonly Animation heartAnimation;
+        private readonly Animation heartAnimation, heartEmptyAnimation;
 
-        private readonly CallBack callBack = new();
+        private readonly CallBack callBack = new(), callBackEmpty = new();
 
 
         public Interface()
         {
             heartAnimation = new Animation("Coeur-Sheet", callBack.StaticMyCallback, 1, 0);
             heartAnimation.ParseData();
+
+            heartEmptyAnimation = new Animation("CoeurVide", callBackEmpty.StaticMyCallback, 0, 0);
+            heartEmptyAnimation.ParseData();
         }
 
         public void LoadContent(ContentManager content)
         {
             heartAnimation.LoadContent(content);
+            heartEmptyAnimation.LoadContent(content);
         }
 
         public void Update(GameTime gameTime)
         {
             heartAnimation.Update(gameTime);
+            heartEmptyAnimation.Update(gameTime);
         }
 
 
         public void Draw(SpriteBatch spriteBatch, Player player)
         {
-            float xpPercentage = (float)player.Stats.Xp / player.Stats.XpToLevelUp;
+            float xpPercentage = (float)player.playerStats.Xp / player.playerStats.XpToLevelUp;
             Rectangle filledXpBar = new(xpBar.X, xpBar.Y, (int)(xpBar.Width * xpPercentage), xpBar.Height);
             spriteBatch.FillRectangle(filledXpBar, Color.Green);
             spriteBatch.DrawRectangle(xpBar, Color.Black);
-            for (int i = 0; i < player.Stats.Health; i++)
+            for (int i = 0; i < player.playerStats.MaxHealth; i++)
             {
+                if (i < player.playerStats.Health)
+                {
+                    spriteBatch.Draw(heartAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBack.SourceRectangle, Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(heartEmptyAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBackEmpty.SourceRectangle, Color.Gray);
+                }
                 //spriteBatch.FillRectangle(new Rectangle(heart.X + i * 60, heart.Y, heart.Width, heart.Height), Color.Red);
-                spriteBatch.Draw(heartAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBack.SourceRectangle, Color.White);
             }
         }
     }

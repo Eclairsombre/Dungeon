@@ -1,6 +1,8 @@
 using Dungeon.src.InterfaceClass;
 using Dungeon.src.MapClass;
+using Dungeon.src.MenuClass.BoutonClass;
 using Dungeon.src.PlayerClass;
+using Dungeon.src.PlayerClass.StatsClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +13,7 @@ namespace Dungeon.src.MenuClass
     public class Dungeon
     {
         private Player player;
+        public Player Player { get { return player; } set { player = value; } }
         private Map map;
         private Interface gameInterface;
 
@@ -94,16 +97,22 @@ namespace Dungeon.src.MenuClass
 
             if (gameState == GameState.LevelUp)
             {
-                levelUp.Update(gameTime, ref gameState, ref previousGameState);
+                Stats playerStats = player.playerStats;
+                levelUp.Update(gameTime, ref gameState, ref previousGameState, ref playerStats);
+                player.playerStats = playerStats;
                 return;
             }
 
             if (gameState == GameState.Pause)
             {
+                var playerStats = player.playerStats;
                 resumeButton.Update(gameTime);
+
                 optionsButton.Update(gameTime);
                 saveButton.Update(gameTime);
                 quitButton.Update(gameTime);
+
+                player.playerStats = playerStats;
 
                 resumeButton.OnClick(ref gameState, ref previousGameState);
                 optionsButton.OnClick(ref gameState, ref previousGameState);

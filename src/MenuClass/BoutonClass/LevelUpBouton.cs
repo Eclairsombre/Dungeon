@@ -1,5 +1,6 @@
 using System;
 using Dungeon.src.AnimationClass;
+using Dungeon.src.PlayerClass.StatsClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,21 +8,30 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Graphics;
 
-namespace Dungeon.src.MenuClass
+namespace Dungeon.src.MenuClass.BoutonClass
 {
-    public class Bouton
+    public enum LevelUpChoice
     {
-        private Rectangle hitbox;
-        private GameState gameState;
+        Heal,
+        Attack,
+        Speed,
+        Defense
+    }
+    public class LevelUpBouton
+    {
+        private LevelUpChoice levelUpChoice;
 
-        private CallBack callBack;
-        private Animation _animation;
+        protected Rectangle hitbox;
+        protected GameState gameState;
+
+        protected CallBack callBack;
+        protected Animation _animation;
 
         public bool isClicked;
-        private double clickDelay;
-        private double elapsedTime;
+        protected double clickDelay;
+        protected double elapsedTime;
 
-        public Bouton(int x, int y, int width, int height, GameState gameState, string file)
+        public LevelUpBouton(int x, int y, int width, int height, GameState gameState, string file, LevelUpChoice levelUpChoice)
         {
             hitbox = new Rectangle(x, y, width, height);
             this.gameState = gameState;
@@ -29,10 +39,13 @@ namespace Dungeon.src.MenuClass
             _animation = new Animation(file, callBack.StaticMyCallback, 0, 0);
             _animation.ParseData();
 
+            this.levelUpChoice = levelUpChoice;
+
             isClicked = false;
             clickDelay = 500; // Délai en millisecondes
             elapsedTime = 0;
         }
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -45,7 +58,7 @@ namespace Dungeon.src.MenuClass
             _animation.LoadContent(content);
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
 
@@ -57,6 +70,8 @@ namespace Dungeon.src.MenuClass
                     isClicked = false;
                     elapsedTime = 0;
                 }
+
+
             }
 
             if (!isClicked)
@@ -74,7 +89,7 @@ namespace Dungeon.src.MenuClass
             _animation.Update(gameTime);
         }
 
-        public void OnClick(ref GameState gameState, ref GameState previousGameState)
+        public void OnClick(ref GameState gameState, ref GameState previousGameState, ref Stats stats)
         {
             MouseState mouseState = Mouse.GetState();
             if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
@@ -82,6 +97,24 @@ namespace Dungeon.src.MenuClass
                 previousGameState = gameState;
                 gameState = this.gameState;
                 isClicked = true;
+
+                switch (levelUpChoice)
+                {
+                    case LevelUpChoice.Heal:
+                        stats.MaxHealth += 1;
+                        stats.Health += 1;
+
+                        break;
+                    case LevelUpChoice.Attack:
+                        stats.Attack *= 1.2f;
+                        break;
+                    case LevelUpChoice.Speed:
+                        stats.Speed *= 1.1f;
+                        break;
+                    case LevelUpChoice.Defense:
+                        stats.Defense += 1;
+                        break;
+                }
             }
         }
     }

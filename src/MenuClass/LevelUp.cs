@@ -1,5 +1,7 @@
 using System;
 using Dungeon.src.AnimationClass;
+using Dungeon.src.MenuClass.BoutonClass;
+using Dungeon.src.PlayerClass.StatsClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,13 +11,13 @@ namespace Dungeon.src.MenuClass
 {
     public class LevelUp
     {
-        private Animation animation;
-        private CallBack callBack;
+        private readonly Animation animation;
+        private readonly CallBack callBack;
 
         private Rectangle hitbox;
 
 
-        private Bouton choice1, choice2, choice3;
+        private readonly LevelUpBouton choice1, choice2, choice3;
 
         public LevelUp(GraphicsDevice graphicsDevice)
         {
@@ -39,14 +41,9 @@ namespace Dungeon.src.MenuClass
             int hitboxChoiceHeight = 150;
 
 
-            choice1 = new Bouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 200, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpHealBouton-Sheet");
-            choice2 = new Bouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 350, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpAttackBouton-Sheet");
-            choice3 = new Bouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 500, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpSpeedBouton-Sheet");
-
-
-
-
-
+            choice1 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 200, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpHealBouton-Sheet", LevelUpChoice.Heal);
+            choice2 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 350, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpAttackBouton-Sheet", LevelUpChoice.Attack);
+            choice3 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 500, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpSpeedBouton-Sheet", LevelUpChoice.Speed);
 
         }
 
@@ -59,16 +56,16 @@ namespace Dungeon.src.MenuClass
             choice3.LoadContent(content);
         }
 
-        public void Update(GameTime gameTime, ref GameState gameState, ref GameState previousGameState)
+        public void Update(GameTime gameTime, ref GameState gameState, ref GameState previousGameState, ref Stats stats)
         {
             animation.Update(gameTime);
             choice1.Update(gameTime);
             choice2.Update(gameTime);
             choice3.Update(gameTime);
 
-            choice1.OnClick(ref gameState, ref previousGameState);
-            choice2.OnClick(ref gameState, ref previousGameState);
-            choice3.OnClick(ref gameState, ref previousGameState);
+            choice1.OnClick(ref gameState, ref previousGameState, ref stats);
+            choice2.OnClick(ref gameState, ref previousGameState, ref stats);
+            choice3.OnClick(ref gameState, ref previousGameState, ref stats);
         }
 
         public void Draw(SpriteBatch spriteBatch)

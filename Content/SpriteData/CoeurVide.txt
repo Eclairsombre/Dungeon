@@ -1,0 +1,3 @@
+50 50 1
+
+CoeurStatique 1 -1 100
