@@ -94,7 +94,7 @@ namespace Dungeon.src.MenuClass
 
             if (gameState == GameState.LevelUp)
             {
-                levelUp.Update(gameTime);
+                levelUp.Update(gameTime, ref gameState, ref previousGameState);
                 return;
             }
 

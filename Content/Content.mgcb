@@ -121,6 +121,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/ExitBouton-Sheet.png
 
+#begin Sprites/LevelUpAttackBouton-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LevelUpAttackBouton-Sheet.png
+
 #begin Sprites/LevelUpBackground-Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -133,7 +145,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/LevelUpBackground-Sheet.png
 
-#begin Sprites/LevelUpBouton-Sheet.png
+#begin Sprites/LevelUpHealBouton-Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -143,7 +155,31 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/LevelUpBouton-Sheet.png
+/build:Sprites/LevelUpHealBouton-Sheet.png
+
+#begin Sprites/LevelUpShieldBouton-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LevelUpShieldBouton-Sheet.png
+
+#begin Sprites/LevelUpSpeedBouton-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LevelUpSpeedBouton-Sheet.png
 
 #begin Sprites/Mur.png
 /importer:TextureImporter
