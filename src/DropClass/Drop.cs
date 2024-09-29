@@ -22,31 +22,10 @@ namespace Dungeon.src.DropClass
         public int Height { get { return height; } set { height = value; } }
         public int Width { get { return width; } set { width = value; } }
 
+        public virtual void Draw(SpriteBatch spriteBatch) { }
 
+        public virtual void Update(GameTime gameTime) { }
 
-
-
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-
-
-
-        }
-
-        public virtual void Update(GameTime gameTime)
-        {
-
-        }
-
-        public virtual void LoadContent(ContentManager content)
-
-        {
-
-            // Implementation for loading content
-
-        }
-
-
-
+        public virtual void LoadContent(ContentManager content) { }
     }
 }

@@ -14,8 +14,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         private readonly List<Arrow> arrows = [];
         public Bow(Vector2 position) : base(position)
         {
-            //this.arrowTexture = arrowTexture;
-            this.attackCooldown = 0.5f;
+            attackCooldown = 0.5f;
         }
 
 
@@ -48,8 +47,8 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                 {
                     if (arrow.Hitbox.Intersects(enemies[i].Hitbox))
                     {
-                        Console.WriteLine(Damage * player.playerStats.Attack);
-                        enemies[i].Hp -= Damage * player.playerStats.Attack;
+                        Console.WriteLine(Damage * player.PlayerStats.Attack);
+                        enemies[i].Hp -= Damage * player.PlayerStats.Attack;
                         arrowsToRemove.Add(arrow);
                     }
                 }
@@ -69,7 +68,6 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             foreach (var arrow in arrowsToRemove)
             {
                 arrows.Remove(arrow);
-
             }
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)

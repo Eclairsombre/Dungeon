@@ -11,15 +11,9 @@ namespace Dungeon.src.MapClass;
 
 public class Map
 {
-
-
     private readonly Random random = new();
-
     private Room room;
-
-
     public Room ActualRoom { get { return room; } set { room = value; } }
-
     public Map()
     {
     }

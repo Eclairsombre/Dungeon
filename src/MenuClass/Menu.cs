@@ -3,7 +3,6 @@ using Dungeon.src.MenuClass.BoutonClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Dungeon.src.MenuClass
 {
@@ -20,26 +19,18 @@ namespace Dungeon.src.MenuClass
     {
         private readonly GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
-
-        private readonly ContentManager _content;
-
-
-        private Dungeon dungeon;
-
-        private readonly Options options;
+          private readonly ContentManager _content;
+private Dungeon dungeon;
+private readonly Options options;
         private GameState gameState = GameState.Menu;
         private GameState previousGameState = GameState.Menu;
-
-        public GameState GameState { get { return gameState; } set { gameState = value; } }
-
-        private readonly Bouton playButton, optionsButton, exitButton;
+public GameState GameState { get { return gameState; } set { gameState = value; } }
+                private readonly Bouton playButton, optionsButton, exitButton;
 
 
         public Menu(GraphicsDevice graphicsDevice, ContentManager content)
         {
             _graphicsDevice = graphicsDevice;
-
-            ;
             _content = content;
 
             int screenWidth = graphicsDevice.Viewport.Width;
@@ -60,7 +51,6 @@ namespace Dungeon.src.MenuClass
         {
             dungeon = new Dungeon();
             dungeon.Initialize(_graphicsDevice);
-
         }
         public void LoadContent()
         {
@@ -69,15 +59,10 @@ namespace Dungeon.src.MenuClass
             playButton.LoadContent(_content);
             optionsButton.LoadContent(_content);
             exitButton.LoadContent(_content);
-
             options.LoadContent(_content);
-
         }
         public void Update(GameTime gameTime)
         {
-
-
-
             switch (gameState)
             {
                 case GameState.Menu:
@@ -132,7 +117,6 @@ namespace Dungeon.src.MenuClass
                     break;
 
             }
-
             _spriteBatch.End();
         }
     }

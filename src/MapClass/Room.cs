@@ -59,27 +59,17 @@ public enum T
 
 public class Room
 {
-    private int x, y, width, height;
-
+    private readonly int x, y, width, height;
     private Tiles[,] tiles = new Tiles[26, 14];
-
     private bool finished = false;
-
-    readonly Random random = new();
-
     private string fileContent;
-
     private List<Enemy> enemies;
-
     private Drop[] dropsList;
-
     private Texture2D[] texture2Ds;
-
     public Tiles[,] Tiles { get { return tiles; } set { tiles = value; } }
     public List<Enemy> Enemies { get { return enemies; } set { enemies = value; } }
     public Drop[] DropsList { get { return dropsList; } set { dropsList = value; } }
     public bool Finished { get { return finished; } set { finished = value; } }
-
     public Room()
     {
         x = 0;
@@ -88,7 +78,6 @@ public class Room
         height = 30;
         dropsList = [];
     }
-
     public void LoadContent(ContentManager content, int room)
     {
         using (var stream = TitleContainer.OpenStream("Content/RoomPatern/Room" + room + ".txt"))
@@ -101,7 +90,6 @@ public class Room
         texture2Ds[1] = content.Load<Texture2D>("Sprites/Mur");
 
     }
-
     public void Update(Vector2 playerPosition, GameTime gameTime)
     {
 

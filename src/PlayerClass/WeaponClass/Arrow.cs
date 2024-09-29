@@ -1,9 +1,7 @@
-using System;
 using Dungeon.src.AnimationClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
 
 namespace Dungeon.src.PlayerClass.WeaponClass
 {
@@ -14,20 +12,15 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         public float Speed { get; private set; }
         private Rectangle _hitbox;
         public Rectangle Hitbox => _hitbox;
-
-        private Animation _animation;
-
-        //private Rectangle sourceRectangle;
-
-        private CallBack callBack = new();
+        private readonly Animation _animation;
+        private readonly CallBack callBack = new();
 
 
         public Arrow(Vector2 position, Vector2 direction, float speed, ContentManager content)
         {
-            //Position = position;
             Direction = direction;
 
-            this.Position = new Vector2(position.X - 15, position.Y - 15);
+            Position = new Vector2(position.X - 15, position.Y - 15);
             Speed = speed;
             if (Direction == new Vector2(0, -1) || Direction == new Vector2(0, 1))
             {
@@ -54,12 +47,6 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                     break;
 
             }
-
-            //texture = content.Load<Texture2D>("Sprites/ArrowSpriteSheet");
-
-
-            //_animation = new Animation("ArrowSpriteSheet", MyCallback, 0, 0);
-
             _animation.ParseData();
         }
 
@@ -76,7 +63,6 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         {
             Position += Direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             _hitbox = new Rectangle((int)Position.X, (int)Position.Y, Hitbox.Width, Hitbox.Height);
-
             _animation.Update(gameTime);
         }
 
@@ -84,8 +70,6 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         {
             float scale = 1.2f;
             spriteBatch.Draw(_animation.texture, Position, callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-            //spriteBatch.FillRectangle(Hitbox, Color.Red);
-
         }
     }
 }

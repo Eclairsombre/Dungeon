@@ -16,15 +16,11 @@ namespace Dungeon.src.MenuClass
         public Player Player { get { return player; } set { player = value; } }
         private Map map;
         private Interface gameInterface;
-
         private LevelUp levelUp;
-
         private readonly float pauseCooldown = 0.2f;
         private float pauseTimer = 0;
-
         private Rectangle pauseBackground;
         private Texture2D pauseBackgroundTexture;
-
         public Bouton resumeButton, quitButton, optionsButton, saveButton;
 
         public void Initialize(GraphicsDevice graphicsDevice)
@@ -55,9 +51,6 @@ namespace Dungeon.src.MenuClass
             quitButton = new Bouton(buttonX, pauseBackground.Y + 50 + 3 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "ExitBouton-Sheet");
 
             levelUp = new LevelUp(graphicsDevice);
-
-
-
         }
 
         public void LoadContent(ContentManager content)
@@ -70,10 +63,7 @@ namespace Dungeon.src.MenuClass
             optionsButton.LoadContent(content);
             saveButton.LoadContent(content);
             quitButton.LoadContent(content);
-
             levelUp.LoadContent(content);
-
-
         }
 
         public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState, ref GameState previousGameState)
@@ -97,22 +87,22 @@ namespace Dungeon.src.MenuClass
 
             if (gameState == GameState.LevelUp)
             {
-                Stats playerStats = player.playerStats;
+                Stats playerStats = player.PlayerStats;
                 levelUp.Update(gameTime, ref gameState, ref previousGameState, ref playerStats);
-                player.playerStats = playerStats;
+                player.PlayerStats = playerStats;
                 return;
             }
 
             if (gameState == GameState.Pause)
             {
-                var playerStats = player.playerStats;
+                var playerStats = player.PlayerStats;
                 resumeButton.Update(gameTime);
 
                 optionsButton.Update(gameTime);
                 saveButton.Update(gameTime);
                 quitButton.Update(gameTime);
 
-                player.playerStats = playerStats;
+                player.PlayerStats = playerStats;
 
                 resumeButton.OnClick(ref gameState, ref previousGameState);
                 optionsButton.OnClick(ref gameState, ref previousGameState);

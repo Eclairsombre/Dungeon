@@ -1,11 +1,9 @@
-using System;
 using Dungeon.src.AnimationClass;
 using Dungeon.src.MenuClass.BoutonClass;
 using Dungeon.src.PlayerClass.StatsClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Dungeon.src.MenuClass
 {
@@ -13,12 +11,8 @@ namespace Dungeon.src.MenuClass
     {
         private readonly Animation animation;
         private readonly CallBack callBack;
-
         private Rectangle hitbox;
-
-
         private readonly LevelUpBouton choice1, choice2, choice3;
-
         public LevelUp(GraphicsDevice graphicsDevice)
         {
             callBack = new CallBack();
@@ -44,7 +38,6 @@ namespace Dungeon.src.MenuClass
             choice1 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 200, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpHealBouton-Sheet", LevelUpChoice.Heal);
             choice2 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 350, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpAttackBouton-Sheet", LevelUpChoice.Attack);
             choice3 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 500, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpSpeedBouton-Sheet", LevelUpChoice.Speed);
-
         }
 
         public void LoadContent(ContentManager content)
@@ -71,11 +64,9 @@ namespace Dungeon.src.MenuClass
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
-
             choice1.Draw(spriteBatch);
             choice2.Draw(spriteBatch);
             choice3.Draw(spriteBatch);
-
         }
     }
 }

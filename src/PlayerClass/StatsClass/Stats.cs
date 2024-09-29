@@ -45,8 +45,6 @@ namespace Dungeon.src.PlayerClass.StatsClass
                 _xpToLevelUp = (int)(_xpToLevelUp * 1.2f);
 
                 gameState = GameState.LevelUp;
-
-
             }
         }
     }

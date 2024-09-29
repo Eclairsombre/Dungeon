@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Dungeon.src.EnemyClass;
 using Dungeon.src.MapClass;
@@ -69,7 +68,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             {
                 attacking = true;
 
-                Attack(map.ActualRoom.Enemies, player.Direction, player.playerStats);
+                Attack(map.ActualRoom.Enemies, player.Direction, player.PlayerStats);
             }
             if (Mouse.GetState().LeftButton == ButtonState.Released)
             {
@@ -77,13 +76,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             }
         }
 
-        public virtual void LoadContent(ContentManager content)
-
-        {
-
-            // Implementation for loading content specific to the weapon
-
-        }
+        public virtual void LoadContent(ContentManager content) { }
 
         public virtual void Attack(List<Enemy> enemies, Vector2 direction, Stats playerStats)
         {

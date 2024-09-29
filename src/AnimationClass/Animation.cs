@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -13,13 +12,13 @@ namespace Dungeon.src
 
     public class Animation(string fileName, AnimationCallback callback, int timeline = 0, int offset = 0)
     {
-        private string fileName = fileName;
-        private AnimationCallback callback = callback;
+        private readonly string fileName = fileName;
+        private readonly AnimationCallback callback = callback;
         private int offset = offset;
         private bool paused = false;
-        private List<int> framePerTimeLine = [];
-        private List<int> linkToAnotherTimeLine = [];
-        private List<int> timelineFrameTime = [];
+        private readonly List<int> framePerTimeLine = [];
+        private readonly List<int> linkToAnotherTimeLine = [];
+        private readonly List<int> timelineFrameTime = [];
         private Vector2 size;
         private int nbTimeline = 0;
         private int currentFrame = 0;
@@ -27,8 +26,6 @@ namespace Dungeon.src
         private int currentTimeline = timeline;
         private int totalAnimationTime = 0;
         public Texture2D texture;
-
-
         public int CurrentTimeLine { get { return currentTimeline; } set { currentTimeline = value; } }
         private float scale = 3.0f;
 
@@ -74,12 +71,7 @@ namespace Dungeon.src
                         Console.WriteLine($"Invalid data format in line {i + 1}: {lines[i]}");
                     }
 
-
-
-
                 }
-
-
 
                 currentFrame = offset / timelineFrameTime[0];
 
@@ -137,7 +129,6 @@ namespace Dungeon.src
                 return;
             }
             currentTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
 
             if (linkToAnotherTimeLine[currentTimeline] != -1 && currentTime >= totalAnimationTime)
             {

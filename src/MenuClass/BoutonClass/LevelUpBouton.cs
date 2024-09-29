@@ -19,14 +19,12 @@ namespace Dungeon.src.MenuClass.BoutonClass
     }
     public class LevelUpBouton
     {
-        private LevelUpChoice levelUpChoice;
+        private readonly LevelUpChoice levelUpChoice;
 
         protected Rectangle hitbox;
         protected GameState gameState;
-
         protected CallBack callBack;
         protected Animation _animation;
-
         public bool isClicked;
         protected double clickDelay;
         protected double elapsedTime;
@@ -42,14 +40,13 @@ namespace Dungeon.src.MenuClass.BoutonClass
             this.levelUpChoice = levelUpChoice;
 
             isClicked = false;
-            clickDelay = 500; // Délai en millisecondes
+            clickDelay = 500;
             elapsedTime = 0;
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.FillRectangle(hitbox, Color.Black);
             spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
         }
 
@@ -70,8 +67,6 @@ namespace Dungeon.src.MenuClass.BoutonClass
                     isClicked = false;
                     elapsedTime = 0;
                 }
-
-
             }
 
             if (!isClicked)

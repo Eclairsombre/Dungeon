@@ -38,17 +38,15 @@ namespace Dungeon.src.InterfaceClass
             heartAnimation.Update(gameTime);
             heartEmptyAnimation.Update(gameTime);
         }
-
-
         public void Draw(SpriteBatch spriteBatch, Player player)
         {
-            float xpPercentage = (float)player.playerStats.Xp / player.playerStats.XpToLevelUp;
+            float xpPercentage = (float)player.PlayerStats.Xp / player.PlayerStats.XpToLevelUp;
             Rectangle filledXpBar = new(xpBar.X, xpBar.Y, (int)(xpBar.Width * xpPercentage), xpBar.Height);
             spriteBatch.FillRectangle(filledXpBar, Color.Green);
             spriteBatch.DrawRectangle(xpBar, Color.Black);
-            for (int i = 0; i < player.playerStats.MaxHealth; i++)
+            for (int i = 0; i < player.PlayerStats.MaxHealth; i++)
             {
-                if (i < player.playerStats.Health)
+                if (i < player.PlayerStats.Health)
                 {
                     spriteBatch.Draw(heartAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBack.SourceRectangle, Color.White);
                 }
@@ -56,7 +54,6 @@ namespace Dungeon.src.InterfaceClass
                 {
                     spriteBatch.Draw(heartEmptyAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBackEmpty.SourceRectangle, Color.Gray);
                 }
-                //spriteBatch.FillRectangle(new Rectangle(heart.X + i * 60, heart.Y, heart.Width, heart.Height), Color.Red);
             }
         }
     }

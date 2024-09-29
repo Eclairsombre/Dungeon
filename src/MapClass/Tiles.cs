@@ -12,11 +12,8 @@ namespace Dungeon.src.MapClass
     {
         private Tuple<int, int> id;
         private Rectangle hitbox;
-
         private Door door = null;
-
         private Holder holder = null;
-
         public Tuple<int, int> Id { get { return id; } set { id = value; } }
         public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
         public Door Door { get { return door; } set { door = value; } }
@@ -52,14 +49,11 @@ namespace Dungeon.src.MapClass
                     break;
                 case 1:
                     spriteBatch.FillRectangle(hitbox, Color.White);
-                    //spriteBatch.Draw(texture[1], hitbox, Color.White);
                     break;
                 case 2:
                     if (!finished)
                     {
                         spriteBatch.FillRectangle(hitbox, Color.White);
-                        //spriteBatch.Draw(texture[1], hitbox, Color.White);
-
                     }
                     else
                     {

@@ -28,16 +28,13 @@ namespace Dungeon.src.EnemyClass
         protected float VisionRange { get; set; } = 500f;
         protected Drop[] loot = new Drop[2];
         protected Rectangle hitbox;
-
         protected Rectangle healthBar;
         protected Vector2 lastPlayerPosition;
-
         public Rectangle Hitbox { get { return hitbox; } }
         public float Hp { get { return hp; } set { hp = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
         public Vector2 Position { get { return position; } set { position = value; } }
         public Vector2 Direction { get { return direction; } set { direction = value; } }
-
         public Drop[] Loot { get { return loot; } set { loot = value; } }
         public Enemy()
         {
@@ -53,7 +50,6 @@ namespace Dungeon.src.EnemyClass
 
         public void LoadContent(ContentManager content)
         {
-            //this.texture = texture;
             foreach (var drop in loot)
             {
                 if (drop is HeartDrop)
@@ -68,11 +64,9 @@ namespace Dungeon.src.EnemyClass
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
 
-            Tiles[,] tiles = room.Tiles;
-
             if (agroPlayer)
             {
-                FollowPlayer(playerPosition, room);
+                FollowPlayer();
 
                 if (!inVision)
                 {
@@ -99,43 +93,26 @@ namespace Dungeon.src.EnemyClass
 
             UpdateVision(room, playerPosition);
         }
-
-
-
-        public void FollowPlayer(Vector2 playerPosition, Room room)
+        public void FollowPlayer()
         {
             GoToo(lastPlayerPosition);
         }
-
-
-
-
-
         public void GoToo(Vector2 end)
         {
-
             Vector2 d = end - position;
             d.Normalize();
             position += d * speed;
             direction = d;
-
-
         }
-
-
-
-
-
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle rect = new((int)position.X, (int)position.Y, width, height);
             spriteBatch.FillRectangle(hitbox, Color.Blue);
             DrawVision(spriteBatch);
 
             Rectangle healthBarBackground = new((int)position.X, (int)position.Y - 10, width, 5);
             spriteBatch.FillRectangle(healthBarBackground, Color.Red);
 
-            float healthPercentage = (float)hp / maxHp;
+            float healthPercentage = hp / maxHp;
             int healthBarWidth = (int)(width * healthPercentage);
 
             Rectangle healthBarForeground = new((int)position.X, (int)position.Y - 10, healthBarWidth, 5);

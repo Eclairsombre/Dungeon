@@ -14,14 +14,11 @@ namespace Dungeon.src.MenuClass.BoutonClass
     {
         protected Rectangle hitbox;
         protected GameState gameState;
-
         protected CallBack callBack;
         protected Animation _animation;
-
         public bool isClicked;
         protected double clickDelay;
         protected double elapsedTime;
-
         public Bouton(int x, int y, int width, int height, GameState gameState, string file)
         {
             hitbox = new Rectangle(x, y, width, height);
@@ -31,13 +28,12 @@ namespace Dungeon.src.MenuClass.BoutonClass
             _animation.ParseData();
 
             isClicked = false;
-            clickDelay = 500; // Délai en millisecondes
+            clickDelay = 500;
             elapsedTime = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.FillRectangle(hitbox, Color.Black);
             spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
         }
 
