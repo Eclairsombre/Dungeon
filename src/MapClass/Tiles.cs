@@ -28,11 +28,12 @@ namespace Dungeon.src.MapClass
             this.id = id;
 
             hitbox = new Rectangle(x, y, width, height);
-
+            int random = new Random().Next(0, 4);
             switch (id.Item1)
             {
+
                 case 2:
-                    door = new Door(x, y, width, height);
+                    door = new Door(x, y, width, height, (RewardType)random);
                     break;
                 case 4:
                     Vector2 position = new(x, y);
@@ -41,8 +42,6 @@ namespace Dungeon.src.MapClass
                 default:
                     break;
                 case 5:
-                    int random = new Random().Next(0, 4);
-                    Console.WriteLine(random);
                     nextRoomRewardDisplay = new NextRoomRewardDisplay(x, y, width, height, (RewardType)random, ((RewardType)random).ToString() + "Display");
                     break;
             }
