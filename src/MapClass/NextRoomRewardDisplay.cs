@@ -10,13 +10,23 @@ namespace Dungeon.src.MapClass
         Gold,
         Xp
     }
-    public class NextRoomRewardDisplay(int x, int y, int width, int height)
+    public class NextRoomRewardDisplay
     {
         private Animation animation;
-        private CallBack callBack = new();
-
-        private Rectangle hitbox = new Rectangle(x, y, width, height);
-
+        private readonly CallBack callBack = new();
+        private Rectangle hitbox;
         public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
+
+        private RewardType rewardType;
+
+
+        public NextRoomRewardDisplay(int x, int y, int width, int height, RewardType rewardType, string file)
+        {
+            animation = new(file, callBack.StaticMyCallback, 0, 0);
+            hitbox = new(x, y, width, height);
+
+            this.rewardType = rewardType;
+        }
+
     }
 }
