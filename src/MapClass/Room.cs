@@ -40,6 +40,7 @@ public static class TileTypes
             T.EnemyGoLeft => new TileType(3, 2, 2),
             T.EnemyGoUp => new TileType(3, 2, 4),
             T.Holder => Holder,
+            T.NextRoomRewardDisplay => new TileType(5, 0, 0),
             _ => throw new ArgumentOutOfRangeException(nameof(tilesType), tilesType, null)
         };
     }
@@ -54,7 +55,8 @@ public enum T
     EnemyGoRight,
     EnemyGoLeft,
     EnemyGoUp,
-    Holder
+    Holder,
+    NextRoomRewardDisplay
 }
 
 public class Room
@@ -181,6 +183,7 @@ public class Room
                     enemies.Add(enemy);
 
                 }
+
                 Tuple<int, int> tile = new(firstValue, secondValue);
                 tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70);
             }

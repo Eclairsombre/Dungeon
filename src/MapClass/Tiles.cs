@@ -14,10 +14,14 @@ namespace Dungeon.src.MapClass
         private Rectangle hitbox;
         private Door door = null;
         private Holder holder = null;
+
+        private NextRoomRewardDisplay nextRoomRewardDisplay = null;
         public Tuple<int, int> Id { get { return id; } set { id = value; } }
         public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
         public Door Door { get { return door; } set { door = value; } }
         public Holder Holder { get { return holder; } set { holder = value; } }
+
+        public NextRoomRewardDisplay NextRoomRewardDisplay { get { return nextRoomRewardDisplay; } set { nextRoomRewardDisplay = value; } }
 
         public Tiles(Tuple<int, int> id, int x, int y, int width, int height)
         {
@@ -35,6 +39,11 @@ namespace Dungeon.src.MapClass
                     holder = new WeaponHolder(x, y, new Sword(position));
                     break;
                 default:
+                    break;
+                case 5:
+                    int random = new Random().Next(0, 4);
+                    Console.WriteLine(random);
+                    nextRoomRewardDisplay = new NextRoomRewardDisplay(x, y, width, height, (RewardType)random, ((RewardType)random).ToString() + "Display");
                     break;
             }
         }
@@ -78,7 +87,13 @@ namespace Dungeon.src.MapClass
                     }
 
                     break;
-
+                case 5:
+                    spriteBatch.FillRectangle(hitbox, Color.White);
+                    if (finished)
+                    {
+                        nextRoomRewardDisplay.Draw(spriteBatch);
+                    }
+                    break;
                 default:
                     break;
 
