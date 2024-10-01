@@ -52,11 +52,7 @@ namespace Dungeon.src.EnemyClass
         {
             foreach (var drop in loot)
             {
-                if (drop is HeartDrop)
-                {
-                    drop.LoadContent(content);
-
-                }
+                drop.LoadContent(content);
             }
         }
 

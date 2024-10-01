@@ -1,4 +1,6 @@
+using Dungeon.src.AnimationClass;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
@@ -9,14 +11,30 @@ namespace Dungeon.src.DropClass
     {
         private int xp;
         public int Xp { get { return xp; } set { xp = value; } }
+
+        private Animation animation;
+        private CallBack callBack = new();
         public XpDrop(int x, int y, int height, int width, int xp) : base(x, y, height, width)
         {
             this.xp = xp;
             color = Color.Green;
+            animation = new("XpDrop", callBack.StaticMyCallback, 0, 0);
+            animation.ParseData();
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            animation.LoadContent(content);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            animation.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(Hitbox, color);
+            spriteBatch.Draw(animation.texture, new Vector2(Hitbox.X, Hitbox.Y), callBack.SourceRectangle, Color.White);
+            //spriteBatch.FillRectangle(Hitbox, color);
         }
     }
 }
