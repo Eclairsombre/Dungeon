@@ -4,16 +4,41 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Arrow-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ArrowSpriteSheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/BackBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Background.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Coeur-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/CoeurVide.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ExitBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpAttackBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpBackground-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpHealBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpShieldBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpSpeedBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Mur.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/OptionsBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/PlayBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ResumeBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/SaveBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Sol.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/testRegression.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveBack.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Arrow-Sheet.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ArrowSpriteSheet.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Coeur-Sheet.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Sol.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/testRegression.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

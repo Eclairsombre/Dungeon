@@ -2,7 +2,7 @@ TODO :
 
 - Fix enemy deplacement
 - Add new enemies
-- EN COURS :Add stat upgrade when level up
+- EN COURS :Add stat upgrade when level up + texte on display
 - EN COURS : Add room reward display
 - Add Option (change keybind, music volume etc)
 - Add Boss(different move set, heal bar...)

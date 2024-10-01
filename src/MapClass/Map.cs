@@ -24,9 +24,9 @@ public class Map
         room.LoadContent(content, 1);
     }
 
-    public void Update(Vector2 playerPosition, GameTime gameTime)
+    public void Update(Vector2 playerPosition, GameTime gameTime, ContentManager content)
     {
-        room.Update(playerPosition, gameTime);
+        room.Update(playerPosition, gameTime, content);
     }
 
     public void Draw(SpriteBatch spriteBatch)

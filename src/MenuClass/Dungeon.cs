@@ -111,7 +111,7 @@ namespace Dungeon.src.MenuClass
                 return;
             }
             player.Update(gameTime, map, content, ref gameState);
-            map.Update(player.CenterPosition, gameTime);
+            map.Update(player.CenterPosition, gameTime, content);
 
 
             gameInterface.Update(gameTime);

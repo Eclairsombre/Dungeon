@@ -91,7 +91,7 @@ public class Room(RewardType rewardType)
 
 
     }
-    public void Update(Vector2 playerPosition, GameTime gameTime)
+    public void Update(Vector2 playerPosition, GameTime gameTime, ContentManager content)
     {
 
         for (int i = 0; i < enemies.Count; i++)
@@ -138,10 +138,11 @@ public class Room(RewardType rewardType)
                             tiles[9, 0].Hitbox.Width,
                             tiles[9, 0].Hitbox.Height,
                             tiles[10, 0].Door.RewardType,
-                            ""
+                            "NextRoomDisplayCoeur"
 
                         );
                     }
+                    tiles[9, 0].NextRoomRewardDisplay.LoadContent(content);
                 }
                 if (tiles[15, 0].NextRoomRewardDisplay == null)
                 {
@@ -154,15 +155,24 @@ public class Room(RewardType rewardType)
                             tiles[15, 0].Hitbox.Width,
                             tiles[15, 0].Hitbox.Height,
                             tiles[14, 0].Door.RewardType,
-                            ""
+                            "NextRoomDisplayCoeur"
                         );
                     }
+                    tiles[15, 0].NextRoomRewardDisplay.LoadContent(content);
                 }
             }
 
             for (int j = 0; j < dropsList.Length; j++)
             {
                 dropsList[j].Update(gameTime);
+            }
+
+            for (int k = 0; k < 26; k++)
+            {
+                for (int j = 0; j < 14; j++)
+                {
+                    tiles[k, j].Update(gameTime);
+                }
             }
 
         }

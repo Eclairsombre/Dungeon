@@ -4,7 +4,6 @@ using System;
 using MonoGame.Extended;
 using Dungeon.src.MapClass.HolderClass;
 using Dungeon.src.PlayerClass.WeaponClass;
-using System.Diagnostics;
 using Dungeon.src.DropClass;
 using Microsoft.Xna.Framework.Content;
 
@@ -52,15 +51,23 @@ namespace Dungeon.src.MapClass
                     LoadContent(content);
 
                     break;
+
+
                 default:
                     break;
 
             }
         }
 
+        public void Update(GameTime gameTime)
+        {
+            nextRoomRewardDisplay?.Update(gameTime);
+        }
+
         public void LoadContent(ContentManager content)
         {
             holder?.DropHold?.LoadContent(content);
+            nextRoomRewardDisplay?.LoadContent(content);
         }
 
         public void Draw(SpriteBatch spriteBatch, bool finished, Texture2D[] texture)
