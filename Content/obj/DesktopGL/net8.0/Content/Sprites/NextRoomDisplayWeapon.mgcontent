@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/NextRoomDisplayWeapon.png</SourceFile>
-  <SourceTime>2024-10-01T18:53:27.1488191+02:00</SourceTime>
+  <SourceTime>2024-10-01T22:29:32.0009659+02:00</SourceTime>
   <DestFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Content/Sprites/NextRoomDisplayWeapon.xnb</DestFile>
-  <DestTime>2024-10-01T19:00:41.6143224+02:00</DestTime>
+  <DestTime>2024-10-01T22:30:36.1790803+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

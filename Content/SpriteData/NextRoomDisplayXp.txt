@@ -1,3 +1,4 @@
-35 52 1
+35 52 2
 
-Display 1 -1 100
+Apparition 8 1 75
+Idle 1 -1 100

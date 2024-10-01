@@ -162,19 +162,21 @@ public class Room(RewardType rewardType)
                 }
             }
 
-            for (int j = 0; j < dropsList.Length; j++)
-            {
-                dropsList[j].Update(gameTime);
-            }
 
-            for (int k = 0; k < 26; k++)
-            {
-                for (int j = 0; j < 14; j++)
-                {
-                    tiles[k, j].Update(gameTime);
-                }
-            }
 
+
+
+        }
+        for (int k = 0; k < 26; k++)
+        {
+            for (int j = 0; j < 14; j++)
+            {
+                tiles[k, j].Update(gameTime);
+            }
+        }
+        for (int j = 0; j < dropsList.Length; j++)
+        {
+            dropsList[j].Update(gameTime);
         }
     }
 

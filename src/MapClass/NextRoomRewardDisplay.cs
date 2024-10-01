@@ -26,9 +26,9 @@ namespace Dungeon.src.MapClass
 
         public NextRoomRewardDisplay(int x, int y, int width, int height, RewardType rewardType, string file)
         {
+
             animation = new(file, callBack.StaticMyCallback, 0, 0);
             hitbox = new Rectangle(x + width / 4, y, width / 2, 3 * height / 4);
-            Console.WriteLine(hitbox);
 
             animation.ParseData();
 
@@ -49,6 +49,7 @@ namespace Dungeon.src.MapClass
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
+
         }
 
 
