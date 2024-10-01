@@ -44,7 +44,7 @@ namespace Dungeon.src.EnemyClass
             Direction = new Vector2(1, 0);
             hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
             healthBar = new Rectangle((int)Position.X, (int)Position.Y - 10, width, 5);
-            loot[0] = new XpDrop((int)Position.X, (int)Position.Y, 10, 10, xp);
+            loot[0] = new XpDrop((int)Position.X, (int)Position.Y, 10, 10, xp, 1f);
             loot[1] = new HeartDrop((int)Position.X, (int)Position.Y, 20, 20, 0.5f);
         }
 

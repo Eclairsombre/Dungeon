@@ -14,10 +14,13 @@ namespace Dungeon.src.DropClass
 
         private Animation animation;
         private CallBack callBack = new();
-        public XpDrop(int x, int y, int height, int width, int xp) : base(x, y, height, width)
+
+        private float scale;
+        public XpDrop(int x, int y, int height, int width, int xp, float scale) : base(x, y, height, width)
         {
             this.xp = xp;
             color = Color.Green;
+            this.scale = scale;
             animation = new("XpDrop", callBack.StaticMyCallback, 0, 0);
             animation.ParseData();
         }
@@ -33,7 +36,7 @@ namespace Dungeon.src.DropClass
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animation.texture, new Vector2(Hitbox.X, Hitbox.Y), callBack.SourceRectangle, Color.White);
+            spriteBatch.Draw(animation.texture, new Vector2(Hitbox.X, Hitbox.Y), callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             //spriteBatch.FillRectangle(Hitbox, color);
         }
     }
