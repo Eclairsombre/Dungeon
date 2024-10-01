@@ -218,19 +218,24 @@ namespace Dungeon.src.PlayerClass
                                     {
                                         stats.Xp += xpDrop.Xp;
                                         stats.Update(gameTime, ref gameState);
+                                        map.ActualRoom.Tiles[i, y].Holder.DropHold = null;
+
                                     }
                                     else if (dropHolder.DropHold is HeartDrop heartDrop)
                                     {
                                         if (stats.Health < stats.MaxHealth)
                                         {
                                             stats.Health++;
+                                            map.ActualRoom.Tiles[i, y].Holder.DropHold = null;
+
                                         }
                                     }
                                     else if (dropHolder.DropHold is GoldDrop goldDrop)
                                     {
                                         stats.Gold += goldDrop.Amount;
+                                        map.ActualRoom.Tiles[i, y].Holder.DropHold = null;
+
                                     }
-                                    map.ActualRoom.Tiles[i, y].Holder.DropHold = null;
                                 }
                             }
                         }

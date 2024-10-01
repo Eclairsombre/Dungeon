@@ -17,9 +17,11 @@ namespace Dungeon.src.MapClass.HolderClass
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle dropRectangle = new(hitbox.X + (hitbox.Width - DropHold.Width) / 2, hitbox.Y - DropHold.Height - 10, DropHold.Width, DropHold.Height);
             spriteBatch.FillRectangle(hitbox, Color.White);
-            DropHold.Draw(spriteBatch);
+            if (DropHold != null)
+            {
+                DropHold.Draw(spriteBatch);
+            }
         }
     }
 }
