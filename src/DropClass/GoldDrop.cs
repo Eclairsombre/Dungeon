@@ -9,6 +9,7 @@ namespace Dungeon.src.DropClass
 
         private int amount = amount;
 
+        public int Amount { get { return amount; } }
 
 
 

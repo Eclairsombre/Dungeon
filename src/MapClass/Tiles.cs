@@ -6,6 +6,7 @@ using Dungeon.src.MapClass.HolderClass;
 using Dungeon.src.PlayerClass.WeaponClass;
 using System.Diagnostics;
 using Dungeon.src.DropClass;
+using Microsoft.Xna.Framework.Content;
 
 namespace Dungeon.src.MapClass
 {
@@ -24,7 +25,7 @@ namespace Dungeon.src.MapClass
 
         public NextRoomRewardDisplay NextRoomRewardDisplay { get { return nextRoomRewardDisplay; } set { nextRoomRewardDisplay = value; } }
 
-        public Tiles(Tuple<int, int> id, int x, int y, int width, int height, RewardType rewardType)
+        public Tiles(Tuple<int, int> id, int x, int y, int width, int height, RewardType rewardType, ContentManager content)
         {
             this.id = id;
 
@@ -42,16 +43,24 @@ namespace Dungeon.src.MapClass
                     holder = rewardType switch
                     {
                         RewardType.Weapon => new WeaponHolder(x, y, new Sword(position)),
-                        RewardType.Health => new DropHolder(x, y, new HeartDrop(x, y, 30, 30)),
-                        RewardType.Gold => new DropHolder(x, y, new GoldDrop(x, y, 30, 30, 50)),
-                        RewardType.Xp => new DropHolder(x, y, new XpDrop(x, y, 30, 30, 50)),
+                        RewardType.Health => new DropHolder(x, y, new HeartDrop(x + 15 + (40 - 50) / 2, y - 50 - 10, 50, 50, 1f)),
+                        RewardType.Gold => new DropHolder(x, y, new GoldDrop(x + 15 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50)),
+                        RewardType.Xp => new DropHolder(x, y, new XpDrop(x + 15 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50)),
                         _ => new WeaponHolder(x, y, new Sword(position)),
                     };
+
+                    LoadContent(content);
+
                     break;
                 default:
                     break;
 
             }
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            holder?.DropHold?.LoadContent(content);
         }
 
         public void Draw(SpriteBatch spriteBatch, bool finished, Texture2D[] texture)

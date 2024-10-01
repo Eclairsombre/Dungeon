@@ -86,6 +86,10 @@ public class Room(RewardType rewardType)
         texture2Ds[0] = content.Load<Texture2D>("Sprites/Sol");
         texture2Ds[1] = content.Load<Texture2D>("Sprites/Mur");
 
+        Generate(content);
+
+
+
     }
     public void Update(Vector2 playerPosition, GameTime gameTime)
     {
@@ -135,6 +139,7 @@ public class Room(RewardType rewardType)
                             tiles[9, 0].Hitbox.Height,
                             tiles[10, 0].Door.RewardType,
                             ""
+
                         );
                     }
                 }
@@ -209,7 +214,8 @@ public class Room(RewardType rewardType)
                 }
 
                 Tuple<int, int> tile = new(firstValue, secondValue);
-                tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70, rewardType);
+                tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70, rewardType, content);
+
             }
         }
     }

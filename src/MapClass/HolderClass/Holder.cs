@@ -1,4 +1,7 @@
+using System;
+using Dungeon.src.DropClass;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
@@ -11,7 +14,9 @@ namespace Dungeon.src.MapClass.HolderClass
         protected readonly int x;
         protected readonly int y;
         protected Rectangle hitbox;
-        public Rectangle Hitbox { get { return hitbox; } }
+        private Drop drop;
+        public Drop DropHold { get { return drop; } set { drop = value; } }
+        public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
         public Holder(int x, int y)
         {
             this.x = x;
@@ -21,6 +26,11 @@ namespace Dungeon.src.MapClass.HolderClass
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.FillRectangle(hitbox, Color.White);
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            drop.LoadContent(content);
         }
 
 

@@ -212,6 +212,26 @@ namespace Dungeon.src.PlayerClass
                                     Weapon weapon = weaponHolder.SwitchWeapon(this.weapon);
                                     Equip(weapon);
                                 }
+                                else if (map.ActualRoom.Tiles[i, y].Holder is DropHolder dropHolder)
+                                {
+                                    if (dropHolder.DropHold is XpDrop xpDrop)
+                                    {
+                                        stats.Xp += xpDrop.Xp;
+                                        stats.Update(gameTime, ref gameState);
+                                    }
+                                    else if (dropHolder.DropHold is HeartDrop heartDrop)
+                                    {
+                                        if (stats.Health < stats.MaxHealth)
+                                        {
+                                            stats.Health++;
+                                        }
+                                    }
+                                    else if (dropHolder.DropHold is GoldDrop goldDrop)
+                                    {
+                                        stats.Gold += goldDrop.Amount;
+                                    }
+                                    map.ActualRoom.Tiles[i, y].Holder.DropHold = null;
+                                }
                             }
                         }
                     }

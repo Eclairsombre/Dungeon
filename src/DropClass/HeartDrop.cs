@@ -11,11 +11,14 @@ namespace Dungeon.src.DropClass
     {
         private readonly CallBack callBack = new();
         private readonly Animation _animation;
- public HeartDrop(int x, int y, int height, int width) : base(x, y, height, width)
+
+        private float scale;
+        public HeartDrop(int x, int y, int height, int width, float scale) : base(x, y, height, width)
         {
             callBack = new CallBack();
             _animation = new Animation("Coeur-Sheet", callBack.StaticMyCallback, 1, 0);
             _animation.ParseData();
+            this.scale = scale;
         }
 
         public override void Update(GameTime gameTime)
@@ -30,7 +33,7 @@ namespace Dungeon.src.DropClass
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_animation.texture, new Vector2(Hitbox.X, Hitbox.Y), callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_animation.texture, new Vector2(Hitbox.X, Hitbox.Y), callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
     }
 }

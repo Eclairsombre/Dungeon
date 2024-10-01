@@ -5,18 +5,21 @@ using MonoGame.Extended;
 
 namespace Dungeon.src.MapClass.HolderClass
 {
-    public class DropHolder(int x, int y, Drop drop) : Holder(x, y)
+    public class DropHolder : Holder
     {
-        private Drop drop = drop;
-        public Drop DropHold { get { return drop; } set { drop = value; } }
+
+        public DropHolder(int x, int y, Drop drop) : base(x, y)
+        {
+            DropHold = drop;
+
+
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle dropRectangle = new(hitbox.X + (hitbox.Width - drop.Width) / 2, hitbox.Y - drop.Height - 10, drop.Width, drop.Height);
+            Rectangle dropRectangle = new(hitbox.X + (hitbox.Width - DropHold.Width) / 2, hitbox.Y - DropHold.Height - 10, DropHold.Width, DropHold.Height);
             spriteBatch.FillRectangle(hitbox, Color.White);
-            drop.Draw(spriteBatch);
+            DropHold.Draw(spriteBatch);
         }
     }
-
-
 }

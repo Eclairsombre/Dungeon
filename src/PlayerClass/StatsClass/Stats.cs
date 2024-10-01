@@ -15,6 +15,8 @@ namespace Dungeon.src.PlayerClass.StatsClass
         private int _xp;
         private int _xpToLevelUp;
 
+        private int _gold;
+
         public int Health { get { return _health; } set { _health = value; } }
         public int MaxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
         public float Attack { get { return _attack; } set { _attack = value; } }
@@ -24,6 +26,8 @@ namespace Dungeon.src.PlayerClass.StatsClass
         public int Xp { get { return _xp; } set { _xp = value; } }
         public int XpToLevelUp { get { return _xpToLevelUp; } set { _xpToLevelUp = value; } }
 
+        public int Gold { get { return _gold; } set { _gold = value; } }
+
         public Stats()
         {
             _health = 3;
@@ -32,6 +36,7 @@ namespace Dungeon.src.PlayerClass.StatsClass
             _defense = 1;
             _speed = 1;
             _level = 1;
+            _gold = 0;
             _xp = 0;
             _xpToLevelUp = 100;
         }
