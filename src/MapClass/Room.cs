@@ -138,7 +138,7 @@ public class Room(RewardType rewardType)
                             tiles[9, 0].Hitbox.Width,
                             tiles[9, 0].Hitbox.Height,
                             tiles[10, 0].Door.RewardType,
-                            "NextRoomDisplayCoeur"
+                            "NextRoomDisplay" + tiles[10, 0].Door.RewardType.ToString()
 
                         );
                     }
@@ -155,7 +155,7 @@ public class Room(RewardType rewardType)
                             tiles[15, 0].Hitbox.Width,
                             tiles[15, 0].Hitbox.Height,
                             tiles[14, 0].Door.RewardType,
-                            "NextRoomDisplayCoeur"
+                            "NextRoomDisplay" + tiles[14, 0].Door.RewardType.ToString()
                         );
                     }
                     tiles[15, 0].NextRoomRewardDisplay.LoadContent(content);

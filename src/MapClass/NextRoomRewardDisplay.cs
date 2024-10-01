@@ -52,17 +52,20 @@ namespace Dungeon.src.MapClass
             switch (rewardType)
             {
                 case RewardType.Weapon:
-                    spriteBatch.FillRectangle(hitbox, Color.Black);
+                    //spriteBatch.FillRectangle(hitbox, Color.Black);
+                    spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
                     break;
                 case RewardType.Health:
                     spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
                     //spriteBatch.FillRectangle(hitbox, Color.Red);
                     break;
                 case RewardType.Gold:
-                    spriteBatch.FillRectangle(hitbox, Color.Yellow);
+                    //spriteBatch.FillRectangle(hitbox, Color.Yellow);
+                    spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
                     break;
                 case RewardType.Xp:
-                    spriteBatch.FillRectangle(hitbox, Color.Blue);
+                    //spriteBatch.FillRectangle(hitbox, Color.Blue);
+                    spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
                     break;
                 default:
                     break;
