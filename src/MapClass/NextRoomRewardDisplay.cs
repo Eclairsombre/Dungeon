@@ -3,8 +3,7 @@ using Dungeon.src.AnimationClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
-using MonoGame.Extended.Graphics;
+
 
 namespace Dungeon.src.MapClass
 {
@@ -18,7 +17,7 @@ namespace Dungeon.src.MapClass
     }
     public class NextRoomRewardDisplay
     {
-        private Animation animation;
+        private readonly Animation animation;
         private readonly CallBack callBack = new();
         private Rectangle hitbox;
         public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
@@ -49,27 +48,7 @@ namespace Dungeon.src.MapClass
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            switch (rewardType)
-            {
-                case RewardType.Weapon:
-                    //spriteBatch.FillRectangle(hitbox, Color.Black);
-                    spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
-                    break;
-                case RewardType.Health:
-                    spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
-                    //spriteBatch.FillRectangle(hitbox, Color.Red);
-                    break;
-                case RewardType.Gold:
-                    //spriteBatch.FillRectangle(hitbox, Color.Yellow);
-                    spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
-                    break;
-                case RewardType.Xp:
-                    //spriteBatch.FillRectangle(hitbox, Color.Blue);
-                    spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
-                    break;
-                default:
-                    break;
-            }
+            spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
         }
 
 
