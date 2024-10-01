@@ -59,27 +59,22 @@ public enum T
     NextRoomRewardDisplay
 }
 
-public class Room
+public class Room(RewardType rewardType)
 {
-    private readonly int x, y, width, height;
+    private readonly int x = 0, y = 0, width = 52, height = 30;
     private Tiles[,] tiles = new Tiles[26, 14];
+
+    private RewardType rewardType = rewardType;
     private bool finished = false;
     private string fileContent;
     private List<Enemy> enemies;
-    private Drop[] dropsList;
+    private Drop[] dropsList = [];
     private Texture2D[] texture2Ds;
     public Tiles[,] Tiles { get { return tiles; } set { tiles = value; } }
     public List<Enemy> Enemies { get { return enemies; } set { enemies = value; } }
     public Drop[] DropsList { get { return dropsList; } set { dropsList = value; } }
     public bool Finished { get { return finished; } set { finished = value; } }
-    public Room()
-    {
-        x = 0;
-        y = 0;
-        width = 52;
-        height = 30;
-        dropsList = [];
-    }
+
     public void LoadContent(ContentManager content, int room)
     {
         using (var stream = TitleContainer.OpenStream("Content/RoomPatern/Room" + room + ".txt"))
@@ -125,18 +120,47 @@ public class Room
                 enemies = enemies.Where((e, index) => index != i).ToList();
                 i--;
             }
-        }
+            if (enemies.Count == 0)
+            {
+                finished = true;
+                if (tiles[9, 0].NextRoomRewardDisplay == null)
+                {
 
-        if (enemies.Count == 0)
-        {
-            finished = true;
-        }
+                    if (tiles[9, 0] != null && tiles[10, 0] != null && tiles[10, 0].Door != null)
+                    {
+                        tiles[9, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
+                            tiles[9, 0].Hitbox.X,
+                            tiles[9, 0].Hitbox.Y,
+                            tiles[9, 0].Hitbox.Width,
+                            tiles[9, 0].Hitbox.Height,
+                            tiles[10, 0].Door.RewardType,
+                            ""
+                        );
+                    }
+                }
+                if (tiles[15, 0].NextRoomRewardDisplay == null)
+                {
 
-        for (int i = 0; i < dropsList.Length; i++)
-        {
-            dropsList[i].Update(gameTime);
-        }
+                    if (tiles[15, 0] != null && tiles[14, 0] != null && tiles[14, 0].Door != null)
+                    {
+                        tiles[15, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
+                            tiles[15, 0].Hitbox.X,
+                            tiles[15, 0].Hitbox.Y,
+                            tiles[15, 0].Hitbox.Width,
+                            tiles[15, 0].Hitbox.Height,
+                            tiles[14, 0].Door.RewardType,
+                            ""
+                        );
+                    }
+                }
+            }
 
+            for (int j = 0; j < dropsList.Length; j++)
+            {
+                dropsList[j].Update(gameTime);
+            }
+
+        }
     }
 
 
@@ -185,7 +209,7 @@ public class Room
                 }
 
                 Tuple<int, int> tile = new(firstValue, secondValue);
-                tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70);
+                tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70, rewardType);
             }
         }
     }

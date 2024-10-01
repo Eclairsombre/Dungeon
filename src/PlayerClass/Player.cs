@@ -140,6 +140,8 @@ namespace Dungeon.src.PlayerClass
                 directionDeplacement += new Vector2(1, 0);
                 direction = new Vector2(1, 0);
             }
+
+
         }
 
         public void PlayerCollision(Map map, ContentManager content, Rectangle newHitbox, Vector2 futurePosition, GameTime gameTime, ref GameState gameState)
@@ -156,56 +158,60 @@ namespace Dungeon.src.PlayerClass
                     }
                 }
             }
-
-            if (Collision.CheckCollisionWithDoor(newHitbox, map.ActualRoom))
+            (bool isDoor, Door door) = Collision.CheckCollisionWithDoor(newHitbox, map.ActualRoom);
+            if (isDoor)
             {
-                map.ActualRoom = new Room();
+                map.ActualRoom = new Room(door.RewardType);
                 Random random = new();
                 int roomNumber = random.Next(2, 5);
                 map.ActualRoom.LoadContent(content, roomNumber);
                 map.ActualRoom.Generate(content);
                 position = startPosition;
             }
-            if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
-            {
-                position = futurePosition;
-                hitbox = newHitbox;
-            }
+            else
 
-            for (int i = 0; i < map.ActualRoom.DropsList.Length; i++)
             {
-                if (Collision.CheckCollisionTwoRect(map.ActualRoom.DropsList[i].Hitbox, hitbox))
+                if (!Collision.CheckCollisionWithRoom(newHitbox, map.ActualRoom))
                 {
-                    if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
-                    {
-                        stats.Xp += xpDrop.Xp;
-                        stats.Update(gameTime, ref gameState);
-                        map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
+                    position = futurePosition;
+                    hitbox = newHitbox;
+                }
 
-                    }
-                    else if (map.ActualRoom.DropsList[i] is HeartDrop heartDrop)
+                for (int i = 0; i < map.ActualRoom.DropsList.Length; i++)
+                {
+                    if (Collision.CheckCollisionTwoRect(map.ActualRoom.DropsList[i].Hitbox, hitbox))
                     {
-                        if (stats.Health < stats.MaxHealth)
+                        if (map.ActualRoom.DropsList[i] is XpDrop xpDrop)
                         {
-                            stats.Health++;
+                            stats.Xp += xpDrop.Xp;
+                            stats.Update(gameTime, ref gameState);
                             map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
 
                         }
+                        else if (map.ActualRoom.DropsList[i] is HeartDrop heartDrop)
+                        {
+                            if (stats.Health < stats.MaxHealth)
+                            {
+                                stats.Health++;
+                                map.ActualRoom.DropsList = map.ActualRoom.DropsList.Where((drop, index) => index != i).ToArray();
+
+                            }
+                        }
                     }
                 }
-            }
-            for (int i = 0; i < map.ActualRoom.Tiles.GetLength(0); i++)
-            {
-                for (int y = 0; y < map.ActualRoom.Tiles.GetLength(1); y++)
+                for (int i = 0; i < map.ActualRoom.Tiles.GetLength(0); i++)
                 {
-                    if (map.ActualRoom.Tiles[i, y].Id.Item1 == 4 && map.ActualRoom.Finished)
+                    for (int y = 0; y < map.ActualRoom.Tiles.GetLength(1); y++)
                     {
-                        if (rangeInFrontPlayer.Intersects(map.ActualRoom.Tiles[i, y].Holder.Hitbox))
+                        if (map.ActualRoom.Tiles[i, y].Id.Item1 == 4 && map.ActualRoom.Finished)
                         {
-                            if (map.ActualRoom.Tiles[i, y].Holder is WeaponHolder weaponHolder)
+                            if (rangeInFrontPlayer.Intersects(map.ActualRoom.Tiles[i, y].Holder.Hitbox))
                             {
-                                Weapon weapon = weaponHolder.SwitchWeapon(this.weapon);
-                                Equip(weapon);
+                                if (map.ActualRoom.Tiles[i, y].Holder is WeaponHolder weaponHolder)
+                                {
+                                    Weapon weapon = weaponHolder.SwitchWeapon(this.weapon);
+                                    Equip(weapon);
+                                }
                             }
                         }
                     }
@@ -251,6 +257,15 @@ namespace Dungeon.src.PlayerClass
             Deplacement(ref futurePosition);
             Rectangle newHitbox = new((int)futurePosition.X + 10, (int)futurePosition.Y + 10, (int)(spriteWidth * scale) - 10, (int)(spriteHeight * scale) - 15);
             PlayerCollision(map, content, newHitbox, futurePosition, gameTime, ref gameState);
+
+            var keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.U))
+            {
+                for (int i = 0; i < map.ActualRoom.Enemies.Count; i++)
+                {
+                    map.ActualRoom.Enemies[i].Hp = 0;
+                }
+            }
         }
 
         public void Deplacement(ref Vector2 futurePosition)

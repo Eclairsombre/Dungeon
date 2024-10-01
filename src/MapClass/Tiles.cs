@@ -5,6 +5,7 @@ using MonoGame.Extended;
 using Dungeon.src.MapClass.HolderClass;
 using Dungeon.src.PlayerClass.WeaponClass;
 using System.Diagnostics;
+using Dungeon.src.DropClass;
 
 namespace Dungeon.src.MapClass
 {
@@ -23,7 +24,7 @@ namespace Dungeon.src.MapClass
 
         public NextRoomRewardDisplay NextRoomRewardDisplay { get { return nextRoomRewardDisplay; } set { nextRoomRewardDisplay = value; } }
 
-        public Tiles(Tuple<int, int> id, int x, int y, int width, int height)
+        public Tiles(Tuple<int, int> id, int x, int y, int width, int height, RewardType rewardType)
         {
             this.id = id;
 
@@ -37,13 +38,19 @@ namespace Dungeon.src.MapClass
                     break;
                 case 4:
                     Vector2 position = new(x, y);
-                    holder = new WeaponHolder(x, y, new Sword(position));
+
+                    holder = rewardType switch
+                    {
+                        RewardType.Weapon => new WeaponHolder(x, y, new Sword(position)),
+                        RewardType.Health => new DropHolder(x, y, new HeartDrop(x, y, 30, 30)),
+                        RewardType.Gold => new DropHolder(x, y, new GoldDrop(x, y, 30, 30, 50)),
+                        RewardType.Xp => new DropHolder(x, y, new XpDrop(x, y, 30, 30, 50)),
+                        _ => new WeaponHolder(x, y, new Sword(position)),
+                    };
                     break;
                 default:
                     break;
-                case 5:
-                    nextRoomRewardDisplay = new NextRoomRewardDisplay(x, y, width, height, (RewardType)random, ((RewardType)random).ToString() + "Display");
-                    break;
+
             }
         }
 
@@ -75,14 +82,7 @@ namespace Dungeon.src.MapClass
                     spriteBatch.Draw(texture[0], hitbox, Color.White);
                     if (finished)
                     {
-                        if (holder is WeaponHolder weaponHolder)
-                        {
-                            weaponHolder.Draw(spriteBatch);
-                        }
-                        else
-                        {
-                            holder.Draw(spriteBatch);
-                        }
+                        holder?.Draw(spriteBatch);
                     }
 
                     break;
@@ -90,7 +90,7 @@ namespace Dungeon.src.MapClass
                     spriteBatch.FillRectangle(hitbox, Color.White);
                     if (finished)
                     {
-                        nextRoomRewardDisplay.Draw(spriteBatch);
+                        nextRoomRewardDisplay?.Draw(spriteBatch);
                     }
                     break;
                 default:

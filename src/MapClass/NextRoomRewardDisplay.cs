@@ -12,7 +12,8 @@ namespace Dungeon.src.MapClass
         Weapon,
         Health,
         Gold,
-        Xp
+        Xp,
+        None
     }
     public class NextRoomRewardDisplay
     {

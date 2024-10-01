@@ -41,7 +41,7 @@ namespace Dungeon.src.CollisionClass
             return false;
         }
 
-        public static bool CheckCollisionWithDoor(Rectangle rectangle, Room room)
+        public static (bool, Door) CheckCollisionWithDoor(Rectangle rectangle, Room room)
         {
             if (room.Finished)
             {
@@ -51,19 +51,19 @@ namespace Dungeon.src.CollisionClass
                 {
                     if (rectangle.Intersects(door1.Hitbox))
                     {
-                        return true;
+                        return (true, door1);
                     }
                 }
                 if (door2 != null)
                 {
                     if (rectangle.Intersects(door2.Hitbox))
                     {
-                        return true;
+                        return (true, door2);
                     }
                 }
 
             }
-            return false;
+            return (false, null);
         }
 
         public static bool CheckCollisionVision(Tiles[,] tiles, Vector2 vision)

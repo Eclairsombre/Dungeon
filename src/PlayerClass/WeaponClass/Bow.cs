@@ -23,7 +23,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
             if (timeSinceLastAttack >= attackCooldown)
             {
                 timeSinceLastAttack = 0f;
-                Arrow arrow = new(Position, direction, 400f, content);
+                Arrow arrow = new(Position, direction, 800f, content);
                 arrow.LoadContent(content);
                 arrows.Add(arrow);
             }

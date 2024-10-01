@@ -20,7 +20,7 @@ public class Map
 
     public void GenerateDungeon(ContentManager content)
     {
-        room = new Room();
+        room = new Room(RewardType.None);
         room.LoadContent(content, 1);
         room.Generate(content);
     }

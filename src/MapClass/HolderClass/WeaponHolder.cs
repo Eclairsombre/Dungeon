@@ -11,7 +11,7 @@ namespace Dungeon.src.MapClass.HolderClass
         private Weapon weapon = weapon;
         public Weapon WeaponHold { get { return weapon; } set { weapon = value; } }
 
-        public new void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             Rectangle weaponRectangle = new(hitbox.X + (hitbox.Width - weapon.Width) / 2, hitbox.Y - weapon.Height - 10, weapon.Width, weapon.Height);
             spriteBatch.FillRectangle(hitbox, Color.White);
