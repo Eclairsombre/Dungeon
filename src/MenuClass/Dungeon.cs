@@ -23,7 +23,7 @@ namespace Dungeon.src.MenuClass
         private Texture2D pauseBackgroundTexture;
         public Bouton resumeButton, quitButton, optionsButton, saveButton;
 
-        public void Initialize(GraphicsDevice graphicsDevice)
+        public void Initialize(GraphicsDevice graphicsDevice, ContentManager content)
         {
             player = new Player(graphicsDevice);
             map = new Map();
@@ -50,7 +50,7 @@ namespace Dungeon.src.MenuClass
             saveButton = new Bouton(buttonX, pauseBackground.Y + 50 + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "SaveBouton-Sheet");
             quitButton = new Bouton(buttonX, pauseBackground.Y + 50 + 3 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Menu, "ExitBouton-Sheet");
 
-            levelUp = new LevelUp(graphicsDevice);
+            levelUp = new LevelUp(graphicsDevice, content);
         }
 
         public void LoadContent(ContentManager content)

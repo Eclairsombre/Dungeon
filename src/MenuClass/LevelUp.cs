@@ -13,7 +13,7 @@ namespace Dungeon.src.MenuClass
         private readonly CallBack callBack;
         private Rectangle hitbox;
         private readonly LevelUpBouton choice1, choice2, choice3;
-        public LevelUp(GraphicsDevice graphicsDevice)
+        public LevelUp(GraphicsDevice graphicsDevice, ContentManager content)
         {
             callBack = new CallBack();
             animation = new Animation("LevelUpBackground-Sheet", callBack.StaticMyCallback, 1, 0);
@@ -35,9 +35,9 @@ namespace Dungeon.src.MenuClass
             int hitboxChoiceHeight = 150;
 
 
-            choice1 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 200, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpHealBouton-Sheet", LevelUpChoice.Heal);
-            choice2 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 350, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpAttackBouton-Sheet", LevelUpChoice.Attack);
-            choice3 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 500, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpSpeedBouton-Sheet", LevelUpChoice.Speed);
+            choice1 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 200, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpHealBouton-Sheet", LevelUpChoice.Heal, content);
+            choice2 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 350, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpAttackBouton-Sheet", LevelUpChoice.Attack, content);
+            choice3 = new LevelUpBouton((screenWidth - hitboxChoiceWidth) / 2, hitbox.Y + 500, hitboxChoiceWidth, hitboxChoiceHeight, GameState.Playing, "LevelUpSpeedBouton-Sheet", LevelUpChoice.Speed, content);
         }
 
         public void LoadContent(ContentManager content)

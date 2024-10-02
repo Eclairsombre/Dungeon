@@ -1,6 +1,7 @@
 using System;
 using Dungeon.src.AnimationClass;
 using Dungeon.src.PlayerClass.StatsClass;
+using Dungeon.src.TexteClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +30,9 @@ namespace Dungeon.src.MenuClass.BoutonClass
         protected double clickDelay;
         protected double elapsedTime;
 
-        public LevelUpBouton(int x, int y, int width, int height, GameState gameState, string file, LevelUpChoice levelUpChoice)
+        Texte description;
+
+        public LevelUpBouton(int x, int y, int width, int height, GameState gameState, string file, LevelUpChoice levelUpChoice, ContentManager content)
         {
             hitbox = new Rectangle(x, y, width, height);
             this.gameState = gameState;
@@ -42,12 +45,32 @@ namespace Dungeon.src.MenuClass.BoutonClass
             isClicked = false;
             clickDelay = 500;
             elapsedTime = 0;
+
+            string texteBouton = "";
+            switch (levelUpChoice)
+            {
+                case LevelUpChoice.Heal:
+                    texteBouton = "Add +1 to your max health";
+                    break;
+                case LevelUpChoice.Attack:
+                    texteBouton = "Multiply your attack by 1.2";
+                    break;
+                case LevelUpChoice.Speed:
+                    texteBouton = "Multiply your speed by 1.1";
+                    break;
+                case LevelUpChoice.Defense:
+                    texteBouton = "Add +1 to your defense";
+                    break;
+            }
+
+            description = new Texte(content, texteBouton, new Vector2(x + width / 2, y + height + 10), Color.Black, 40);
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
+            description.Draw(spriteBatch);
         }
 
         public void LoadContent(ContentManager content)

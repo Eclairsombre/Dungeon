@@ -56,7 +56,7 @@ namespace Dungeon.src.MenuClass
         public void Initialize()
         {
             dungeon = new Dungeon();
-            dungeon.Initialize(_graphicsDevice);
+            dungeon.Initialize(_graphicsDevice, _content);
         }
         public void LoadContent()
         {
