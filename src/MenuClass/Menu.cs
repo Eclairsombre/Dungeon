@@ -28,7 +28,7 @@ namespace Dungeon.src.MenuClass
         public GameState GameState { get { return gameState; } set { gameState = value; } }
         private readonly Bouton playButton, optionsButton, exitButton;
 
-        Texte texte;
+        Texte titre;
 
 
 
@@ -51,7 +51,7 @@ namespace Dungeon.src.MenuClass
 
             options = new Options(graphicsDevice);
 
-            texte = new Texte(content, "Dungeon", new Vector2(screenWidth / 2, screenHeight / 4), Color.Black, 50);
+            titre = new Texte(content, "Dungeon", new Vector2(screenWidth / 2, screenHeight / 4), Color.Black, 50);
         }
         public void Initialize()
         {
@@ -69,10 +69,11 @@ namespace Dungeon.src.MenuClass
         }
         public void Update(GameTime gameTime)
         {
-            texte.Update(_graphicsDevice);
             switch (gameState)
             {
                 case GameState.Menu:
+                    //titre.Update(_graphicsDevice);
+
                     playButton.Update(gameTime);
                     optionsButton.Update(gameTime);
                     exitButton.Update(gameTime);
@@ -110,6 +111,8 @@ namespace Dungeon.src.MenuClass
             switch (gameState)
             {
                 case GameState.Menu:
+                    titre.Draw(_spriteBatch);
+
                     playButton.Draw(_spriteBatch);
                     optionsButton.Draw(_spriteBatch);
                     exitButton.Draw(_spriteBatch);
@@ -125,7 +128,6 @@ namespace Dungeon.src.MenuClass
 
             }
 
-            texte.Draw(_spriteBatch);
             _spriteBatch.End();
         }
     }
