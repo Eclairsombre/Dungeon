@@ -4,6 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveBack.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Arrow-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ArrowSpriteSheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/BackBouton-Sheet.png</File>
@@ -17,17 +20,29 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpShieldBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpSpeedBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Mur.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/NextRoomDisplayGold.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/NextRoomDisplayHealth.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/NextRoomDisplayWeapon.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/NextRoomDisplayXp.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/OptionsBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/PlayBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ResumeBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/SaveBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Sol.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/testRegression.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveBack.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveFront.png</File>
-    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/PlayerNoMoveLeft.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/XpDrop.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/VCR_OSD_MONO_1.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

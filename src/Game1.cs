@@ -6,6 +6,7 @@ using Dungeon.src.PlayerClass;
 using Dungeon.src.InterfaceClass;
 using Dungeon.src;
 using Dungeon.src.MenuClass;
+using Dungeon.src.TexteClass;
 
 namespace Dungeon;
 
@@ -15,6 +16,7 @@ public class Game1 : Game
 
     private Menu menu;
 
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -23,6 +25,7 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         _graphics.ApplyChanges();
+
     }
 
     protected override void Initialize()
@@ -42,6 +45,7 @@ public class Game1 : Game
     {
         menu.Update(gameTime);
         base.Update(gameTime);
+
     }
 
 
@@ -51,6 +55,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.White);
 
         menu.Draw();
+
 
 
 

@@ -337,3 +337,10 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/XpDrop.png
 
+#begin VCR_OSD_MONO_1.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:VCR_OSD_MONO_1.spritefont
+

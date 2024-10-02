@@ -1,5 +1,6 @@
 using System;
 using Dungeon.src.MenuClass.BoutonClass;
+using Dungeon.src.TexteClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,13 +20,16 @@ namespace Dungeon.src.MenuClass
     {
         private readonly GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
-          private readonly ContentManager _content;
-private Dungeon dungeon;
-private readonly Options options;
+        private readonly ContentManager _content;
+        private Dungeon dungeon;
+        private readonly Options options;
         private GameState gameState = GameState.Menu;
         private GameState previousGameState = GameState.Menu;
-public GameState GameState { get { return gameState; } set { gameState = value; } }
-                private readonly Bouton playButton, optionsButton, exitButton;
+        public GameState GameState { get { return gameState; } set { gameState = value; } }
+        private readonly Bouton playButton, optionsButton, exitButton;
+
+        Texte texte;
+
 
 
         public Menu(GraphicsDevice graphicsDevice, ContentManager content)
@@ -46,6 +50,8 @@ public GameState GameState { get { return gameState; } set { gameState = value; 
             exitButton = new Bouton(buttonX, buttonY + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Exit, "ExitBouton-Sheet");
 
             options = new Options(graphicsDevice);
+
+            texte = new Texte(content, "Dungeon", new Vector2(screenWidth / 2, screenHeight / 4), Color.Black, 50);
         }
         public void Initialize()
         {
@@ -63,6 +69,7 @@ public GameState GameState { get { return gameState; } set { gameState = value; 
         }
         public void Update(GameTime gameTime)
         {
+            texte.Update(_graphicsDevice);
             switch (gameState)
             {
                 case GameState.Menu:
@@ -117,6 +124,8 @@ public GameState GameState { get { return gameState; } set { gameState = value; 
                     break;
 
             }
+
+            texte.Draw(_spriteBatch);
             _spriteBatch.End();
         }
     }

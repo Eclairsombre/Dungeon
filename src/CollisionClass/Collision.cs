@@ -21,7 +21,7 @@ namespace Dungeon.src.CollisionClass
             {
                 for (int y = 0; y < room.Tiles.GetLength(1); y++)
                 {
-                    if (room.Tiles[i, y].Id.Item1 == 1)
+                    if (room.Tiles[i, y].Id.Item1 == 1 || room.Tiles[i, y].Id.Item1 == 5)
                     {
 
                         if (CheckCollisionTwoRect(rect, room.Tiles[i, y].Hitbox))
@@ -36,6 +36,7 @@ namespace Dungeon.src.CollisionClass
                             return true;
                         }
                     }
+
                 }
             }
             return false;
