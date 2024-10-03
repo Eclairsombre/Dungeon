@@ -11,13 +11,10 @@ namespace Dungeon.src.MenuClass
 
         public Options(GraphicsDevice graphicsDevice)
         {
-            int screenHeight = graphicsDevice.Viewport.Height;
             int buttonWidth = 100;
             int buttonHeight = 100;
-
             int buttonX = 10;
-            int buttonY = screenHeight - buttonHeight * 2;
-
+            int buttonY = 10;
             backButton = new Bouton(buttonX, buttonY, buttonWidth, buttonHeight, GameState.Menu, "BackBouton-Sheet");
         }
 
@@ -30,6 +27,11 @@ namespace Dungeon.src.MenuClass
             {
                 gameState = previousGameState1;
             }
+        }
+
+        public void OnWindowResize(int screenWidth, int screenHeight)
+        {
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

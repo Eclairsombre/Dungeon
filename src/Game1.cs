@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Dungeon.src.MenuClass;
+using System;
 
 namespace Dungeon.src;
 
@@ -18,14 +19,14 @@ public class Game1 : Game
         IsMouseVisible = true;
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-        /// _graphics.ToggleFullScreen();
+        Window.AllowUserResizing = true;
         _graphics.ApplyChanges();
 
     }
 
     protected override void Initialize()
     {
-        menu = new Menu(_graphics.GraphicsDevice, Content);
+        menu = new Menu(_graphics.GraphicsDevice, Content, Window);
         menu.Initialize();
 
         base.Initialize();
@@ -38,9 +39,10 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+
+
         menu.Update(gameTime);
         base.Update(gameTime);
-
     }
 
 

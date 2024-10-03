@@ -19,6 +19,8 @@ namespace Dungeon.src.MenuClass.BoutonClass
         public bool isClicked;
         protected double clickDelay;
         protected double elapsedTime;
+
+        private float _scale = 1f;
         public Bouton(int x, int y, int width, int height, GameState gameState, string file)
         {
             hitbox = new Rectangle(x, y, width, height);
@@ -34,12 +36,24 @@ namespace Dungeon.src.MenuClass.BoutonClass
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
+            spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, _scale, SpriteEffects.None, 0f);
         }
 
         public void LoadContent(ContentManager content)
         {
             _animation.LoadContent(content);
+        }
+
+        public void SetPosition(int x, int y)
+        {
+            hitbox.X = x;
+            hitbox.Y = y;
+        }
+
+        public void SetSize(int width, int height)
+        {
+            hitbox.Width = width;
+            hitbox.Height = height;
         }
 
         public virtual void Update(GameTime gameTime)

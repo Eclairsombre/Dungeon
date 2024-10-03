@@ -24,6 +24,17 @@ namespace Dungeon.src.TexteClass
             // Update logic here if needed
         }
 
+        public void SetPosition(int x, int y)
+        {
+            _position.X = x;
+            _position.Y = y;
+        }
+
+        public void SetSize(int size)
+        {
+            _size = size;
+        }
+
         public string Content
         {
             get { return _text; }

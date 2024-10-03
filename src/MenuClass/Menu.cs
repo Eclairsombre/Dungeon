@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Dungeon.src.MenuClass.BoutonClass;
 using Dungeon.src.TexteClass;
 using Microsoft.Xna.Framework;
@@ -28,22 +29,27 @@ namespace Dungeon.src.MenuClass
         public GameState GameState { get { return gameState; } set { gameState = value; } }
         private readonly Bouton playButton, optionsButton, exitButton;
 
-        Texte titre;
+        private readonly Texte titre;
+
+        private readonly GameWindow gameWindow;
 
 
 
-        public Menu(GraphicsDevice graphicsDevice, ContentManager content)
+        public Menu(GraphicsDevice graphicsDevice, ContentManager content, GameWindow window)
         {
             _graphicsDevice = graphicsDevice;
             _content = content;
+            gameWindow = window;
+
+            gameWindow.ClientSizeChanged += OnWindowResize;
 
             int screenWidth = graphicsDevice.Viewport.Width;
             int screenHeight = graphicsDevice.Viewport.Height;
             int buttonWidth = 300;
             int buttonHeight = 100;
 
-            int buttonX = (screenWidth - buttonWidth) / 2;
-            int buttonY = (screenHeight - buttonHeight) / 2;
+            int buttonX = screenWidth / 2 - buttonWidth / 2;
+            int buttonY = screenHeight / 2 - buttonHeight / 2;
 
             playButton = new Bouton(buttonX, buttonY, buttonWidth, buttonHeight, GameState.Playing, "PlayBouton-Sheet");
             optionsButton = new Bouton(buttonX, buttonY + buttonHeight + 10, buttonWidth, buttonHeight, GameState.Options, "OptionsBouton-Sheet");
@@ -51,7 +57,8 @@ namespace Dungeon.src.MenuClass
 
             options = new Options(graphicsDevice);
 
-            titre = new Texte(content, "Dungeon", new Vector2(screenWidth / 2 - 150, screenHeight / 4), Color.Black, 50);
+            titre = new Texte(content, "Dungeon", new Vector2(screenWidth / 2 - buttonWidth / 2, screenHeight / 4), Color.Black, 50);
+
         }
         public void Initialize()
         {
@@ -67,8 +74,33 @@ namespace Dungeon.src.MenuClass
             exitButton.LoadContent(_content);
             options.LoadContent(_content);
         }
+
+        private void OnWindowResize(object sender, EventArgs e)
+        {
+            int screenWidth = _graphicsDevice.Viewport.Width;
+            int screenHeight = _graphicsDevice.Viewport.Height;
+            int buttonWidth = 300;
+            int buttonHeight = 100;
+
+            int buttonX = screenWidth / 2 - buttonWidth / 2;
+            int buttonY = screenHeight / 2 - buttonHeight / 2;
+
+            playButton.SetPosition(buttonX, buttonY);
+
+            optionsButton.SetPosition(buttonX, buttonY + buttonHeight + 10);
+
+            exitButton.SetPosition(buttonX, buttonY + 2 * (buttonHeight + 10));
+
+            titre.SetPosition(screenWidth / 2 - buttonWidth / 2, screenHeight / 4);
+
+            options.OnWindowResize(screenWidth, screenHeight);
+
+
+
+        }
         public void Update(GameTime gameTime)
         {
+
             switch (gameState)
             {
                 case GameState.Menu:
