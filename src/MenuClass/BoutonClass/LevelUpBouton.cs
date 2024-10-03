@@ -63,7 +63,7 @@ namespace Dungeon.src.MenuClass.BoutonClass
                     break;
             }
 
-            description = new Texte(content, texteBouton, new Vector2(x + width / 2, y + height + 10), Color.Black, 40);
+            description = new Texte(content, texteBouton, new Vector2(x + width / 4 + 10, y + height / 2), Color.Black, 12);
         }
 
 

@@ -1,14 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Dungeon.src.MapClass;
-using Dungeon.src.PlayerClass;
-using Dungeon.src.InterfaceClass;
-using Dungeon.src;
 using Dungeon.src.MenuClass;
-using Dungeon.src.TexteClass;
 
-namespace Dungeon;
+namespace Dungeon.src;
 
 public class Game1 : Game
 {
@@ -24,6 +18,7 @@ public class Game1 : Game
         IsMouseVisible = true;
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        /// _graphics.ToggleFullScreen();
         _graphics.ApplyChanges();
 
     }

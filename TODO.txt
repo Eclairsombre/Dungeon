@@ -2,7 +2,6 @@ TODO :
 
 - Fix enemy deplacement
 - Add new enemies
-- EN COURS :Add stat upgrade when level up + texte on display
 - Add Option (change keybind, music volume etc)
 - Add Boss(different move set, heal bar...)
 -  Refactor code for better organisation
@@ -11,3 +10,4 @@ TODO :
 - Add ingame lobby to upgrade the player (png?, shop?)
 - animation mort( coeur qui bat + respiration -> resurection)
 - Add save system (multiple ?)
+- modify code to make all responsive (help)

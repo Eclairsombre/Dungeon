@@ -51,7 +51,7 @@ namespace Dungeon.src.MenuClass
 
             options = new Options(graphicsDevice);
 
-            titre = new Texte(content, "Dungeon", new Vector2(screenWidth / 2, screenHeight / 4), Color.Black, 50);
+            titre = new Texte(content, "Dungeon", new Vector2(screenWidth / 2 - 150, screenHeight / 4), Color.Black, 50);
         }
         public void Initialize()
         {

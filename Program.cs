@@ -1,2 +1,2 @@
-﻿using var game = new Dungeon.Game1();
+﻿using var game = new Dungeon.src.Game1();
 game.Run();

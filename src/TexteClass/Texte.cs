@@ -15,9 +15,8 @@ namespace Dungeon.src.TexteClass
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 textSize = _font.MeasureString(_text);
-            Vector2 adjustedPosition = new(_position.X - textSize.X / 2, _position.Y - textSize.Y / 2);
-            spriteBatch.DrawString(_font, _text, adjustedPosition, _color, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+
+            spriteBatch.DrawString(_font, _text, _position, _color, 0, Vector2.Zero, _size / 56f, SpriteEffects.None, 0);
         }
 
         public void Update(GraphicsDevice GraphicsDevice)
