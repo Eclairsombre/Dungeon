@@ -46,8 +46,10 @@ namespace Dungeon.src.PlayerClass
         public Vector2 CenterPosition { get { return centerPosition; } set { centerPosition = value; } }
         public Vector2 Direction { get { return direction; } set { direction = value; } }
 
-        public Player(GraphicsDevice graphicsDevice)
+        private readonly KeyBind keyBind;
+        public Player(GraphicsDevice graphicsDevice, KeyBind keyBind)
         {
+            this.keyBind = keyBind;
             int screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 40;
             int screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 40;
             position = new Vector2(screenWidth / 2 - 65, screenHeight - 200);
@@ -88,17 +90,20 @@ namespace Dungeon.src.PlayerClass
         {
             var keyboardState = Keyboard.GetState();
 
-            if (keyboardState.IsKeyDown(Keys.E) && useCooldownTimer >= useCooldown)
+            if (keyboardState.IsKeyDown(keyBind.keyBindings["Use"][0]) || (keyBind.keyBindings["Use"].Length > 1 && keyboardState.IsKeyDown(keyBind.keyBindings["Use"][1])))
             {
-                useCooldownTimer = 0;
-                rangeInFrontPlayer = direction switch
+                if (useCooldownTimer >= useCooldown)
                 {
-                    Vector2 v when v == new Vector2(0, -1) => new Rectangle((int)position.X, (int)position.Y - spriteHeight, (int)(SpriteWidth * scale), spriteHeight), // up
-                    Vector2 v when v == new Vector2(0, 1) => new Rectangle((int)position.X, (int)position.Y + (int)(spriteHeight * scale), (int)(SpriteWidth * scale), spriteHeight), // down
-                    Vector2 v when v == new Vector2(1, 0) => new Rectangle((int)position.X + (int)(spriteWidth * scale), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)), // right
-                    Vector2 v when v == new Vector2(-1, 0) => new Rectangle((int)position.X - spriteWidth, (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)), // left
-                    _ => new Rectangle((int)position.X, (int)position.Y, 100, 100),
-                };
+                    useCooldownTimer = 0;
+                    rangeInFrontPlayer = direction switch
+                    {
+                        Vector2 v when v == new Vector2(0, -1) => new Rectangle((int)position.X, (int)position.Y - spriteHeight, (int)(SpriteWidth * scale), spriteHeight), // up
+                        Vector2 v when v == new Vector2(0, 1) => new Rectangle((int)position.X, (int)position.Y + (int)(spriteHeight * scale), (int)(SpriteWidth * scale), spriteHeight), // down
+                        Vector2 v when v == new Vector2(1, 0) => new Rectangle((int)position.X + (int)(spriteWidth * scale), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)), // right
+                        Vector2 v when v == new Vector2(-1, 0) => new Rectangle((int)position.X - spriteWidth, (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)), // left
+                        _ => new Rectangle((int)position.X, (int)position.Y, 100, 100),
+                    };
+                }
             }
             else if (keyboardState.IsKeyUp(Keys.E) && useCooldownTimer < useCooldown)
             {
@@ -106,15 +111,18 @@ namespace Dungeon.src.PlayerClass
                 rangeInFrontPlayer = Rectangle.Empty;
             }
 
-            UpdateMovement(keyboardState, Keys.W, Keys.Up, new Vector2(0, -1), 2, SpriteEffects.None);
-            UpdateMovement(keyboardState, Keys.S, Keys.Down, new Vector2(0, 1), 0, SpriteEffects.None);
-            UpdateMovement(keyboardState, Keys.A, Keys.Left, new Vector2(-1, 0), 1, SpriteEffects.None);
-            UpdateMovement(keyboardState, Keys.D, Keys.Right, new Vector2(1, 0), 1, SpriteEffects.FlipHorizontally);
+            UpdateMovement(keyboardState, keyBind.keyBindings["Up"][0], keyBind.keyBindings["Up"].Length > 1 ? keyBind.keyBindings["Up"][1] : Keys.None, new Vector2(0, -1), 2, SpriteEffects.None);
+            UpdateMovement(keyboardState, keyBind.keyBindings["Down"][0], keyBind.keyBindings["Down"].Length > 1 ? keyBind.keyBindings["Down"][1] : Keys.None, new Vector2(0, 1), 0, SpriteEffects.None);
+            UpdateMovement(keyboardState, keyBind.keyBindings["Left"][0], keyBind.keyBindings["Left"].Length > 1 ? keyBind.keyBindings["Left"][1] : Keys.None, new Vector2(-1, 0), 1, SpriteEffects.None);
+            UpdateMovement(keyboardState, keyBind.keyBindings["Right"][0], keyBind.keyBindings["Right"].Length > 1 ? keyBind.keyBindings["Right"][1] : Keys.None, new Vector2(1, 0), 1, SpriteEffects.FlipHorizontally);
 
-            if (keyboardState.IsKeyDown(Keys.Space) && dashCooldownTimer >= dashCooldown)
+            if (keyboardState.IsKeyDown(keyBind.keyBindings["Dash"][0]) || (keyBind.keyBindings["Dash"].Length > 1 && keyboardState.IsKeyDown(keyBind.keyBindings["Dash"][1])))
             {
-                dashCooldownTimer = 0;
-                dash = true;
+                if (dashCooldownTimer >= dashCooldown)
+                {
+                    dashCooldownTimer = 0;
+                    dash = true;
+                }
             }
             else if (keyboardState.IsKeyUp(Keys.Space))
             {

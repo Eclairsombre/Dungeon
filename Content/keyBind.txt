@@ -1,0 +1,7 @@
+Up Z Up
+Down S Down
+Left Q Left
+Right D Right
+Dash Space
+Use E M
+Escape Escape

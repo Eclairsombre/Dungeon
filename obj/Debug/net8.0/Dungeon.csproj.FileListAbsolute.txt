@@ -324,3 +324,4 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\VCR_OSD_MONO_1.s
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\VCR_OSD_MONO_1.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\VCR_OSD_MONO_1.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\VCR_OSD_MONO_1.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\keyBind.txt

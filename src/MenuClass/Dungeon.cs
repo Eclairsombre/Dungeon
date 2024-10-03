@@ -23,9 +23,10 @@ namespace Dungeon.src.MenuClass
         private Texture2D pauseBackgroundTexture;
         public Bouton resumeButton, quitButton, optionsButton, saveButton;
 
+        private readonly KeyBind keyBind = new();
         public void Initialize(GraphicsDevice graphicsDevice, ContentManager content)
         {
-            player = new Player(graphicsDevice);
+            player = new Player(graphicsDevice, keyBind);
             map = new Map();
             gameInterface = new Interface();
 
@@ -40,6 +41,7 @@ namespace Dungeon.src.MenuClass
                 rectHeight
             );
 
+            keyBind.ParseData();
             int buttonWidth = 300;
             int buttonHeight = 100;
 
@@ -64,20 +66,25 @@ namespace Dungeon.src.MenuClass
             saveButton.LoadContent(content);
             quitButton.LoadContent(content);
             levelUp.LoadContent(content);
+
+            keyBind.PrintKeyBindings();
         }
 
         public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState, ref GameState previousGameState)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && pauseTimer <= 0)
+            if (Keyboard.GetState().IsKeyDown(keyBind.keyBindings["Escape"][0]) || (keyBind.keyBindings["Escape"].Length > 1 && Keyboard.GetState().IsKeyDown(keyBind.keyBindings["Escape"][1])))
             {
-                pauseTimer = pauseCooldown;
-                if (gameState == GameState.Pause)
+                if (pauseTimer <= 0)
                 {
-                    gameState = GameState.Playing;
-                }
-                else
-                {
-                    gameState = GameState.Pause;
+                    pauseTimer = pauseCooldown;
+                    if (gameState == GameState.Pause)
+                    {
+                        gameState = GameState.Playing;
+                    }
+                    else
+                    {
+                        gameState = GameState.Pause;
+                    }
                 }
             }
             else
