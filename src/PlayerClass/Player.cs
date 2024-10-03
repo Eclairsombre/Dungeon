@@ -33,10 +33,12 @@ namespace Dungeon.src.PlayerClass
         private Stats stats = new();
         public Stats PlayerStats { get { return stats; } set { stats = value; } }
         private int invincibilityTime = 0;
-        private const float spaceCooldown = 500f;
-        private float spaceCooldownTimer = 0;
+        private const float useCooldown = 500f, dashCooldown = 250f;
+        private float useCooldownTimer = 0, dashCooldownTimer = 0;
         private bool isMovingHorizontally = false;
         private bool isMovingVertically = false;
+
+        private bool dash = false;
         public int SpriteWidth { get { return spriteWidth; } set { spriteWidth = value; } }
         public int SpriteHeight { get { return spriteHeight; } set { spriteHeight = value; } }
         public int Scale { get { return (int)scale; } set { scale = value; } }
@@ -86,63 +88,60 @@ namespace Dungeon.src.PlayerClass
         {
             var keyboardState = Keyboard.GetState();
 
-            if (keyboardState.IsKeyDown(Keys.Space) && spaceCooldownTimer >= spaceCooldown)
+            if (keyboardState.IsKeyDown(Keys.E) && useCooldownTimer >= useCooldown)
             {
-                spaceCooldownTimer = 0;
+                useCooldownTimer = 0;
                 rangeInFrontPlayer = direction switch
                 {
-                    Vector2 v when v == new Vector2(0, -1) => new Rectangle((int)position.X, (int)position.Y - spriteHeight, (int)(SpriteWidth * scale), spriteHeight),//up
-                    Vector2 v when v == new Vector2(0, 1) => new Rectangle((int)position.X, (int)((int)position.Y + spriteHeight * scale), (int)(SpriteWidth * scale), spriteHeight),//down
-                    Vector2 v when v == new Vector2(1, 0) => new Rectangle((int)((int)position.X + spriteWidth * scale), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)),//right
-                    Vector2 v when v == new Vector2(-1, 0) => new Rectangle((int)((int)position.X - spriteWidth), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)),//left
+                    Vector2 v when v == new Vector2(0, -1) => new Rectangle((int)position.X, (int)position.Y - spriteHeight, (int)(SpriteWidth * scale), spriteHeight), // up
+                    Vector2 v when v == new Vector2(0, 1) => new Rectangle((int)position.X, (int)position.Y + (int)(spriteHeight * scale), (int)(SpriteWidth * scale), spriteHeight), // down
+                    Vector2 v when v == new Vector2(1, 0) => new Rectangle((int)position.X + (int)(spriteWidth * scale), (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)), // right
+                    Vector2 v when v == new Vector2(-1, 0) => new Rectangle((int)position.X - spriteWidth, (int)position.Y, spriteWidth, (int)(SpriteHeight * scale)), // left
                     _ => new Rectangle((int)position.X, (int)position.Y, 100, 100),
-
                 };
             }
-            else if (keyboardState.IsKeyUp(Keys.Space) && spaceCooldownTimer < spaceCooldown)
+            else if (keyboardState.IsKeyUp(Keys.E) && useCooldownTimer < useCooldown)
             {
-                spaceCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                useCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 rangeInFrontPlayer = Rectangle.Empty;
             }
 
-            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
+            UpdateMovement(keyboardState, Keys.W, Keys.Up, new Vector2(0, -1), 2, SpriteEffects.None);
+            UpdateMovement(keyboardState, Keys.S, Keys.Down, new Vector2(0, 1), 0, SpriteEffects.None);
+            UpdateMovement(keyboardState, Keys.A, Keys.Left, new Vector2(-1, 0), 1, SpriteEffects.None);
+            UpdateMovement(keyboardState, Keys.D, Keys.Right, new Vector2(1, 0), 1, SpriteEffects.FlipHorizontally);
+
+            if (keyboardState.IsKeyDown(Keys.Space) && dashCooldownTimer >= dashCooldown)
             {
-                isMovingVertically = true;
-                currentSpriteSheet = 2;
-                spriteEffect = SpriteEffects.None;
-                directionDeplacement += new Vector2(0, -1);
-                direction = new Vector2(0, -1);
+                dashCooldownTimer = 0;
+                dash = true;
             }
-
-            if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
+            else if (keyboardState.IsKeyUp(Keys.Space))
             {
-                isMovingVertically = true;
-                currentSpriteSheet = 0;
-                spriteEffect = SpriteEffects.None;
-                directionDeplacement += new Vector2(0, 1);
-                direction = new Vector2(0, 1);
+                dashCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                dash = false;
             }
-
-            if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
-            {
-                isMovingHorizontally = true;
-                currentSpriteSheet = 1;
-                spriteEffect = SpriteEffects.None;
-                directionDeplacement += new Vector2(-1, 0);
-                direction = new Vector2(-1, 0);
-            }
-
-            if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
-            {
-                isMovingHorizontally = true;
-                currentSpriteSheet = 1;
-                spriteEffect = SpriteEffects.FlipHorizontally;
-                directionDeplacement += new Vector2(1, 0);
-                direction = new Vector2(1, 0);
-            }
-
-
         }
+
+        private void UpdateMovement(KeyboardState keyboardState, Keys primaryKey, Keys secondaryKey, Vector2 directionVector, int spriteIndex, SpriteEffects effect)
+        {
+            if (keyboardState.IsKeyDown(primaryKey) || keyboardState.IsKeyDown(secondaryKey))
+            {
+                if (directionVector.X != 0) isMovingHorizontally = true;
+                if (directionVector.Y != 0) isMovingVertically = true;
+                currentSpriteSheet = spriteIndex;
+                spriteEffect = effect;
+                directionDeplacement += directionVector;
+                direction = directionVector;
+            }
+            else if (keyboardState.IsKeyUp(primaryKey) && keyboardState.IsKeyUp(secondaryKey))
+            {
+                if (directionVector.X != 0) isMovingHorizontally = false;
+                if (directionVector.Y != 0) isMovingVertically = false;
+            }
+        }
+
+
 
         public void PlayerCollision(Map map, ContentManager content, Rectangle newHitbox, Vector2 futurePosition, GameTime gameTime, ref GameState gameState)
         {
@@ -303,7 +302,13 @@ namespace Dungeon.src.PlayerClass
             }
             directionDeplacement = new Vector2(directionDeplacement.X / (float)Math.Sqrt(valAbs), directionDeplacement.Y / (float)Math.Sqrt(valAbs));
             float adjustedSpeed = (isMovingHorizontally && isMovingVertically) ? speed * stats.Speed / (float)Math.Sqrt(2) : speed * stats.Speed;
+            if (dash)
+            {
+                adjustedSpeed *= 2;
+            }
             futurePosition = new Vector2(position.X + directionDeplacement.X * adjustedSpeed, position.Y + (directionDeplacement.Y * adjustedSpeed));
+
+
 
         }
         public void Draw(SpriteBatch spriteBatch)

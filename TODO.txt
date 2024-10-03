@@ -4,10 +4,12 @@ TODO :
 - Add new enemies
 - Add Option (change keybind, music volume etc)
 - Add Boss(different move set, heal bar...)
--  Refactor code for better organisation
+- Add new room
+- Refactor code for better organisation
 - EN COURS : make texture and animation
-- Add a move to move quickly ? (roulade, dash ..)
+- EN COURS : add dash / roulade (+ maybe add diagonal dash)
 - Add ingame lobby to upgrade the player (png?, shop?)
 - animation mort( coeur qui bat + respiration -> resurection)
 - Add save system (multiple ?)
 - modify code to make all responsive (help)
+- Add sound effect
