@@ -22,15 +22,15 @@ namespace Dungeon.src.MenuClass.BoutonClass
     {
         private readonly LevelUpChoice levelUpChoice;
 
-        protected Rectangle hitbox;
-        protected GameState gameState;
-        protected CallBack callBack;
-        protected Animation _animation;
+        private Rectangle hitbox;
+        private readonly GameState gameState;
+        private readonly CallBack callBack;
+        private readonly Animation _animation;
         public bool isClicked;
-        protected double clickDelay;
-        protected double elapsedTime;
+        private readonly double clickDelay;
+        private double elapsedTime;
 
-        Texte description;
+        private readonly Texte description;
 
         public LevelUpBouton(int x, int y, int width, int height, GameState gameState, string file, LevelUpChoice levelUpChoice, ContentManager content)
         {

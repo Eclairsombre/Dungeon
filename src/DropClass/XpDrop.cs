@@ -12,10 +12,10 @@ namespace Dungeon.src.DropClass
         private int xp;
         public int Xp { get { return xp; } set { xp = value; } }
 
-        private Animation animation;
-        private CallBack callBack = new();
+        private readonly Animation animation;
+        private readonly CallBack callBack = new();
 
-        private float scale;
+        private readonly float scale;
         public XpDrop(int x, int y, int height, int width, int xp, float scale) : base(x, y, height, width)
         {
             this.xp = xp;

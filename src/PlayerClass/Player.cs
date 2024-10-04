@@ -86,7 +86,7 @@ namespace Dungeon.src.PlayerClass
             this.weapon = weapon;
         }
 
-        public void PlayerKeyboardAndMouseInput(GameTime gameTime)
+        public void PlayerKeyboardAndMouseInput(GameTime gameTime, KeyBind keyBind)
         {
             var keyboardState = Keyboard.GetState();
 
@@ -250,7 +250,7 @@ namespace Dungeon.src.PlayerClass
                 }
             }
         }
-        public void Update(GameTime gameTime, Map map, ContentManager content, ref GameState gameState)
+        public void Update(GameTime gameTime, Map map, ContentManager content, ref GameState gameState, KeyBind keyBind)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (invincibilityTime > 0)
@@ -260,7 +260,7 @@ namespace Dungeon.src.PlayerClass
 
             Vector2 futurePosition = position;
             directionDeplacement = new Vector2(0, 0);
-            PlayerKeyboardAndMouseInput(gameTime);
+            PlayerKeyboardAndMouseInput(gameTime, keyBind);
             JoystickState jstate = Joystick.GetState((int)PlayerIndex.One);
 
             if (jstate.IsConnected)

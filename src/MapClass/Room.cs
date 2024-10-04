@@ -64,7 +64,7 @@ public class Room(RewardType rewardType)
     private readonly int x = 0, y = 0, width = 52, height = 30;
     private Tiles[,] tiles = new Tiles[26, 14];
 
-    private RewardType rewardType = rewardType;
+    private readonly RewardType rewardType = rewardType;
     private bool finished = false;
     private string fileContent;
     private List<Enemy> enemies;

@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using Dungeon.src.MenuClass.BoutonClass;
+using Dungeon.src.PlayerClass;
 using Dungeon.src.TexteClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -5,23 +9,66 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Dungeon.src.MenuClass.OptionsClass
 {
-    public class KeyBindPage(GraphicsDevice graphicsDevice, ContentManager content)
+    public class KeyBindPage
     {
-        private readonly Texte title = new(content, "Key Bindings", new Vector2(graphicsDevice.Viewport.Width / 2 - 150, 50), Color.Black, 50);
+        private readonly Texte title;
 
+
+        private readonly Texte[] keybindsTitle = new Texte[50];
+
+        private readonly KeyBouton[] firstKey = new KeyBouton[50];
+        private readonly KeyBouton[] secondKey = new KeyBouton[50];
+
+        public KeyBindPage(GraphicsDevice graphicsDevice, ContentManager content, KeyBind keyBind)
+        {
+            title = new(content, "Key Bindings", new Vector2(graphicsDevice.Viewport.Width / 2 - 150, 50), Color.Black, 50);
+
+            int x = 100;
+            int y = 200;
+
+
+            foreach (var var in keyBind.keyBindings)
+            {
+                keybindsTitle[keyBind.keyBindings.Keys.ToList().IndexOf(var.Key)] = new Texte(content, var.Key + " : ", new Vector2(x, y), Color.Black, 50);
+                y += 75;
+            }
+            y = 200;
+            foreach (var var in keyBind.keyBindings)
+            {
+                firstKey[keyBind.keyBindings.Keys.ToList().IndexOf(var.Key)] = new KeyBouton(x + 300, y + 5, 50, 50, var.Value[0], null, var.Key);
+                if (var.Value.Length > 1)
+                    secondKey[keyBind.keyBindings.Keys.ToList().IndexOf(var.Key)] = new KeyBouton(x + 400, y + 5, 50, 50, var.Value[1], null, var.Key);
+                y += 75;
+            }
+
+
+        }
 
         public void LoadContent(ContentManager content)
         {
         }
 
-        public void Update()
+        public void Update(GameTime gameTime, ref KeyBind keyBind)
         {
+
+            for (int i = 0; i < keybindsTitle.Length; i++)
+            {
+                firstKey[i]?.Update(gameTime, ref keyBind);
+                secondKey[i]?.Update(gameTime, ref keyBind);
+            }
 
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             title.Draw(spriteBatch);
+
+            for (int i = 0; i < keybindsTitle.Length; i++)
+            {
+                keybindsTitle[i]?.Draw(spriteBatch);
+                firstKey[i]?.Draw(spriteBatch);
+                secondKey[i]?.Draw(spriteBatch);
+            }
         }
     }
 }

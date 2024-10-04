@@ -1,4 +1,5 @@
 using Dungeon.src.MenuClass.BoutonClass;
+using Dungeon.src.PlayerClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,8 +19,9 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
         private OptionsState optionsState = OptionsState.KeyBindOptions;
 
-        private KeyBindPage keyBindPage;
-        public Options(GraphicsDevice graphicsDevice, ContentManager content)
+        private readonly KeyBindPage keyBindPage;
+
+        public Options(GraphicsDevice graphicsDevice, ContentManager content, KeyBind keyBind)
         {
             int buttonWidth = 100;
             int buttonHeight = 100;
@@ -27,14 +29,13 @@ namespace Dungeon.src.MenuClass.OptionsClass
             int buttonY = 10;
             backButton = new Bouton(buttonX, buttonY, buttonWidth, buttonHeight, GameState.Menu, "BackBouton-Sheet");
 
-            keyBindPage = new KeyBindPage(graphicsDevice, content);
+            keyBindPage = new KeyBindPage(graphicsDevice, content, keyBind);
         }
 
-        public void Update(GameTime gameTime, ref GameState gameState, ref GameState previousGameState)
+        public void Update(GameTime gameTime, ref GameState gameState, ref GameState previousGameState, ref KeyBind keyBind)
         {
-            backButton.Update(gameTime);
             GameState previousGameState1 = previousGameState;
-            backButton.OnClick(ref gameState, ref previousGameState);
+            backButton.Update(gameTime, ref gameState, ref previousGameState);
             if (backButton.isClicked)
             {
                 optionsState = OptionsState.KeyBindOptions;
@@ -47,6 +48,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
             switch (optionsState)
             {
                 case OptionsState.KeyBindOptions:
+                    keyBindPage.Update(gameTime, ref keyBind);
                     break;
                 case OptionsState.SoundOptions:
                     break;

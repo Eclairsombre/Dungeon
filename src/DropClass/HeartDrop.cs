@@ -12,7 +12,7 @@ namespace Dungeon.src.DropClass
         private readonly CallBack callBack = new();
         private readonly Animation _animation;
 
-        private float scale;
+        private readonly float scale;
         public HeartDrop(int x, int y, int height, int width, float scale) : base(x, y, height, width)
         {
             callBack = new CallBack();

@@ -1,6 +1,7 @@
 using System;
 using Dungeon.src.MenuClass.BoutonClass;
 using Dungeon.src.MenuClass.OptionsClass;
+using Dungeon.src.PlayerClass;
 using Dungeon.src.TexteClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -34,12 +35,16 @@ namespace Dungeon.src.MenuClass
         private readonly GameWindow gameWindow;
 
 
+        private KeyBind keyBind = new();
 
         public Menu(GraphicsDevice graphicsDevice, ContentManager content, GameWindow window)
         {
             _graphicsDevice = graphicsDevice;
             _content = content;
             gameWindow = window;
+
+            keyBind.ParseData();
+
 
             gameWindow.ClientSizeChanged += OnWindowResize;
 
@@ -55,7 +60,7 @@ namespace Dungeon.src.MenuClass
             optionsButton = new Bouton(buttonX, buttonY + buttonHeight + 10, buttonWidth, buttonHeight, GameState.Options, "OptionsBouton-Sheet");
             exitButton = new Bouton(buttonX, buttonY + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Exit, "ExitBouton-Sheet");
 
-            options = new Options(graphicsDevice, content);
+            options = new Options(graphicsDevice, content, keyBind);
 
             titre = new Texte(content, "Dungeon", new Vector2(screenWidth / 2 - buttonWidth / 2, screenHeight / 4), Color.Black, 50);
 
@@ -63,7 +68,7 @@ namespace Dungeon.src.MenuClass
         public void Initialize()
         {
             dungeon = new Dungeon();
-            dungeon.Initialize(_graphicsDevice, _content);
+            dungeon.Initialize(_graphicsDevice, _content, keyBind);
         }
         public void LoadContent()
         {
@@ -106,29 +111,27 @@ namespace Dungeon.src.MenuClass
                 case GameState.Menu:
                     //titre.Update(_graphicsDevice);
 
-                    playButton.Update(gameTime);
-                    optionsButton.Update(gameTime);
-                    exitButton.Update(gameTime);
 
                     if (!dungeon.quitButton.isClicked)
                     {
-                        playButton.OnClick(ref gameState, ref previousGameState);
-                        optionsButton.OnClick(ref gameState, ref previousGameState);
-                        exitButton.OnClick(ref gameState, ref previousGameState);
+                        playButton.Update(gameTime, ref gameState, ref previousGameState);
+                        optionsButton.Update(gameTime, ref gameState, ref previousGameState);
+                        exitButton.Update(gameTime, ref gameState, ref previousGameState);
+
                     }
                     else
                     {
-                        dungeon.quitButton.Update(gameTime);
+                        dungeon.quitButton.Update(gameTime, ref gameState, ref previousGameState);
                     }
 
                     break;
                 case GameState.Playing:
                 case GameState.Pause:
                 case GameState.LevelUp:
-                    dungeon.UpdatePlaying(gameTime, _content, ref gameState, ref previousGameState);
+                    dungeon.UpdatePlaying(gameTime, _content, ref gameState, ref previousGameState, ref keyBind);
                     break;
                 case GameState.Options:
-                    options.Update(gameTime, ref gameState, ref previousGameState);
+                    options.Update(gameTime, ref gameState, ref previousGameState, ref keyBind);
                     break;
                 case GameState.Exit:
                     Environment.Exit(0);

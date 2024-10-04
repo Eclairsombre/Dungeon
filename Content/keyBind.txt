@@ -3,5 +3,5 @@ Down S Down
 Left Q Left
 Right D Right
 Dash Space
-Use E M
+Use E
 Escape Escape

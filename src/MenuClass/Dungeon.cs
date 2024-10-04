@@ -23,12 +23,12 @@ namespace Dungeon.src.MenuClass
         private Texture2D pauseBackgroundTexture;
         public Bouton resumeButton, quitButton, optionsButton, saveButton;
 
-        private readonly KeyBind keyBind = new();
-        public void Initialize(GraphicsDevice graphicsDevice, ContentManager content)
+        public void Initialize(GraphicsDevice graphicsDevice, ContentManager content, KeyBind keyBind)
         {
             player = new Player(graphicsDevice, keyBind);
             map = new Map();
             gameInterface = new Interface();
+
 
             int screenWidth = graphicsDevice.Viewport.Width;
             int screenHeight = graphicsDevice.Viewport.Height;
@@ -41,7 +41,6 @@ namespace Dungeon.src.MenuClass
                 rectHeight
             );
 
-            keyBind.ParseData();
             int buttonWidth = 300;
             int buttonHeight = 100;
 
@@ -67,10 +66,9 @@ namespace Dungeon.src.MenuClass
             quitButton.LoadContent(content);
             levelUp.LoadContent(content);
 
-            keyBind.PrintKeyBindings();
         }
 
-        public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState, ref GameState previousGameState)
+        public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState, ref GameState previousGameState, ref KeyBind keyBind)
         {
             if (Keyboard.GetState().IsKeyDown(keyBind.keyBindings["Escape"][0]) || (keyBind.keyBindings["Escape"].Length > 1 && Keyboard.GetState().IsKeyDown(keyBind.keyBindings["Escape"][1])))
             {
@@ -103,21 +101,16 @@ namespace Dungeon.src.MenuClass
             if (gameState == GameState.Pause)
             {
                 var playerStats = player.PlayerStats;
-                resumeButton.Update(gameTime);
+                resumeButton.Update(gameTime, ref gameState, ref previousGameState);
 
-                optionsButton.Update(gameTime);
-                saveButton.Update(gameTime);
-                quitButton.Update(gameTime);
+                optionsButton.Update(gameTime, ref gameState, ref previousGameState);
+                saveButton.Update(gameTime, ref gameState, ref previousGameState);
+                quitButton.Update(gameTime, ref gameState, ref previousGameState);
 
                 player.PlayerStats = playerStats;
-
-                resumeButton.OnClick(ref gameState, ref previousGameState);
-                optionsButton.OnClick(ref gameState, ref previousGameState);
-                saveButton.OnClick(ref gameState, ref previousGameState);
-                quitButton.OnClick(ref gameState, ref previousGameState);
                 return;
             }
-            player.Update(gameTime, map, content, ref gameState);
+            player.Update(gameTime, map, content, ref gameState, keyBind);
             map.Update(player.CenterPosition, gameTime, content);
 
 

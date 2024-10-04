@@ -7,7 +7,7 @@ namespace Dungeon.src.DropClass
     public class GoldDrop(int x, int y, int width, int height, int amount) : Drop(x, y, width, height)
     {
 
-        private int amount = amount;
+        private readonly int amount = amount;
 
         public int Amount { get { return amount; } }
 
