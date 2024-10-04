@@ -170,7 +170,7 @@ namespace Dungeon.src.PlayerClass
             {
                 map.ActualRoom = new Room(door.RewardType);
                 Random random = new();
-                int roomNumber = random.Next(2, 5);
+                int roomNumber = random.Next(2, 6);
                 map.ActualRoom.LoadContent(content, roomNumber);
                 map.ActualRoom.Generate(content);
                 position = startPosition;

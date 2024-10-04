@@ -1,7 +1,6 @@
 using System;
-using System.ComponentModel;
-using System.IO;
 using Dungeon.src.MenuClass.BoutonClass;
+using Dungeon.src.MenuClass.OptionsClass;
 using Dungeon.src.TexteClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -56,7 +55,7 @@ namespace Dungeon.src.MenuClass
             optionsButton = new Bouton(buttonX, buttonY + buttonHeight + 10, buttonWidth, buttonHeight, GameState.Options, "OptionsBouton-Sheet");
             exitButton = new Bouton(buttonX, buttonY + 2 * (buttonHeight + 10), buttonWidth, buttonHeight, GameState.Exit, "ExitBouton-Sheet");
 
-            options = new Options(graphicsDevice);
+            options = new Options(graphicsDevice, content);
 
             titre = new Texte(content, "Dungeon", new Vector2(screenWidth / 2 - buttonWidth / 2, screenHeight / 4), Color.Black, 50);
 
