@@ -21,7 +21,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
         private readonly float _scale = 1f;
 
-        private string name;
+        private readonly string name;
 
         private Keys pressedKey = Keys.None;
 
@@ -48,16 +48,13 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.FillRectangle(hitbox, Color.Red);
             spriteBatch.Draw(texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
-            //spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, _scale, SpriteEffects.None, 0f);
         }
 
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Sprites/KeyBindSprite/" + keys.ToString() + "KeyBouton");
             noKeyTexture = content.Load<Texture2D>("Sprites/KeyBindSprite/NoneKeyBouton");
-            //_animation.LoadContent(content);
         }
 
         public void SetPosition(int x, int y)
