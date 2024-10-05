@@ -97,6 +97,20 @@ namespace Dungeon.src.MenuClass.OptionsClass
                 if (pressedKey != Keys.None && pressedKey != Keys.Escape)
                 {
                     Keys lastBind = keys;
+                    foreach (string key in keybind.keyBindings.Keys)
+                    {
+
+                        foreach (Keys key1 in keybind.GetKeys(key))
+                        {
+                            if (key1 == pressedKey)
+                            {
+                                pressedKey = Keys.None;
+                                return;
+                            }
+                        }
+
+                    }
+
                     Console.WriteLine(pressedKey);
                     keys = pressedKey;
                     texture = content.Load<Texture2D>("Sprites/KeyBindSprite/" + keys.ToString() + "KeyBouton");
