@@ -105,10 +105,13 @@ namespace Dungeon.src.PlayerClass
                     };
                 }
             }
-            else if (keyboardState.IsKeyUp(Keys.E) && useCooldownTimer < useCooldown)
+            else if (keyboardState.IsKeyUp(keyBind.keyBindings["Use"][0]) || (keyBind.keyBindings["Use"].Length > 1 && keyboardState.IsKeyUp(keyBind.keyBindings["Use"][1])))
             {
-                useCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-                rangeInFrontPlayer = Rectangle.Empty;
+                if (useCooldownTimer < useCooldown)
+                {
+                    useCooldownTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    rangeInFrontPlayer = Rectangle.Empty;
+                }
             }
 
             UpdateMovement(keyboardState, keyBind.keyBindings["Up"][0], keyBind.keyBindings["Up"].Length > 1 ? keyBind.keyBindings["Up"][1] : Keys.None, new Vector2(0, -1), 2, SpriteEffects.None);

@@ -90,8 +90,13 @@ namespace Dungeon.src.MenuClass.OptionsClass
                 {
                     pressedKeys = Keyboard.GetState().GetPressedKeys();
                     pressedKey = pressedKeys.Length > 0 ? pressedKeys[0] : Keys.None;
-                    if (pressedKey != Keys.None)
-                        Console.WriteLine(pressedKey);
+
+                }
+                if (pressedKey == Keys.Escape)
+                {
+                    pressedKey = Keys.None;
+                    isClicked = false;
+                    return;
                 }
 
                 if (pressedKey != Keys.None && pressedKey != Keys.Escape)
@@ -99,7 +104,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
                     Keys lastBind = keys;
                     foreach (string key in keybind.keyBindings.Keys)
                     {
-
+                        Console.WriteLine(key);
                         foreach (Keys key1 in keybind.GetKeys(key))
                         {
                             if (key1 == pressedKey)

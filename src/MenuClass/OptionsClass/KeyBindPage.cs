@@ -6,6 +6,7 @@ using Dungeon.src.TexteClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Dungeon.src.MenuClass.OptionsClass
 {
@@ -37,7 +38,13 @@ namespace Dungeon.src.MenuClass.OptionsClass
             {
                 firstKey[keyBind.keyBindings.Keys.ToList().IndexOf(var.Key)] = new KeyBouton(x + 400, y + 5, 75, 75, var.Value[0], null, var.Key);
                 if (var.Value.Length > 1)
+                {
                     secondKey[keyBind.keyBindings.Keys.ToList().IndexOf(var.Key)] = new KeyBouton(x + 500, y + 5, 75, 75, var.Value[1], null, var.Key);
+                }
+                else
+                {
+                    secondKey[keyBind.keyBindings.Keys.ToList().IndexOf(var.Key)] = new KeyBouton(x + 500, y + 5, 75, 75, Keys.None, null, var.Key);
+                }
                 y += 100;
             }
 

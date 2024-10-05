@@ -2,6 +2,6 @@ Up Z Up
 Down S Down
 Left Q Left
 Right D Right
-Dash Space
-Use E
-Escape Escape
+Dash Space None
+Use E None
+Escape Escape None
