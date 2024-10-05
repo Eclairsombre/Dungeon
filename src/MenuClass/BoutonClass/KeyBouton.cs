@@ -1,3 +1,4 @@
+using System;
 using Dungeon.src.AnimationClass;
 using Dungeon.src.PlayerClass;
 using Microsoft.Xna.Framework;
@@ -21,6 +22,9 @@ namespace Dungeon.src.MenuClass.OptionsClass
         private readonly float _scale = 1f;
 
         private string name;
+
+        private Keys pressedKey = Keys.None;
+
 
 
         public KeyBouton(int x, int y, int width, int height, Keys keys, string file, string name)
@@ -67,20 +71,41 @@ namespace Dungeon.src.MenuClass.OptionsClass
         {
             MouseState mouseState = Mouse.GetState();
 
-            OnClick(ref keybind);
+            if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
+            {
+                isClicked = true;
+            }
 
             if (isClicked)
             {
-                elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (elapsedTime >= clickDelay)
+
+                Keys[] pressedKeys;
+
+                if (pressedKey == Keys.None)
                 {
+                    pressedKeys = Keyboard.GetState().GetPressedKeys();
+                    pressedKey = pressedKeys.Length > 0 ? pressedKeys[0] : Keys.None;
+                    if (pressedKey != Keys.None)
+                        Console.WriteLine(pressedKey);
+                }
+
+                if (pressedKey != Keys.None && pressedKey != Keys.Escape)
+                {
+                    Keys lastBind = keys;
+                    Console.WriteLine(pressedKey);
+                    keys = pressedKey;
+                    UpdateKeyBindFile(ref keybind, lastBind);
                     isClicked = false;
-                    elapsedTime = 0;
+                    pressedKey = Keys.None;
+
                 }
             }
-
-
         }
+
+
+
+
+
 
         public void UpdateKeyBindFile(ref KeyBind keyBind, Keys lastBind)
         {
@@ -93,28 +118,12 @@ namespace Dungeon.src.MenuClass.OptionsClass
                 }
             }
             keyBind.SetKeys(name, newKeys);
-
             keyBind.SaveData();
 
         }
 
 
-        public void OnClick(ref KeyBind keyBind)
-        {
-            MouseState mouseState = Mouse.GetState();
-            if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
-            {
-                isClicked = true;
-                Keys pressedKey = Keyboard.GetState().GetPressedKeys()[0];
-                if (pressedKey != Keys.None)
-                {
-                    Keys lastBind = keys;
-                    keys = pressedKey;
-                    UpdateKeyBindFile(ref keyBind, lastBind);
-
-                }
-            }
-        }
+        
 
     }
 }

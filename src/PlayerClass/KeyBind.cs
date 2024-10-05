@@ -34,12 +34,12 @@ namespace Dungeon.src.PlayerClass
 
         public void SaveData()
         {
-            List<string> lines = new List<string>();
+            List<string> lines = [];
             foreach (var binding in keyBindings)
             {
                 lines.Add($"{binding.Key} {string.Join(" ", binding.Value)}");
             }
-            File.WriteAllLines("Content/KeyBind.txt", lines);
+            File.WriteAllLines("Content/keyBind.txt", lines);
         }
 
         public Keys[] GetKeys(string key)
