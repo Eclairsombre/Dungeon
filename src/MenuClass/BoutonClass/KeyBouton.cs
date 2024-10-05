@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Dungeon.src.AnimationClass;
 using Dungeon.src.PlayerClass;
 using Microsoft.Xna.Framework;
@@ -78,53 +79,56 @@ namespace Dungeon.src.MenuClass.OptionsClass
             if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
             {
                 isClicked = true;
+                (noKeyTexture, texture) = (texture, noKeyTexture);
             }
 
             if (isClicked)
             {
 
-                Keys[] pressedKeys;
-                texture = noKeyTexture;
+                Keys[] pressedKeys = Keyboard.GetState().GetPressedKeys();
+                pressedKey = pressedKeys.Length > 0 ? pressedKeys[0] : Keys.None;
+                Console.WriteLine(pressedKey);
 
-                if (pressedKey == Keys.None)
-                {
-                    pressedKeys = Keyboard.GetState().GetPressedKeys();
-                    pressedKey = pressedKeys.Length > 0 ? pressedKeys[0] : Keys.None;
-
-                }
                 if (pressedKey == Keys.Escape)
                 {
-                    pressedKey = Keys.None;
-                    isClicked = false;
+                    ResetKeyBinding();
+                    (noKeyTexture, texture) = (texture, noKeyTexture);
+                    return;
+                }
+                if (pressedKey == Keys.Back)
+                {
+                    ResetKeyBinding();
+                    UpdateKeyBinding(ref keybind, content);
                     return;
                 }
 
-                if (pressedKey != Keys.None && pressedKey != Keys.Escape)
+                if (pressedKey != Keys.None && !IsKeyAlreadyBound(keybind, pressedKey))
                 {
-                    Keys lastBind = keys;
-                    foreach (string key in keybind.keyBindings.Keys)
-                    {
-                        Console.WriteLine(key);
-                        foreach (Keys key1 in keybind.GetKeys(key))
-                        {
-                            if (key1 == pressedKey)
-                            {
-                                pressedKey = Keys.None;
-                                return;
-                            }
-                        }
-
-                    }
-
-                    Console.WriteLine(pressedKey);
-                    keys = pressedKey;
-                    texture = content.Load<Texture2D>("Sprites/KeyBindSprite/" + keys.ToString() + "KeyBouton");
-                    UpdateKeyBindFile(ref keybind, lastBind);
-                    isClicked = false;
-                    pressedKey = Keys.None;
-
+                    UpdateKeyBinding(ref keybind, content);
                 }
             }
+        }
+
+        private void ResetKeyBinding()
+        {
+            pressedKey = Keys.None;
+            isClicked = false;
+        }
+
+        private static bool IsKeyAlreadyBound(KeyBind keybind, Keys key)
+        {
+            return keybind.keyBindings.Values.Any(keys => keys.Contains(key));
+        }
+
+        private void UpdateKeyBinding(ref KeyBind keybind, ContentManager content)
+        {
+            Keys lastBind = keys;
+            keys = pressedKey;
+            noKeyTexture = texture;
+            texture = content.Load<Texture2D>($"Sprites/KeyBindSprite/{keys}KeyBouton");
+
+            UpdateKeyBindFile(ref keybind, lastBind);
+            ResetKeyBinding();
         }
 
 

@@ -17,6 +17,16 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/AKeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/BKeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/CKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D0KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D1KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D2KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D3KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D4KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D5KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D6KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D7KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D8KeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/D9KeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/DKeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/DownKeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/EKeyBouton.png</File>
@@ -67,6 +77,16 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/VCR_OSD_MONO_1.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
