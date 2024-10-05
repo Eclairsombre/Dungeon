@@ -131,7 +131,7 @@ namespace Dungeon.src.MenuClass
                     dungeon.UpdatePlaying(gameTime, _content, ref gameState, ref previousGameState, ref keyBind);
                     break;
                 case GameState.Options:
-                    options.Update(gameTime, ref gameState, ref previousGameState, ref keyBind);
+                    options.Update(gameTime, ref gameState, ref previousGameState, ref keyBind, _content);
                     break;
                 case GameState.Exit:
                     Environment.Exit(0);

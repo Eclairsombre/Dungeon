@@ -14,6 +14,39 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Coeur-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/CoeurVide.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ExitBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/AKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/BKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/CKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/DKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/DownKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/EKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/EscapeKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/FKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/GKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/HKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/IKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/JKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/KKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/LeftKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/LKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/MKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/NKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/NoneKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/OKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/PKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/QKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/RightKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/RKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/SKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/SpaceKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/TKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/UKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/UpKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/VKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/WKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/XKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/YKeyBouton.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprite/ZKeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpAttackBouton-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpBackground-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/LevelUpHealBouton-Sheet.png</File>
@@ -34,6 +67,39 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/VCR_OSD_MONO_1.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

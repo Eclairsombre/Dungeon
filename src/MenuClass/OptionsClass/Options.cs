@@ -32,7 +32,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
             keyBindPage = new KeyBindPage(graphicsDevice, content, keyBind);
         }
 
-        public void Update(GameTime gameTime, ref GameState gameState, ref GameState previousGameState, ref KeyBind keyBind)
+        public void Update(GameTime gameTime, ref GameState gameState, ref GameState previousGameState, ref KeyBind keyBind, ContentManager content)
         {
             GameState previousGameState1 = previousGameState;
             backButton.Update(gameTime, ref gameState, ref previousGameState);
@@ -48,7 +48,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
             switch (optionsState)
             {
                 case OptionsState.KeyBindOptions:
-                    keyBindPage.Update(gameTime, ref keyBind);
+                    keyBindPage.Update(gameTime, ref keyBind, content);
                     break;
                 case OptionsState.SoundOptions:
                     break;
@@ -56,6 +56,8 @@ namespace Dungeon.src.MenuClass.OptionsClass
                     break;
             }
         }
+        
+           
 
         public void OnWindowResize(int screenWidth, int screenHeight)
         {
@@ -80,6 +82,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
         public void LoadContent(ContentManager content)
         {
             backButton.LoadContent(content);
+            keyBindPage.LoadContent(content);
         }
     }
 }
