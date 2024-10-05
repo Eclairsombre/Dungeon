@@ -1,0 +1,4 @@
+75 75 2
+
+Bouton 1 -1 100
+Transparent 1 -1 100

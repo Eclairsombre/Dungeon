@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Dungeon.src
+namespace Dungeon.src.AnimationClass
 {
 
     public delegate void AnimationCallback(Vector2 position, Vector2 size);
@@ -46,6 +46,7 @@ namespace Dungeon.src
 
         public void ParseData()
         {
+
             if (File.Exists(@"Content\SpriteData\" + fileName + ".txt"))
             {
                 string[] lines = File.ReadAllLines(@"Content\SpriteData\" + fileName + ".txt");
@@ -79,6 +80,14 @@ namespace Dungeon.src
 
                 TriggerCallBack();
             }
+            else
+            {
+                Console.WriteLine("File not found: " + @"Content\SpriteData\" + fileName + ".txt");
+            }
+
+
+
+
         }
 
         public bool Paused()
@@ -113,6 +122,7 @@ namespace Dungeon.src
             {
                 ResetTimeLine();
                 currentTimeline = newTimeLine;
+
                 totalAnimationTime = timelineFrameTime[currentTimeline] * framePerTimeLine[currentTimeline];
                 if (triggerCallBack)
                 {

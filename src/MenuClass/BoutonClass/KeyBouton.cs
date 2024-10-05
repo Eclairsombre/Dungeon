@@ -15,17 +15,16 @@ namespace Dungeon.src.MenuClass.OptionsClass
         private Keys keys;
 
         private Rectangle hitbox;
-        private readonly CallBack callBack;
-        private readonly Animation _animation;
+        private CallBack callBack;
+        private Animation _animation;
         public bool isClicked;
 
-        private readonly float _scale = 1f;
 
         private readonly string name;
 
         private Keys pressedKey = Keys.None;
 
-        private Texture2D texture, noKeyTexture;
+
 
 
 
@@ -35,12 +34,13 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
             this.keys = keys;
             this.name = name;
-            if (file != null)
-            {
-                callBack = new CallBack();
-                _animation = new Animation(file, callBack.StaticMyCallback, 0, 0);
-                _animation.ParseData();
-            }
+
+            callBack = new CallBack();
+            _animation = new Animation("KeyBindSprites\\" + keys.ToString() + "KeyBouton", callBack.StaticMyCallback, 0, 0);
+            _animation.ParseData();
+
+            Console.WriteLine(_animation.GetTimelineCount());
+
 
             isClicked = false;
 
@@ -48,13 +48,13 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
+            spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
+            //spriteBatch.Draw(texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
         }
 
         public void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>("Sprites/KeyBindSprite/" + keys.ToString() + "KeyBouton");
-            noKeyTexture = content.Load<Texture2D>("Sprites/KeyBindSprite/NoneKeyBouton");
+            _animation.LoadContent(content);
         }
 
         public void SetPosition(int x, int y)
@@ -73,10 +73,21 @@ namespace Dungeon.src.MenuClass.OptionsClass
         {
             MouseState mouseState = Mouse.GetState();
 
+            if (!isClicked)
+            {
+                if (hitbox.Contains(mouseState.Position) && _animation.GetTimeline() == 0)
+                {
+                    _animation.SetTimeLine(1);
+                }
+                else if (_animation.GetTimeline() == 1 && !hitbox.Contains(mouseState.Position))
+                {
+                    _animation.SetTimeLine(0);
+                }
+            }
+
             if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
             {
                 isClicked = true;
-                (noKeyTexture, texture) = (texture, noKeyTexture);
             }
 
             if (isClicked)
@@ -89,7 +100,6 @@ namespace Dungeon.src.MenuClass.OptionsClass
                 if (pressedKey == Keys.Escape)
                 {
                     ResetKeyBinding();
-                    (noKeyTexture, texture) = (texture, noKeyTexture);
                     return;
                 }
                 if (pressedKey == Keys.Back)
@@ -121,8 +131,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
         {
             Keys lastBind = keys;
             keys = pressedKey;
-            noKeyTexture = texture;
-            texture = content.Load<Texture2D>($"Sprites/KeyBindSprite/{keys}KeyBouton");
+
 
             UpdateKeyBindFile(ref keybind, lastBind);
             ResetKeyBinding();

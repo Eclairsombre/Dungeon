@@ -26,6 +26,9 @@
   <None Include="Content\RoomPatern\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
+  <None Include="Content\SpriteData\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
 </ItemGroup>
 <ItemGroup>
       <Content Include="Content\**\*.*" CopyToOutputDirectory="PreserveNewest" />
