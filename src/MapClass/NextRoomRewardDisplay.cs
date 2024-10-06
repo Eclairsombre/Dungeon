@@ -1,4 +1,3 @@
-using System;
 using Dungeon.src.AnimationClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;

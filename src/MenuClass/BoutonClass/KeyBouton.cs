@@ -6,16 +6,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
 
-namespace Dungeon.src.MenuClass.OptionsClass
+namespace Dungeon.src.MenuClass.BoutonClass
 {
     public class KeyBouton
     {
         private Keys keys;
 
         private Rectangle hitbox;
-        private CallBack callBack;
+        private readonly CallBack callBack;
         private Animation _animation, voidAnimation;
         public bool isClicked;
 
@@ -50,7 +49,6 @@ namespace Dungeon.src.MenuClass.OptionsClass
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
-            //spriteBatch.Draw(texture, new Vector2(hitbox.X, hitbox.Y), Color.White);
         }
 
         public void LoadContent(ContentManager content)

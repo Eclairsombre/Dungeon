@@ -13,3 +13,15 @@ TODO :
 - Add save system (multiple ?)
 - EN COURS : modify code to make all responsive (help)
 - Add sound effect
+
+
+Ideas enemies :
+
+Epoque 1 :
+- rat
+- bat
+- spider
+- rock monster -> see zelda
+- skeleton
+
+Boss -> big bat + bat minion 

@@ -77,11 +77,9 @@ namespace Dungeon.src.MapClass
             {
                 case 0:
                     spriteBatch.Draw(texture[0], hitbox, Color.White);
-                    spriteBatch.DrawRectangle(hitbox, Color.Black);
                     break;
                 case 1:
                     spriteBatch.FillRectangle(hitbox, Color.White);
-                    spriteBatch.DrawRectangle(hitbox, Color.Black);
 
                     break;
                 case 2:

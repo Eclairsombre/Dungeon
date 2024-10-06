@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
-using MonoGame.Extended;
-using MonoGame.Extended.Shapes;
 using Microsoft.Xna.Framework.Content;
 
 namespace Dungeon.src.MapClass;
@@ -11,7 +8,6 @@ namespace Dungeon.src.MapClass;
 
 public class Map
 {
-    private readonly Random random = new();
     private Room room;
     public Room ActualRoom { get { return room; } set { room = value; } }
     public Map()

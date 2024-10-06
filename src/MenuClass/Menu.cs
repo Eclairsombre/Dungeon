@@ -109,8 +109,6 @@ namespace Dungeon.src.MenuClass
             switch (gameState)
             {
                 case GameState.Menu:
-                    //titre.Update(_graphicsDevice);
-
 
                     if (!dungeon.quitButton.isClicked)
                     {

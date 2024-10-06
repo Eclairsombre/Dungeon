@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using MonoGame.Extended;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
@@ -240,7 +239,6 @@ public class Room(RewardType rewardType)
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        //spriteBatch.DrawRectangle(new Rectangle(x * 32 + 40, y * 32 + 40, width * 35, height * 32 + 20), Color.Black);
 
         for (int i = 0; i < tiles.GetLength(0); i++)
         {

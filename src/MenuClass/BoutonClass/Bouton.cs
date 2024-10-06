@@ -1,12 +1,9 @@
-using System;
 using Dungeon.src.AnimationClass;
-using Dungeon.src.PlayerClass.StatsClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
-using MonoGame.Extended.Graphics;
+
 
 namespace Dungeon.src.MenuClass.BoutonClass
 {

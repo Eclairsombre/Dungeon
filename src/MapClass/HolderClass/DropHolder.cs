@@ -11,8 +11,6 @@ namespace Dungeon.src.MapClass.HolderClass
         public DropHolder(int x, int y, Drop drop) : base(x, y)
         {
             DropHold = drop;
-
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
