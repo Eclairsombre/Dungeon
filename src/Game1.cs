@@ -19,7 +19,7 @@ public class Game1 : Game
         IsMouseVisible = true;
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-        //Window.AllowUserResizing = true;
+        Window.AllowUserResizing = true;
         _graphics.ApplyChanges();
 
     }

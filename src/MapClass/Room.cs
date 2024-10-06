@@ -61,9 +61,7 @@ public enum T
 
 public class Room(RewardType rewardType)
 {
-    private readonly int x = 0, y = 0, width = 52, height = 30;
     private Tiles[,] tiles = new Tiles[,] { };
-
     private readonly RewardType rewardType = rewardType;
     private bool finished = false;
     private string fileContent;

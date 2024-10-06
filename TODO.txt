@@ -8,7 +8,6 @@ TODO :
 - Add new room
 - Refactor code for better organisation
 - EN COURS : make texture and animation
-- maybe add diagonal dash
 - Add ingame lobby to upgrade the player (png?, shop?)
 - animation mort( coeur qui bat + respiration -> resurection)
 - Add save system (multiple ?)
