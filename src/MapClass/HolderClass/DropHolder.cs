@@ -18,10 +18,7 @@ namespace Dungeon.src.MapClass.HolderClass
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.FillRectangle(hitbox, Color.White);
-            if (DropHold != null)
-            {
-                DropHold.Draw(spriteBatch);
-            }
+            DropHold?.Draw(spriteBatch);
         }
     }
 }

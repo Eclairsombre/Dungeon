@@ -62,7 +62,7 @@ public enum T
 public class Room(RewardType rewardType)
 {
     private readonly int x = 0, y = 0, width = 52, height = 30;
-    private Tiles[,] tiles = new Tiles[26, 14];
+    private Tiles[,] tiles = new Tiles[,] { };
 
     private readonly RewardType rewardType = rewardType;
     private bool finished = false;
@@ -82,6 +82,7 @@ public class Room(RewardType rewardType)
         {
             fileContent = reader.ReadToEnd();
         }
+        Console.WriteLine(fileContent);
         texture2Ds = new Texture2D[2];
         texture2Ds[0] = content.Load<Texture2D>("Sprites/Sol");
         texture2Ds[1] = content.Load<Texture2D>("Sprites/Mur");
@@ -127,38 +128,39 @@ public class Room(RewardType rewardType)
             if (enemies.Count == 0)
             {
                 finished = true;
-                if (tiles[9, 0].NextRoomRewardDisplay == null)
+                if (tiles[7, 0].NextRoomRewardDisplay == null)
                 {
 
-                    if (tiles[9, 0] != null && tiles[10, 0] != null && tiles[10, 0].Door != null)
+                    if (tiles[7, 0] != null && tiles[8, 0] != null && tiles[8, 0].Door != null)
                     {
-                        tiles[9, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
-                            tiles[9, 0].Hitbox.X,
-                            tiles[9, 0].Hitbox.Y,
-                            tiles[9, 0].Hitbox.Width,
-                            tiles[9, 0].Hitbox.Height,
-                            tiles[10, 0].Door.RewardType,
-                            "NextRoomDisplay" + tiles[10, 0].Door.RewardType.ToString()
+                        tiles[7, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
+                            tiles[7, 0].Hitbox.X,
+                            tiles[7, 0].Hitbox.Y,
+                            tiles[7, 0].Hitbox.Width,
+                            tiles[7, 0].Hitbox.Height,
+                            tiles[8, 0].Door.RewardType,
+                            "NextRoomDisplay" + tiles[8, 0].Door.RewardType.ToString()
 
                         );
                     }
-                    tiles[9, 0].NextRoomRewardDisplay.LoadContent(content);
+                    tiles[7, 0].NextRoomRewardDisplay.LoadContent(content);
                 }
-                if (tiles[15, 0].NextRoomRewardDisplay == null)
+                if (tiles[13, 0].NextRoomRewardDisplay == null)
                 {
 
-                    if (tiles[15, 0] != null && tiles[14, 0] != null && tiles[14, 0].Door != null)
+                    if (tiles[13, 0] != null && tiles[12, 0] != null && tiles[12, 0].Door != null)
                     {
-                        tiles[15, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
-                            tiles[15, 0].Hitbox.X,
-                            tiles[15, 0].Hitbox.Y,
-                            tiles[15, 0].Hitbox.Width,
-                            tiles[15, 0].Hitbox.Height,
-                            tiles[14, 0].Door.RewardType,
-                            "NextRoomDisplay" + tiles[14, 0].Door.RewardType.ToString()
+
+                        tiles[13, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
+                            tiles[13, 0].Hitbox.X,
+                            tiles[13, 0].Hitbox.Y,
+                            tiles[13, 0].Hitbox.Width,
+                            tiles[13, 0].Hitbox.Height,
+                            tiles[12, 0].Door.RewardType,
+                            "NextRoomDisplay" + tiles[12, 0].Door.RewardType.ToString()
                         );
                     }
-                    tiles[15, 0].NextRoomRewardDisplay.LoadContent(content);
+                    tiles[13, 0].NextRoomRewardDisplay?.LoadContent(content);
                 }
             }
 
@@ -167,16 +169,16 @@ public class Room(RewardType rewardType)
 
 
         }
-        for (int k = 0; k < 26; k++)
+        for (int k = 0; k < tiles.GetLength(0); k++)
         {
-            for (int j = 0; j < 14; j++)
+            for (int j = 0; j < tiles.GetLength(1); j++)
             {
-                tiles[k, j].Update(gameTime);
+                tiles[k, j]?.Update(gameTime);
             }
         }
         for (int j = 0; j < dropsList.Length; j++)
         {
-            dropsList[j].Update(gameTime);
+            dropsList[j]?.Update(gameTime);
         }
     }
 
@@ -185,11 +187,16 @@ public class Room(RewardType rewardType)
     {
         string[] lines = fileContent.Split('\n');
 
+        string[] tileValues = lines[0].Split(' ');
+
+        tiles = new Tiles[tileValues.Length, lines.Length];
+
+
         enemies = [];
-        for (int i = 0; i < 14; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
-            string[] tileValues = lines[i].Split(' ');
-            for (int j = 0; j < 26; j++)
+            tileValues = lines[i].Split(' ');
+            for (int j = 0; j < tileValues.Length; j++)
             {
                 T tileType = (T)int.Parse(tileValues[j]);
                 TileType tileTypeValues = TileTypes.GetTileType(tileType);
@@ -201,7 +208,7 @@ public class Room(RewardType rewardType)
                 {
                     Enemy enemy = new()
                     {
-                        Position = new Vector2(j * 70 + 40, i * 70 + 40)
+                        Position = new Vector2(j * 80 + 80 + 10, i * 80 + 80 + 10)
                     };
                     enemy.LoadContent(content);
 
@@ -226,7 +233,7 @@ public class Room(RewardType rewardType)
                 }
 
                 Tuple<int, int> tile = new(firstValue, secondValue);
-                tiles[j, i] = new Tiles(tile, j * 70 + 40, i * 70 + 40, 70, 70, rewardType, content);
+                tiles[j, i] = new Tiles(tile, j * 80 + 80, i * 80 + 40, 80, 80, rewardType, content);
 
             }
         }
@@ -235,10 +242,11 @@ public class Room(RewardType rewardType)
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawRectangle(new Rectangle(x * 32 + 40, y * 32 + 40, width * 35, height * 32 + 20), Color.Black);
-        for (int i = 0; i < 26; i++)
+        //spriteBatch.DrawRectangle(new Rectangle(x * 32 + 40, y * 32 + 40, width * 35, height * 32 + 20), Color.Black);
+
+        for (int i = 0; i < tiles.GetLength(0); i++)
         {
-            for (int j = 0; j < 14; j++)
+            for (int j = 0; j < tiles.GetLength(1); j++)
             {
                 tiles[i, j].Draw(spriteBatch, finished, texture2Ds);
             }

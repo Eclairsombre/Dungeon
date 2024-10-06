@@ -48,8 +48,9 @@ namespace Dungeon.src.MapClass
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
-
+            Vector2 position = new Vector2(hitbox.X, hitbox.Y);
+            Vector2 scale = new Vector2(1.2f, 1.2f); // Scale by 1.2f
+            spriteBatch.Draw(animation.texture, position, callBack.SourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
 
 

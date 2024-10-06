@@ -42,9 +42,9 @@ namespace Dungeon.src.MapClass
                     holder = rewardType switch
                     {
                         RewardType.Weapon => new WeaponHolder(x, y, new Sword(position)),
-                        RewardType.Health => new DropHolder(x, y, new HeartDrop(x + 15 + (40 - 50) / 2, y - 50 - 10, 50, 50, 1f)),
-                        RewardType.Gold => new DropHolder(x, y, new GoldDrop(x + 15 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50)),
-                        RewardType.Xp => new DropHolder(x, y, new XpDrop(x + 15 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50, 5f)),
+                        RewardType.Health => new DropHolder(x, y, new HeartDrop(x + 20 + (40 - 50) / 2, y - 50 - 10, 50, 50, 1f)),
+                        RewardType.Gold => new DropHolder(x, y, new GoldDrop(x + 20 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50)),
+                        RewardType.Xp => new DropHolder(x, y, new XpDrop(x + 20 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50, 5f)),
                         _ => new WeaponHolder(x, y, new Sword(position)),
                     };
 
@@ -77,9 +77,12 @@ namespace Dungeon.src.MapClass
             {
                 case 0:
                     spriteBatch.Draw(texture[0], hitbox, Color.White);
+                    spriteBatch.DrawRectangle(hitbox, Color.Black);
                     break;
                 case 1:
                     spriteBatch.FillRectangle(hitbox, Color.White);
+                    spriteBatch.DrawRectangle(hitbox, Color.Black);
+
                     break;
                 case 2:
                     if (!finished)

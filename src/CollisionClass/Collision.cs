@@ -46,8 +46,8 @@ namespace Dungeon.src.CollisionClass
         {
             if (room.Finished)
             {
-                Door door1 = room.Tiles[10, 0].Door;
-                Door door2 = room.Tiles[14, 0].Door;
+                Door door1 = room.Tiles[8, 0].Door;
+                Door door2 = room.Tiles[12, 0].Door;
                 if (door1 != null)
                 {
                     if (rectangle.Intersects(door1.Hitbox))

@@ -42,8 +42,6 @@ namespace Dungeon.src.MenuClass.OptionsClass
             voidAnimation = new Animation("KeyBindSprites\\NoneKeyBouton", callBack.StaticMyCallback, 0, 0);
             voidAnimation.ParseData();
 
-            Console.WriteLine(_animation.GetTimelineCount());
-
 
             isClicked = false;
 
@@ -100,7 +98,6 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
                 Keys[] pressedKeys = Keyboard.GetState().GetPressedKeys();
                 pressedKey = pressedKeys.Length > 0 ? pressedKeys[0] : Keys.None;
-                Console.WriteLine(pressedKey);
 
 
                 if (pressedKey == Keys.Escape)

@@ -21,7 +21,7 @@ namespace Dungeon.src.MapClass.HolderClass
         {
             this.x = x;
             this.y = y;
-            hitbox = new Rectangle(x + 15, y, width, height);
+            hitbox = new Rectangle(x + 20, y, width, height);
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
