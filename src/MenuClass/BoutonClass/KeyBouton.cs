@@ -16,7 +16,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
         private Rectangle hitbox;
         private CallBack callBack;
-        private Animation _animation;
+        private Animation _animation, voidAnimation;
         public bool isClicked;
 
 
@@ -39,6 +39,9 @@ namespace Dungeon.src.MenuClass.OptionsClass
             _animation = new Animation("KeyBindSprites\\" + keys.ToString() + "KeyBouton", callBack.StaticMyCallback, 0, 0);
             _animation.ParseData();
 
+            voidAnimation = new Animation("KeyBindSprites\\NoneKeyBouton", callBack.StaticMyCallback, 0, 0);
+            voidAnimation.ParseData();
+
             Console.WriteLine(_animation.GetTimelineCount());
 
 
@@ -55,6 +58,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
         public void LoadContent(ContentManager content)
         {
             _animation.LoadContent(content);
+            voidAnimation.LoadContent(content);
         }
 
         public void SetPosition(int x, int y)
@@ -88,6 +92,7 @@ namespace Dungeon.src.MenuClass.OptionsClass
             if (!isClicked && mouseState.LeftButton == ButtonState.Pressed && hitbox.Contains(mouseState.Position))
             {
                 isClicked = true;
+                (_animation, voidAnimation) = (voidAnimation, _animation);
             }
 
             if (isClicked)
@@ -97,15 +102,18 @@ namespace Dungeon.src.MenuClass.OptionsClass
                 pressedKey = pressedKeys.Length > 0 ? pressedKeys[0] : Keys.None;
                 Console.WriteLine(pressedKey);
 
+
                 if (pressedKey == Keys.Escape)
                 {
                     ResetKeyBinding();
+                    (_animation, voidAnimation) = (voidAnimation, _animation);
                     return;
                 }
                 if (pressedKey == Keys.Back)
                 {
                     ResetKeyBinding();
                     UpdateKeyBinding(ref keybind, content);
+
                     return;
                 }
 
@@ -129,6 +137,10 @@ namespace Dungeon.src.MenuClass.OptionsClass
 
         private void UpdateKeyBinding(ref KeyBind keybind, ContentManager content)
         {
+            voidAnimation = _animation;
+            _animation = new Animation("KeyBindSprites\\" + pressedKey.ToString() + "KeyBouton", callBack.StaticMyCallback, 0, 0);
+            _animation.ParseData();
+            _animation.LoadContent(content);
             Keys lastBind = keys;
             keys = pressedKey;
 
