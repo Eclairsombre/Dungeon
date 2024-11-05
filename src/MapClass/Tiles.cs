@@ -76,7 +76,7 @@ namespace Dungeon.src.MapClass
             switch (id.Item1)
             {
                 case 0:
-                    spriteBatch.Draw(texture[0], hitbox, Color.White);
+                    //spriteBatch.Draw(texture[0], hitbox, Color.White);
                     break;
                 case 1:
                     spriteBatch.FillRectangle(hitbox, Color.White);
@@ -93,10 +93,10 @@ namespace Dungeon.src.MapClass
                     }
                     break;
                 case 3:
-                    spriteBatch.Draw(texture[0], hitbox, Color.White);
+                    //spriteBatch.Draw(texture[0], hitbox, Color.White);
                     break;
                 case 4:
-                    spriteBatch.Draw(texture[0], hitbox, Color.White);
+                    //spriteBatch.Draw(texture[0], hitbox, Color.White);
                     if (finished)
                     {
                         holder?.Draw(spriteBatch);

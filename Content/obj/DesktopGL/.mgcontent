@@ -14,6 +14,7 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Coeur-Sheet.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/CoeurVide.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/ExitBouton-Sheet.png</File>
+    <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/Floor.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprites/AKeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprites/BKeyBouton.png</File>
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprites/CKeyBouton.png</File>
@@ -77,6 +78,7 @@
     <File>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/VCR_OSD_MONO_1.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

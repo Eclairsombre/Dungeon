@@ -30,5 +30,10 @@ public class Map
         room.Draw(spriteBatch);
     }
 
+    public void LoadContent(ContentManager content)
+    {
+        room.LoadContent(content, 1);
+    }
+
 
 }

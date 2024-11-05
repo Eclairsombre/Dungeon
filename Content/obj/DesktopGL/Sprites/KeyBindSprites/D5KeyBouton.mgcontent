@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/Sprites/KeyBindSprites/D5KeyBouton.png</SourceFile>
-  <SourceTime>2024-10-05T23:19:27.9237917+02:00</SourceTime>
+  <SourceTime>2024-11-05T14:01:42.5346185+01:00</SourceTime>
   <DestFile>C:/Users/alext/OneDrive/Bureau/Dungeon/Content/bin/DesktopGL/Sprites/KeyBindSprites/D5KeyBouton.xnb</DestFile>
-  <DestTime>2024-10-05T23:46:16.6585034+02:00</DestTime>
+  <DestTime>2024-11-05T14:20:42.2651784+01:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
+  <ImporterTime>2024-08-16T18:05:56+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2024-08-16T19:05:56+02:00</ProcessorTime>
+  <ProcessorTime>2024-08-16T18:05:56+01:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

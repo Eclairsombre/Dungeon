@@ -67,6 +67,8 @@ public class Room(RewardType rewardType)
     private List<Enemy> enemies;
     private Drop[] dropsList = [];
     private Texture2D[] texture2Ds;
+
+    private Floor floor = new(160, 120, 1600, 800, "Floor");
     public Tiles[,] Tiles { get { return tiles; } set { tiles = value; } }
     public List<Enemy> Enemies { get { return enemies; } set { enemies = value; } }
     public Drop[] DropsList { get { return dropsList; } set { dropsList = value; } }
@@ -85,6 +87,7 @@ public class Room(RewardType rewardType)
         texture2Ds[1] = content.Load<Texture2D>("Sprites/Mur");
 
         Generate(content);
+
 
 
 
@@ -142,22 +145,22 @@ public class Room(RewardType rewardType)
                     }
                     tiles[7, 0].NextRoomRewardDisplay.LoadContent(content);
                 }
-                if (tiles[13, 0].NextRoomRewardDisplay == null)
+                if (tiles[14, 0].NextRoomRewardDisplay == null)
                 {
 
-                    if (tiles[13, 0] != null && tiles[12, 0] != null && tiles[12, 0].Door != null)
+                    if (tiles[14, 0] != null && tiles[13, 0] != null && tiles[13, 0].Door != null)
                     {
 
-                        tiles[13, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
-                            tiles[13, 0].Hitbox.X,
-                            tiles[13, 0].Hitbox.Y,
-                            tiles[13, 0].Hitbox.Width,
-                            tiles[13, 0].Hitbox.Height,
-                            tiles[12, 0].Door.RewardType,
-                            "NextRoomDisplay" + tiles[12, 0].Door.RewardType.ToString()
+                        tiles[14, 0].NextRoomRewardDisplay = new NextRoomRewardDisplay(
+                            tiles[14, 0].Hitbox.X,
+                            tiles[14, 0].Hitbox.Y,
+                            tiles[14, 0].Hitbox.Width,
+                            tiles[14, 0].Hitbox.Height,
+                            tiles[13, 0].Door.RewardType,
+                            "NextRoomDisplay" + tiles[13, 0].Door.RewardType.ToString()
                         );
                     }
-                    tiles[13, 0].NextRoomRewardDisplay?.LoadContent(content);
+                    tiles[14, 0].NextRoomRewardDisplay?.LoadContent(content);
                 }
             }
 
@@ -182,6 +185,9 @@ public class Room(RewardType rewardType)
 
     public void Generate(ContentManager content)
     {
+
+        floor.LoadContent(content);
+
         string[] lines = fileContent.Split('\n');
 
         string[] tileValues = lines[0].Split(' ');
@@ -240,6 +246,8 @@ public class Room(RewardType rewardType)
     public void Draw(SpriteBatch spriteBatch)
     {
 
+        floor.Draw(spriteBatch);
+
         for (int i = 0; i < tiles.GetLength(0); i++)
         {
             for (int j = 0; j < tiles.GetLength(1); j++)
@@ -255,5 +263,7 @@ public class Room(RewardType rewardType)
         {
             dropsList[i].Draw(spriteBatch);
         }
+
+
     }
 }

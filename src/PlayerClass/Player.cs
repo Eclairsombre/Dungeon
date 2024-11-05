@@ -75,6 +75,8 @@ namespace Dungeon.src.PlayerClass
             spriteSheetNoMove[2] = content.Load<Texture2D>("PlayerNoMoveBack");
             spriteWidth = spriteSheetNoMove[0].Width;
             spriteHeight = spriteSheetNoMove[0].Height;
+            Console.WriteLine(spriteWidth);
+            Console.WriteLine(spriteHeight);
             foreach (var texture in spriteSheetNoMove)
             {
                 texture.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;

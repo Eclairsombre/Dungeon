@@ -133,6 +133,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/ExitBouton-Sheet.png
 
+#begin Sprites/Floor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Floor.png
+
 #begin Sprites/KeyBindSprites/AKeyBouton.png
 /importer:TextureImporter
 /processor:TextureProcessor

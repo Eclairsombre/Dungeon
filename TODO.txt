@@ -3,7 +3,6 @@ TODO :
 - Fix enemy deplacement
 - Add new enemies
 - Add Option (change keybind, music volume etc)
-- EN COURS : Add keybind system
 - Add Boss(different move set, heal bar...)
 - Add new room
 - Refactor code for better organisation
