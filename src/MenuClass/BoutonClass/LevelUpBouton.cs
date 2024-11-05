@@ -28,15 +28,18 @@ namespace Dungeon.src.MenuClass.BoutonClass
         private readonly double clickDelay;
         private double elapsedTime;
 
+        private double nbBoost;
         private readonly Texte description;
 
-        public LevelUpBouton(int x, int y, int width, int height, GameState gameState, string file, LevelUpChoice levelUpChoice, ContentManager content)
+        public LevelUpBouton(int x, int y, int width, int height, GameState gameState, string file, LevelUpChoice levelUpChoice, double nbBoost, ContentManager content)
         {
             hitbox = new Rectangle(x, y, width, height);
             this.gameState = gameState;
             callBack = new CallBack();
             _animation = new Animation(file, callBack.StaticMyCallback, 0, 0);
             _animation.ParseData();
+
+            this.nbBoost = nbBoost;
 
             this.levelUpChoice = levelUpChoice;
 
@@ -48,16 +51,16 @@ namespace Dungeon.src.MenuClass.BoutonClass
             switch (levelUpChoice)
             {
                 case LevelUpChoice.Heal:
-                    texteBouton = "Add +1 to your max health";
+                    texteBouton = $"Add +{nbBoost} to your max health";
                     break;
                 case LevelUpChoice.Attack:
-                    texteBouton = "Multiply your attack by 1.2";
+                    texteBouton = $"Multiply your attack by {nbBoost}";
                     break;
                 case LevelUpChoice.Speed:
-                    texteBouton = "Multiply your speed by 1.1";
+                    texteBouton = $"Multiply your speed by {nbBoost}";
                     break;
                 case LevelUpChoice.Defense:
-                    texteBouton = "Add +1 to your defense";
+                    texteBouton = $"Add +{nbBoost} to your defense";
                     break;
             }
 
@@ -117,18 +120,18 @@ namespace Dungeon.src.MenuClass.BoutonClass
                 switch (levelUpChoice)
                 {
                     case LevelUpChoice.Heal:
-                        stats.MaxHealth += 1;
-                        stats.Health += 1;
+                        stats.MaxHealth += (int)nbBoost;
+                        stats.Health += (int)nbBoost;
 
                         break;
                     case LevelUpChoice.Attack:
-                        stats.Attack *= 1.2f;
+                        stats.Attack *= (float)nbBoost;
                         break;
                     case LevelUpChoice.Speed:
-                        stats.Speed *= 1.1f;
+                        stats.Speed *= (float)nbBoost;
                         break;
                     case LevelUpChoice.Defense:
-                        stats.Defense += 1;
+                        stats.Defense += (float)nbBoost;
                         break;
                 }
             }

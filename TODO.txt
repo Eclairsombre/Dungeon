@@ -12,6 +12,7 @@ TODO :
 - Add save system (multiple ?)
 - EN COURS : modify code to make all responsive (help)
 - Add sound effect
+- Add demi coeur
 
 
 Ideas enemies :
