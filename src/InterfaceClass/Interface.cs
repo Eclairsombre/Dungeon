@@ -1,3 +1,4 @@
+using System;
 using Dungeon.src.AnimationClass;
 using Dungeon.src.PlayerClass;
 using Microsoft.Xna.Framework;
@@ -44,11 +45,16 @@ namespace Dungeon.src.InterfaceClass
             Rectangle filledXpBar = new(xpBar.X, xpBar.Y, (int)(xpBar.Width * xpPercentage), xpBar.Height);
             spriteBatch.FillRectangle(filledXpBar, Color.Green);
             spriteBatch.DrawRectangle(xpBar, Color.Black);
-            for (int i = 0; i < player.PlayerStats.MaxHealth; i++)
+            for (int i = 0; i < (int)Math.Ceiling(player.PlayerStats.MaxHealth); i++)
             {
                 if (i < player.PlayerStats.Health)
                 {
                     spriteBatch.Draw(heartAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBack.SourceRectangle, Color.White);
+                }
+                else if (i < player.PlayerStats.MaxHealth)
+                {
+                    Rectangle halfHeartSource = new(callBackEmpty.SourceRectangle.X, callBackEmpty.SourceRectangle.Y, callBackEmpty.SourceRectangle.Width / 2, callBackEmpty.SourceRectangle.Height);
+                    spriteBatch.FillRectangle(new Rectangle(heart.X + i * 60, heart.Y, 30, 50), Color.Gray);
                 }
                 else
                 {

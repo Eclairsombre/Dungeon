@@ -6,8 +6,8 @@ namespace Dungeon.src.PlayerClass.StatsClass
 {
     public class Stats
     {
-        private int _health;
-        private int _maxHealth;
+        private double _health;
+        private double _maxHealth;
         private float _attack;
         private float _defense;
         private float _speed;
@@ -17,8 +17,8 @@ namespace Dungeon.src.PlayerClass.StatsClass
 
         private int _gold;
 
-        public int Health { get { return _health; } set { _health = value; } }
-        public int MaxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
+        public double Health { get { return _health; } set { _health = value; } }
+        public double MaxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
         public float Attack { get { return _attack; } set { _attack = value; } }
         public float Defense { get { return _defense; } set { _defense = value; } }
         public float Speed { get { return _speed; } set { _speed = value; } }
@@ -30,8 +30,8 @@ namespace Dungeon.src.PlayerClass.StatsClass
 
         public Stats()
         {
-            _health = 3;
-            _maxHealth = 3;
+            _health = 3.0;
+            _maxHealth = 3.0;
             _attack = 1;
             _defense = 1;
             _speed = 1;

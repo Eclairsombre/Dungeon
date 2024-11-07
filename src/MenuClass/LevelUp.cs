@@ -41,7 +41,7 @@ namespace Dungeon.src.MenuClass
             string[] choices = ["LevelUpHealBouton-Sheet", "LevelUpAttackBouton-Sheet", "LevelUpSpeedBouton-Sheet"];
 
 
-            double[] chancePourcentages = [0.5, 0.2, 0.15, 0.1, 0.05];
+            double[] chancePourcentages = [0.6, 0.2, 0.1, 0.05, 0.01];
             double[] healthBoosts = [0.5, 1, 1.5, 2, 3];
             double[] attackBoosts = [1.1, 1.2, 1.3, 1.4, 1.5];
             double[] speedBoosts = [1.1, 1.2, 1.3, 1.4, 1.5];

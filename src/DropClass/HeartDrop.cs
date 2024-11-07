@@ -2,7 +2,6 @@ using Dungeon.src.AnimationClass;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
 
 
 namespace Dungeon.src.DropClass
@@ -13,10 +12,10 @@ namespace Dungeon.src.DropClass
         private readonly Animation _animation;
 
         private readonly float scale;
-        public HeartDrop(int x, int y, int height, int width, float scale) : base(x, y, height, width)
+        public HeartDrop(int x, int y, int height, int width, float scale, string file) : base(x, y, height, width)
         {
             callBack = new CallBack();
-            _animation = new Animation("Coeur-Sheet", callBack.StaticMyCallback, 1, 0);
+            _animation = new Animation(file, callBack.StaticMyCallback, 1, 0);
             _animation.ParseData();
             this.scale = scale;
         }

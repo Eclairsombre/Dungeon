@@ -120,8 +120,8 @@ namespace Dungeon.src.MenuClass.BoutonClass
                 switch (levelUpChoice)
                 {
                     case LevelUpChoice.Heal:
-                        stats.MaxHealth += (int)nbBoost;
-                        stats.Health += (int)nbBoost;
+                        stats.MaxHealth += nbBoost;
+                        stats.Health += nbBoost;
 
                         break;
                     case LevelUpChoice.Attack:

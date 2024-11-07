@@ -42,7 +42,7 @@ namespace Dungeon.src.MapClass
                     holder = rewardType switch
                     {
                         RewardType.Weapon => new WeaponHolder(x, y, new Sword(position)),
-                        RewardType.Health => new DropHolder(x, y, new HeartDrop(x + 20 + (40 - 50) / 2, y - 50 - 10, 50, 50, 1f)),
+                        RewardType.Health => new DropHolder(x, y, new HeartDrop(x + 20 + (40 - 50) / 2, y - 50 - 10, 50, 50, 1f, "Coeur-Sheet")),
                         RewardType.Gold => new DropHolder(x, y, new GoldDrop(x + 20 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50)),
                         RewardType.Xp => new DropHolder(x, y, new XpDrop(x + 20 + (40 - 50) / 2, y - 50 - 10, 50, 50, 50, 5f)),
                         _ => new WeaponHolder(x, y, new Sword(position)),
