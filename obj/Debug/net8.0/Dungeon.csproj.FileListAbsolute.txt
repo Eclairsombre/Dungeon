@@ -627,7 +627,6 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\KeyBi
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\KeyBindSprites\XKeyBouton.txt
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\KeyBindSprites\YKeyBouton.txt
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\KeyBindSprites\ZKeyBouton.txt
-C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\VCR_OSD_MONO_1.001.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\SpriteData\Floor.txt
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Floor.png
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Sprites\Floor.xnb
@@ -698,3 +697,4 @@ C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\Sp
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\Sprites\Floor.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\bin\DesktopGL\Content\Sprites\Floor.xnb
 C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\obj\DesktopGL\net8.0\Content\Sprites\Floor.mgcontent
+C:\Users\alext\OneDrive\Bureau\Dungeon\bin\Debug\net8.0\Content\RoomPatern\Room1.json

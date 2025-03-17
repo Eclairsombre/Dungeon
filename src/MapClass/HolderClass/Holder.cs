@@ -32,7 +32,5 @@ namespace Dungeon.src.MapClass.HolderClass
         {
             drop.LoadContent(content);
         }
-
-
     }
 }

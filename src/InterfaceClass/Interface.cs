@@ -47,9 +47,6 @@ namespace Dungeon.src.InterfaceClass
             spriteBatch.DrawRectangle(xpBar, Color.Black);
             for (int i = 0; i < (int)player.PlayerStats.MaxHealth; i++)
             {
-                Console.WriteLine("i: " + i);
-                Console.WriteLine("player.PlayerStats.Health: " + player.PlayerStats.Health);
-
                 if (i < player.PlayerStats.Health)
                 {
                     spriteBatch.Draw(heartAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBack.SourceRectangle, Color.White);
@@ -57,17 +54,6 @@ namespace Dungeon.src.InterfaceClass
                 else
                 {
                     spriteBatch.Draw(heartEmptyAnimation.texture, new Vector2(heart.X + i * 60, heart.Y), callBackEmpty.SourceRectangle, Color.Gray);
-                }
-            }
-            if (player.PlayerStats.MaxHealth % 1 == 0.5f)
-            {
-                if (player.PlayerStats.Health == player.PlayerStats.MaxHealth)
-                {
-                    spriteBatch.FillRectangle(new Rectangle(heart.X + (int)player.PlayerStats.MaxHealth * 60, heart.Y, 30, 50), Color.Red);
-                }
-                else
-                {
-                    spriteBatch.FillRectangle(new Rectangle(heart.X + (int)player.PlayerStats.MaxHealth * 60, heart.Y, 30, 50), Color.Gray);
                 }
             }
         }

@@ -25,7 +25,7 @@ namespace Dungeon.src.MenuClass
 
         public void Initialize(GraphicsDevice graphicsDevice, ContentManager content, KeyBind keyBind)
         {
-            player = new Player(graphicsDevice, keyBind);
+            player = new Player(graphicsDevice);
             map = new Map();
             gameInterface = new Interface();
 
@@ -68,7 +68,7 @@ namespace Dungeon.src.MenuClass
 
         }
 
-        public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState, ref GameState previousGameState, ref KeyBind keyBind)
+        public void UpdatePlaying(GameTime gameTime, ContentManager content, ref GameState gameState, ref GameState previousGameState, ref KeyBind keyBind, ref Camera camera)
         {
             if (Keyboard.GetState().IsKeyDown(keyBind.keyBindings["Escape"][0]) || (keyBind.keyBindings["Escape"].Length > 1 && Keyboard.GetState().IsKeyDown(keyBind.keyBindings["Escape"][1])))
             {
@@ -89,7 +89,7 @@ namespace Dungeon.src.MenuClass
             {
                 pauseTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-
+            /*
             if (gameState == GameState.LevelUp)
             {
                 Stats playerStats = player.PlayerStats;
@@ -97,6 +97,7 @@ namespace Dungeon.src.MenuClass
                 player.PlayerStats = playerStats;
                 return;
             }
+            */
 
             if (gameState == GameState.Pause)
             {
@@ -110,9 +111,7 @@ namespace Dungeon.src.MenuClass
                 player.PlayerStats = playerStats;
                 return;
             }
-            player.Update(gameTime, map, content, ref gameState, keyBind);
-            map.Update(player.CenterPosition, gameTime, content);
-
+            player.Update(gameTime, map, content, ref gameState, keyBind, ref camera);
 
             gameInterface.Update(gameTime);
         }
@@ -122,6 +121,7 @@ namespace Dungeon.src.MenuClass
 
             map.Draw(spriteBatch);
             player.Draw(spriteBatch);
+            /*
             gameInterface.Draw(spriteBatch, player);
             if (gameState == GameState.LevelUp)
             {
@@ -135,6 +135,8 @@ namespace Dungeon.src.MenuClass
                 saveButton.Draw(spriteBatch);
                 quitButton.Draw(spriteBatch);
             }
+            */
+
         }
     }
 }
