@@ -32,8 +32,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
         {
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            Position = player.CenterPosition;
-            Tiles[,] tiles = map.ActualRoom.Tiles;
+            Position = new Vector2();
             List<Enemy> enemies = map.ActualRoom.Enemies;
 
             List<Arrow> arrowsToRemove = [];
@@ -52,16 +51,7 @@ namespace Dungeon.src.PlayerClass.WeaponClass
                 }
             }
 
-            foreach (var arrow in arrows)
-            {
-                foreach (var tile in tiles)
-                {
-                    if ((tile.Id.Item1 == 1 || tile.Id.Item1 == 2) && tile.Hitbox.Intersects(arrow.Hitbox))
-                    {
-                        arrowsToRemove.Add(arrow);
-                    }
-                }
-            }
+
 
             foreach (var arrow in arrowsToRemove)
             {

@@ -1,4 +1,5 @@
 using System;
+using Dungeon.src.InterfaceClass;
 using Dungeon.src.MenuClass.BoutonClass;
 using Dungeon.src.MenuClass.OptionsClass;
 using Dungeon.src.PlayerClass;
@@ -25,7 +26,7 @@ namespace Dungeon.src.MenuClass
         private readonly ContentManager _content;
         private Dungeon dungeon;
         private readonly Options options;
-        private GameState gameState = GameState.Menu;
+        private GameState gameState = GameState.Playing;
         private GameState previousGameState = GameState.Menu;
         public GameState GameState { get { return gameState; } set { gameState = value; } }
         private readonly Bouton playButton, optionsButton, exitButton;
@@ -33,6 +34,8 @@ namespace Dungeon.src.MenuClass
         private readonly Texte titre;
 
         private readonly GameWindow gameWindow;
+
+        private Camera camera;
 
 
         private KeyBind keyBind = new();
@@ -68,6 +71,8 @@ namespace Dungeon.src.MenuClass
         public void Initialize()
         {
             dungeon = new Dungeon();
+
+            camera = new Camera(_graphicsDevice.Viewport);
             dungeon.Initialize(_graphicsDevice, _content, keyBind);
         }
         public void LoadContent()
@@ -126,7 +131,7 @@ namespace Dungeon.src.MenuClass
                 case GameState.Playing:
                 case GameState.Pause:
                 case GameState.LevelUp:
-                    dungeon.UpdatePlaying(gameTime, _content, ref gameState, ref previousGameState, ref keyBind);
+                    dungeon.UpdatePlaying(gameTime, _content, ref gameState, ref previousGameState, ref keyBind, ref camera);
                     break;
                 case GameState.Options:
                     options.Update(gameTime, ref gameState, ref previousGameState, ref keyBind, _content);
@@ -139,7 +144,7 @@ namespace Dungeon.src.MenuClass
 
         public void Draw()
         {
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: camera.GetViewMatrix());
 
             switch (gameState)
             {

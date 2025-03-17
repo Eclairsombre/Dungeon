@@ -25,3 +25,15 @@ Epoque 1 :
 - skeleton
 
 Boss -> big bat + bat minion 
+
+
+
+
+
+
+
+
+
+
+TODO Refactor : 
+Refaire le système de bouton

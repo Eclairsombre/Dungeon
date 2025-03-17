@@ -28,7 +28,5 @@ namespace Dungeon.src.MapClass
         {
             spriteBatch.Draw(_animation.texture, new Vector2(hitbox.X, hitbox.Y), callBack.SourceRectangle, Color.White);
         }
-
-
     }
 }

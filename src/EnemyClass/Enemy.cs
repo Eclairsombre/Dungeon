@@ -13,29 +13,23 @@ namespace Dungeon.src.EnemyClass
     public class Enemy
     {
         protected int damage = 1, speed = 3, xp = 100, maxHp = 3;
-
         protected float hp = 3;
         protected Vector2 position;
         protected Vector2 direction;
         protected Vector2 line;
         protected int width, height;
         protected bool inVision = false;
-        protected bool agroPlayer = false;
-        protected float timeSinceLastSeenPlayer = 0f;
         private const float maxTimeWithoutSeeingPlayer = 3f;
         protected float VisionRadius { get; set; } = 150f;
         protected float VisionAngle { get; set; } = MathHelper.ToRadians(90f);
         protected float VisionRange { get; set; } = 500f;
-        protected Drop[] loot = new Drop[2];
         protected Rectangle hitbox;
         protected Rectangle healthBar;
-        protected Vector2 lastPlayerPosition;
         public Rectangle Hitbox { get { return hitbox; } }
         public float Hp { get { return hp; } set { hp = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
         public Vector2 Position { get { return position; } set { position = value; } }
         public Vector2 Direction { get { return direction; } set { direction = value; } }
-        public Drop[] Loot { get { return loot; } set { loot = value; } }
         public Enemy()
         {
             width = 50;
@@ -44,66 +38,20 @@ namespace Dungeon.src.EnemyClass
             Direction = new Vector2(1, 0);
             hitbox = new Rectangle((int)Position.X, (int)Position.Y, width, height);
             healthBar = new Rectangle((int)Position.X, (int)Position.Y - 10, width, 5);
-            loot[0] = new XpDrop((int)Position.X, (int)Position.Y, 10, 10, xp, 1f);
-            loot[1] = new HeartDrop((int)Position.X, (int)Position.Y, 20, 20, 0.5f, "Coeur-Sheet");
         }
 
         public void LoadContent(ContentManager content)
         {
-            foreach (var drop in loot)
-            {
-                drop.LoadContent(content);
-            }
         }
 
-        public void Update(Vector2 playerPosition, Room room, GameTime gameTime)
+        public void Update( GameTime gameTime)
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
-
-            if (agroPlayer)
-            {
-                FollowPlayer();
-
-                if (!inVision)
-                {
-                    timeSinceLastSeenPlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    if (timeSinceLastSeenPlayer >= maxTimeWithoutSeeingPlayer)
-                    {
-                        agroPlayer = false;
-                        timeSinceLastSeenPlayer = 0f;
-                    }
-                }
-                else
-                {
-                    timeSinceLastSeenPlayer = 0f;
-                }
-            }
-            else
-            {
-                if (Collision.CheckCollisionWithRoom(hitbox, room))
-                {
-                    direction = -direction;
-                }
-                position += direction * speed;
-            }
-
-            UpdateVision(room, playerPosition);
         }
-        public void FollowPlayer()
-        {
-            GoToo(lastPlayerPosition);
-        }
-        public void GoToo(Vector2 end)
-        {
-            Vector2 d = end - position;
-            d.Normalize();
-            position += d * speed;
-            direction = d;
-        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.FillRectangle(hitbox, Color.Blue);
-            DrawVision(spriteBatch);
 
             Rectangle healthBarBackground = new((int)position.X, (int)position.Y - 10, width, 5);
             spriteBatch.FillRectangle(healthBarBackground, Color.Red);
@@ -117,6 +65,7 @@ namespace Dungeon.src.EnemyClass
 
         public void UpdateVision(Room room, Vector2 playerPosition)
         {
+            /*
             Vector2 centerPosition = new(position.X + width / 2, position.Y + height / 2);
             Vector2 toPlayer = playerPosition - centerPosition;
             float distanceToPlayer = toPlayer.Length();
@@ -166,6 +115,7 @@ namespace Dungeon.src.EnemyClass
                 inVision = false;
                 line = centerPosition;
             }
+            */
         }
 
         public void DrawVision(SpriteBatch spriteBatch)
